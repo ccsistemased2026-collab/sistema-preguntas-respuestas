@@ -136,21 +136,63 @@
     </div>
 
 
-    <div class="card">
+   <div class="card">
 
-        <div class="label">
-            Respuesta
-        </div>
+    <div class="label">
+        Respuesta
+    </div>
 
-        <div
-            id="respuesta"
-            class="respuesta">
+    <div
+        id="respuesta"
+        class="respuesta">
 
-            Aún no existe una respuesta.
-
-        </div>
+        Aún no existe una respuesta.
 
     </div>
+
+</div>
+
+
+<div
+    class="card"
+    id="formularioRespuesta"
+    style="display:none;">
+
+    <div class="label">
+        Registrar respuesta
+    </div>
+
+    <textarea
+        id="textoRespuesta"
+        placeholder="Escriba la respuesta..."
+        style="
+            width:100%;
+            min-height:150px;
+            padding:12px;
+            border:1px solid #ccc;
+            border-radius:6px;
+            resize:vertical;
+        "
+    ></textarea>
+
+    <br><br>
+
+    <button
+        id="btnResponder"
+        style="
+            background:#1f4e78;
+            color:white;
+            border:none;
+            padding:12px 20px;
+            border-radius:6px;
+            cursor:pointer;
+        ">
+
+        REGISTRAR RESPUESTA
+
+    </button>
+
+</div>
 
 
     <a
@@ -176,7 +218,11 @@
     import {
         getFirestore,
         doc,
-        getDoc
+        getDoc,
+        collection,
+        addDoc,
+        serverTimestamp,
+        updateDoc
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
@@ -226,118 +272,203 @@
 
     onAuthStateChanged(auth, async (user) => {
 
-        if (!user) {
+    if (!user) {
 
-            window.location.href =
-                "login.html";
+        window.location.href =
+            "login.html";
 
-            return;
-        }
+        return;
+    }
 
 
-        if (!preguntaId) {
+    if (!preguntaId) {
 
-            alert(
-                "No se indicó la pregunta."
+        alert(
+            "No se indicó la pregunta."
+        );
+
+        window.location.href =
+            "preguntas.html";
+
+        return;
+    }
+
+
+    try {
+
+        // ==========================
+        // CARGAR PERFIL DEL USUARIO
+        // ==========================
+
+        const usuarioRef =
+            doc(
+                db,
+                "usuarios",
+                user.uid
             );
 
-            window.location.href =
-                "preguntas.html";
+
+        const usuarioSnapshot =
+            await getDoc(usuarioRef);
+
+
+        if (!usuarioSnapshot.exists()) {
+
+            alert(
+                "El usuario no tiene un perfil configurado."
+            );
 
             return;
         }
 
 
+        const usuario =
+            usuarioSnapshot.data();
+
+
+        // ==========================
+        // CARGAR PREGUNTA
+        // ==========================
+
         await cargarPregunta();
+        
+        document
+    .getElementById("btnResponder")
+    .addEventListener(
+        "click",
+        async function() {
 
-    });
-
-
-    // ==========================
-    // CARGAR PREGUNTA
-    // ==========================
-
-    async function cargarPregunta() {
-
-        try {
-
-            const referencia =
-                doc(
-                    db,
-                    "preguntas",
-                    preguntaId
-                );
+            const texto =
+                document
+                    .getElementById("textoRespuesta")
+                    .value
+                    .trim();
 
 
-            const resultado =
-                await getDoc(referencia);
-
-
-            if (!resultado.exists()) {
+            if (!texto) {
 
                 alert(
-                    "La pregunta no existe."
+                    "Debe escribir una respuesta."
                 );
-
-                window.location.href =
-                    "preguntas.html";
 
                 return;
             }
 
 
-            const datos =
-                resultado.data();
+            try {
+
+                const user =
+                    auth.currentUser;
 
 
-            document.getElementById(
-                "pregunta"
-            ).textContent =
-                datos.pregunta || "";
+                if (!user) {
+
+                    alert(
+                        "La sesión ha expirado."
+                    );
+
+                    return;
+                }
 
 
-            document.getElementById(
-                "categoria"
-            ).textContent =
-                datos.categoria || "";
+                // ==========================
+                // GUARDAR RESPUESTA
+                // ==========================
+
+                await addDoc(
+                    collection(
+                        db,
+                        "respuestas"
+                    ),
+                    {
+
+                        preguntaId:
+                            preguntaId,
+
+                        usuarioId:
+                            user.uid,
+
+                        usuarioCorreo:
+                            user.email,
+
+                        respuesta:
+                            texto,
+
+                        fecha:
+                            serverTimestamp()
+
+                    }
+                );
 
 
-            document.getElementById(
-                "estado"
-            ).textContent =
-                datos.estado || "PENDIENTE";
+                // ==========================
+                // ACTUALIZAR ESTADO
+                // ==========================
+
+                const preguntaRef =
+                    doc(
+                        db,
+                        "preguntas",
+                        preguntaId
+                    );
 
 
-            document.getElementById(
-                "usuario"
-            ).textContent =
-                datos.usuarioCorreo || "";
+                await updateDoc(
+                        preguntaRef,
+                        {
+                            estado: "RESPONDIDA"
+                        }
+                    );
 
 
-            if (datos.fecha) {
+                alert(
+                    "Respuesta registrada correctamente."
+                );
 
-                document.getElementById(
-                    "fecha"
-                ).textContent =
-                    datos.fecha
-                        .toDate()
-                        .toLocaleString(
-                            "es-PE"
-                        );
+
+                window.location.reload();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "No se pudo registrar la respuesta."
+                );
 
             }
 
-        } catch (error) {
+        }
+    );
+        // ==========================
+        // MOSTRAR FORMULARIO
+        // ==========================
 
-            console.error(error);
+        if (
+            usuario.rol === "RESPONDEDOR" ||
+            usuario.rol === "ADMINISTRADOR"
+        ) {
 
-            alert(
-                "No se pudo cargar la pregunta."
-            );
+            document.getElementById(
+                "formularioRespuesta"
+            ).style.display = "block";
 
         }
 
+        
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "No se pudo cargar la información."
+        );
+
     }
+
+});
 
 </script>
 </body>
