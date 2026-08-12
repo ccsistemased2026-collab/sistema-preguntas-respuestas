@@ -332,7 +332,22 @@
 
         await cargarPregunta();
         
-        document
+       
+        // ==========================
+        // MOSTRAR FORMULARIO
+        // ==========================
+
+        if (
+            usuario.rol === "RESPONDEDOR" ||
+            usuario.rol === "ADMINISTRADOR"
+        ) {
+
+            document.getElementById(
+                "formularioRespuesta"
+            ).style.display = "block";
+
+        }
+ document
     .getElementById("btnResponder")
     .addEventListener(
         "click",
@@ -441,21 +456,6 @@
 
         }
     );
-        // ==========================
-        // MOSTRAR FORMULARIO
-        // ==========================
-
-        if (
-            usuario.rol === "RESPONDEDOR" ||
-            usuario.rol === "ADMINISTRADOR"
-        ) {
-
-            document.getElementById(
-                "formularioRespuesta"
-            ).style.display = "block";
-
-        }
-
         
 
     } catch (error) {
