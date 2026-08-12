@@ -152,7 +152,149 @@
     </div>
 
 </main>
+<script type="module">
 
+    import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    import {
+        getAuth,
+        onAuthStateChanged
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    import {
+        getFirestore,
+        collection,
+        addDoc,
+        serverTimestamp
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    // CONFIGURACIÓN FIREBASE
+
+    const firebaseConfig = {
+
+        apiKey: "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
+        authDomain: "sistema-preguntas-respuestas.firebaseapp.com",
+        projectId: "sistema-preguntas-respuestas",
+        storageBucket: "sistema-preguntas-respuestas.firebasestorage.app",
+        messagingSenderId: "606737336904",
+        appId: "1:606737336904:web:44fb42be60fbdaaf08667d"
+
+    };
+
+
+    // Inicializar Firebase
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+    const db = getFirestore(app);
+
+
+    // Verificar usuario
+
+    let usuarioActual = null;
+
+
+    onAuthStateChanged(auth, (user) => {
+
+        if (!user) {
+
+            window.location.href = "login.html";
+
+            return;
+        }
+
+        usuarioActual = user;
+
+    });
+
+
+    // Registrar pregunta
+
+    const formulario =
+        document.getElementById("preguntaForm");
+
+
+    formulario.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const categoria =
+                document.getElementById("categoria").value;
+
+            const pregunta =
+                document.getElementById("pregunta").value.trim();
+
+
+            if (!usuarioActual) {
+
+                alert(
+                    "La sesión no está disponible."
+                );
+
+                return;
+            }
+
+
+            try {
+
+                await addDoc(
+                    collection(db, "preguntas"),
+                    {
+
+                        usuarioId:
+                            usuarioActual.uid,
+
+                        usuarioCorreo:
+                            usuarioActual.email,
+
+                        categoria:
+                            categoria,
+
+                        pregunta:
+                            pregunta,
+
+                        fecha:
+                            serverTimestamp(),
+
+                        estado:
+                            "PENDIENTE"
+
+                    }
+                );
+
+
+                alert(
+                    "Pregunta registrada correctamente."
+                );
+
+
+                window.location.href =
+                    "preguntas.html";
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "No se pudo registrar la pregunta."
+                );
+
+            }
+
+        }
+    );
+
+</script>
 </body>
 
 </html>
