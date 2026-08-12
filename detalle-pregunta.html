@@ -397,6 +397,7 @@
 
     const preguntaId =
         parametros.get("id");
+        let preguntaEstado = "";
 
 
     // ==========================================
@@ -559,20 +560,25 @@
                     usuario.rol
                 );
 
-
                 if (
-                    usuario.rol === "RESPONDEDOR" ||
-                    usuario.rol === "ADMINISTRADOR"
+                    (
+                        usuario.rol === "RESPONDEDOR" ||
+                        usuario.rol === "ADMINISTRADOR"
+                    )
+                    &&
+                    preguntaEstado === "PENDIENTE"
                 ) {
-
+                
                     formularioRespuesta.style.display =
                         "block";
-
-                    console.log(
-                        "Formulario de respuesta habilitado."
-                    );
-
+                
                 } else {
+                
+                    formularioRespuesta.style.display =
+                        "none";
+
+
+                }else {
 
                     formularioRespuesta.style.display =
                         "none";
@@ -647,8 +653,11 @@
             datos.categoria || "";
 
 
-        const estado =
+         const estado =
             datos.estado || "PENDIENTE";
+            
+            preguntaEstado =
+                estado;
 
 
         const elementoEstado =
