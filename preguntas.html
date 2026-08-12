@@ -131,7 +131,8 @@
         }
 
         .btn-eliminar {
-            padding: 8px 12px;
+            margin-left: 10px;
+            padding: 7px 12px;
             border: none;
             border-radius: 5px;
             background: #dc3545;
@@ -696,14 +697,37 @@ onAuthStateChanged(
                             </td>
         
                             <td>
-        
+                            
                                 <a
                                     href="detalle-pregunta.html?id=${pregunta.id}">
-        
+                            
                                     Ver
-        
+                            
                                 </a>
-        
+                            
+                            
+                                ${
+                                    usuarioActualRol === "ADMINISTRADOR"
+                            
+                                    ?
+                            
+                                    `
+                                    <button
+                                        type="button"
+                                        class="btn-eliminar"
+                                        onclick="eliminarPregunta('${pregunta.id}')">
+                            
+                                        🗑️ Eliminar
+                            
+                                    </button>
+                                    `
+                            
+                                    :
+                            
+                                    ""
+                            
+                                }
+                            
                             </td>
         
                         </tr>
@@ -1236,16 +1260,21 @@ async function exportarExcel() {
 
 }
 
-    async function eliminarPregunta(id) {
+async function eliminarPregunta(id) {
 
-    const confirmar = confirm(
-        "¿Está seguro de eliminar esta pregunta?\n\n" +
-        "Esta acción no se puede deshacer."
-    );
+    const confirmar =
+        confirm(
+            "¿Está seguro de eliminar esta pregunta?\n\n" +
+            "Esta acción no se puede deshacer."
+        );
+
 
     if (!confirmar) {
+
         return;
+
     }
+
 
     try {
 
@@ -1257,34 +1286,24 @@ async function exportarExcel() {
             )
         );
 
+
         alert(
-            "La pregunta fue eliminada correctamente."
+            "Pregunta eliminada correctamente."
         );
 
-        // Recargar listado
+
+        // Recargar preguntas
 
         await cargarPreguntas();
 
-        // Actualizar contador
-
-        if (typeof actualizarContadorPendientes === "function") {
-
-            if (typeof auth !== "undefined" && auth.currentUser) {
-
-                await actualizarContadorPendientes(
-                    auth.currentUser
-                );
-
-            }
-
-        }
 
     } catch (error) {
 
         console.error(
-            "Error al eliminar pregunta:",
+            "Error al eliminar:",
             error
         );
+
 
         alert(
             "No se pudo eliminar la pregunta.\n\n" +
