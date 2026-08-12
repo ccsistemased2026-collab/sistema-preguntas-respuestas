@@ -158,6 +158,28 @@
 
     <div class="filtros">
 
+    <div
+    id="notificacionPendientes"
+    style="display:none; margin-bottom:20px;">
+
+    <div
+            style="
+                background:#fff3cd;
+                color:#856404;
+                padding:15px 20px;
+                border-radius:8px;
+                font-weight:bold;
+            ">
+    
+            🔔 Preguntas pendientes:
+    
+            <span id="contadorPendientes">
+                0
+            </span>
+    
+        </div>
+    
+    </div>
     <input
         type="text"
         id="buscador"
@@ -243,7 +265,10 @@
         collection,
         getDocs,
         query,
-        orderBy
+        orderBy,
+        doc,
+        getDoc,
+        where
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
@@ -271,24 +296,143 @@
     const db =
         getFirestore(app);
         let todasLasPreguntas = [];
+    // ==========================================
+// CONTADOR DE PREGUNTAS PENDIENTES
+// ==========================================
+
+async function actualizarContadorPendientes(user) {
+
+    try {
+
+        // Obtener perfil del usuario
+
+        const usuarioRef =
+            doc(
+                db,
+                "usuarios",
+                user.uid
+            );
+
+        const usuarioSnapshot =
+            await getDoc(
+                usuarioRef
+            );
+
+
+        if (!usuarioSnapshot.exists()) {
+
+            return;
+
+        }
+
+
+        const usuario =
+            usuarioSnapshot.data();
+
+
+        // Solo RESPONDEDOR y ADMINISTRADOR
+
+        if (
+            usuario.rol !== "RESPONDEDOR" &&
+            usuario.rol !== "ADMINISTRADOR"
+        ) {
+
+            return;
+
+        }
+
+
+        // Buscar preguntas pendientes
+
+        const consulta =
+            query(
+                collection(
+                    db,
+                    "preguntas"
+                ),
+                where(
+                    "estado",
+                    "==",
+                    "PENDIENTE"
+                )
+            );
+
+
+        const resultado =
+            await getDocs(
+                consulta
+            );
+
+
+        const cantidad =
+            resultado.size;
+
+
+        // Mostrar contador
+
+        document.getElementById(
+            "contadorPendientes"
+        ).textContent =
+            cantidad;
+
+
+        document.getElementById(
+            "notificacionPendientes"
+        ).style.display =
+            "block";
+
+
+    } catch (error) {
+
+        console.error(
+            "Error contador:",
+            error
+        );
+
+    }
+
+}
 
 
     // Verificar sesión
 
-    onAuthStateChanged(auth, async (user) => {
-
-        if (!user) {
-
-            window.location.href =
-                "login.html";
-
-            return;
+    onAuthStateChanged(
+        auth,
+        async (user) => {
+    
+            if (!user) {
+    
+                window.location.href =
+                    "login.html";
+    
+                return;
+    
+            }
+    
+    
+            await cargarPreguntas();
+    
+    
+            await actualizarContadorPendientes(
+                user
+            );
+    
+    
+            // Actualizar cada 30 segundos
+    
+            setInterval(
+                function() {
+    
+                    actualizarContadorPendientes(
+                        user
+                    );
+    
+                },
+                30000
+            );
+    
         }
-
-
-        cargarPreguntas();
-
-    });
+    );
 
 
     // Cargar preguntas
@@ -595,10 +739,12 @@ async function exportarExcel() {
     try {
 
         // ======================================
-        // VERIFICAR SI HAY PREGUNTAS
+        // VERIFICAR PREGUNTAS
         // ======================================
 
-        if (todasLasPreguntas.length === 0) {
+        if (
+            todasLasPreguntas.length === 0
+        ) {
 
             alert(
                 "No existen preguntas para exportar."
@@ -610,7 +756,7 @@ async function exportarExcel() {
 
 
         // ======================================
-        // OBTENER TODAS LAS RESPUESTAS
+        // OBTENER RESPUESTAS
         // ======================================
 
         const respuestasSnapshot =
@@ -622,12 +768,7 @@ async function exportarExcel() {
             );
 
 
-        // ======================================
-        // CREAR MAPA DE RESPUESTAS
-        // ======================================
-
-        const respuestas =
-            {};
+        const respuestas = {};
 
 
         respuestasSnapshot.forEach(
@@ -646,12 +787,14 @@ async function exportarExcel() {
 
 
         // ======================================
-        // APLICAR FILTROS ACTUALES
+        // OBTENER FILTROS
         // ======================================
 
         const texto =
             document
-                .getElementById("buscador")
+                .getElementById(
+                    "buscador"
+                )
                 .value
                 .toLowerCase()
                 .trim();
@@ -659,9 +802,15 @@ async function exportarExcel() {
 
         const estadoSeleccionado =
             document
-                .getElementById("filtroEstado")
+                .getElementById(
+                    "filtroEstado"
+                )
                 .value;
 
+
+        // ======================================
+        // FILTRAR
+        // ======================================
 
         const preguntasFiltradas =
             todasLasPreguntas.filter(
@@ -707,16 +856,12 @@ async function exportarExcel() {
             );
 
 
-        // ======================================
-        // VERIFICAR RESULTADOS
-        // ======================================
-
         if (
             preguntasFiltradas.length === 0
         ) {
 
             alert(
-                "No existen registros que coincidan con el filtro."
+                "No existen registros para exportar."
             );
 
             return;
@@ -725,14 +870,31 @@ async function exportarExcel() {
 
 
         // ======================================
-        // CREAR DATOS PARA EXCEL
+        // FECHA DE GENERACIÓN
         // ======================================
 
-        const datosExcel = [];
+        const ahora =
+            new Date();
+
+
+        const fechaGeneracion =
+            ahora.toLocaleString(
+                "es-PE"
+            );
+
+
+        // ======================================
+        // DATOS
+        // ======================================
+
+        const filas = [];
 
 
         preguntasFiltradas.forEach(
-            function(pregunta, indice) {
+            function(
+                pregunta,
+                indice
+            ) {
 
 
                 const respuesta =
@@ -741,14 +903,13 @@ async function exportarExcel() {
                     ];
 
 
-                // ------------------------------
-                // FECHA PREGUNTA
-                // ------------------------------
-
-                let fechaPregunta = "";
+                let fechaPregunta =
+                    "";
 
 
-                if (pregunta.fecha) {
+                if (
+                    pregunta.fecha
+                ) {
 
                     fechaPregunta =
                         pregunta.fecha
@@ -760,15 +921,16 @@ async function exportarExcel() {
                 }
 
 
-                // ------------------------------
-                // RESPUESTA
-                // ------------------------------
+                let textoRespuesta =
+                    "";
 
-                let textoRespuesta = "";
 
-                let respondidoPor = "";
+                let respondidoPor =
+                    "";
 
-                let fechaRespuesta = "";
+
+                let fechaRespuesta =
+                    "";
 
 
                 if (respuesta) {
@@ -783,7 +945,9 @@ async function exportarExcel() {
                         || "";
 
 
-                    if (respuesta.fecha) {
+                    if (
+                        respuesta.fecha
+                    ) {
 
                         fechaRespuesta =
                             respuesta.fecha
@@ -797,67 +961,110 @@ async function exportarExcel() {
                 }
 
 
-                // ------------------------------
-                // AGREGAR FILA
-                // ------------------------------
+                filas.push([
 
-                datosExcel.push({
+                    indice + 1,
 
-                    "N°":
-                        indice + 1,
+                    pregunta.id,
 
-                    "ID":
-                        pregunta.id,
+                    pregunta.pregunta,
 
-                    "PREGUNTA":
-                        pregunta.pregunta,
+                    pregunta.categoria,
 
-                    "CATEGORÍA":
-                        pregunta.categoria,
+                    pregunta.usuarioCorreo,
 
-                    "USUARIO":
-                        pregunta.usuarioCorreo,
+                    fechaPregunta,
 
-                    "FECHA PREGUNTA":
-                        fechaPregunta,
+                    pregunta.estado,
 
-                    "ESTADO":
-                        pregunta.estado,
+                    textoRespuesta,
 
-                    "RESPUESTA":
-                        textoRespuesta,
+                    respondidoPor,
 
-                    "RESPONDIDO POR":
-                        respondidoPor,
+                    fechaRespuesta
 
-                    "FECHA RESPUESTA":
-                        fechaRespuesta
-
-                });
+                ]);
 
             }
         );
 
 
         // ======================================
-        // CREAR HOJA
+        // CONSTRUIR HOJA
         // ======================================
 
+        const datosHoja = [
+
+            [
+                "BANCO DE PREGUNTAS Y RESPUESTAS"
+            ],
+
+            [
+                "Fecha de generación:",
+                fechaGeneracion
+            ],
+
+            [
+                "Estado filtrado:",
+                estadoSeleccionado
+            ],
+
+            [
+                "Texto buscado:",
+                texto || "-"
+            ],
+
+            [
+                "Total de registros:",
+                preguntasFiltradas.length
+            ],
+
+            [],
+
+            [
+
+                "N°",
+
+                "ID",
+
+                "PREGUNTA",
+
+                "CATEGORÍA",
+
+                "USUARIO",
+
+                "FECHA PREGUNTA",
+
+                "ESTADO",
+
+                "RESPUESTA",
+
+                "RESPONDIDO POR",
+
+                "FECHA RESPUESTA"
+
+            ],
+
+            ...filas
+
+        ];
+
+
         const hoja =
-            XLSX.utils.json_to_sheet(
-                datosExcel
+            XLSX.utils.aoa_to_sheet(
+                datosHoja
             );
 
 
         // ======================================
-        // AJUSTAR ANCHO DE COLUMNAS
+        // ANCHO DE COLUMNAS
         // ======================================
 
         hoja["!cols"] = [
 
             { wch: 6 },
 
-            { wch: 12 },
+            { wch: 15 },
 
             { wch: 60 },
 
@@ -894,12 +1101,26 @@ async function exportarExcel() {
 
 
         // ======================================
-        // GENERAR ARCHIVO
+        // NOMBRE DEL ARCHIVO
         // ======================================
 
+        const fechaArchivo =
+            ahora
+                .toISOString()
+                .slice(
+                    0,
+                    10
+                );
+
+
         XLSX.writeFile(
+
             libro,
-            "BANCO_PREGUNTAS_RESPUESTAS.xlsx"
+
+            "BANCO_PREGUNTAS_RESPUESTAS_"
+            + fechaArchivo
+            + ".xlsx"
+
         );
 
 
