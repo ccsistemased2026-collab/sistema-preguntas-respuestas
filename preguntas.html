@@ -158,7 +158,211 @@
     </div>
 
 </main>
+<script type="module">
 
+    import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    import {
+        getAuth,
+        onAuthStateChanged
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    import {
+        getFirestore,
+        collection,
+        getDocs,
+        query,
+        orderBy
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    // CONFIGURACIÓN FIREBASE
+
+    const firebaseConfig = {
+
+        apiKey: "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
+        authDomain: "sistema-preguntas-respuestas.firebaseapp.com",
+        projectId: "sistema-preguntas-respuestas",
+        storageBucket: "sistema-preguntas-respuestas.firebasestorage.app",
+        messagingSenderId: "606737336904",
+        appId: "1:606737336904:web:44fb42be60fbdaaf08667d"
+
+    };
+
+
+    const app =
+        initializeApp(firebaseConfig);
+
+    const auth =
+        getAuth(app);
+
+    const db =
+        getFirestore(app);
+
+
+    // Verificar sesión
+
+    onAuthStateChanged(auth, async (user) => {
+
+        if (!user) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        cargarPreguntas();
+
+    });
+
+
+    // Cargar preguntas
+
+    async function cargarPreguntas() {
+
+        const lista =
+            document.getElementById(
+                "listaPreguntas"
+            );
+
+
+        try {
+
+            const consulta =
+                query(
+                    collection(db, "preguntas"),
+                    orderBy("fecha", "desc")
+                );
+
+
+            const resultado =
+                await getDocs(consulta);
+
+
+            lista.innerHTML = "";
+
+
+            if (resultado.empty) {
+
+                lista.innerHTML = `
+                    <tr>
+                        <td colspan="6">
+                            No existen preguntas registradas.
+                        </td>
+                    </tr>
+                `;
+
+                return;
+            }
+
+
+            resultado.forEach((documento) => {
+
+                const datos =
+                    documento.data();
+
+
+                let fecha = "";
+
+                if (datos.fecha) {
+
+                    fecha =
+                        datos.fecha
+                            .toDate()
+                            .toLocaleString(
+                                "es-PE"
+                            );
+
+                }
+
+
+                const estado =
+                    datos.estado || "PENDIENTE";
+
+
+                const claseEstado =
+                    estado === "RESPONDIDA"
+                        ? "respondida"
+                        : "pendiente";
+
+
+                const fila = `
+
+                    <tr>
+
+                        <td>
+                            ${documento.id.substring(0, 8)}
+                        </td>
+
+                        <td>
+                            ${datos.pregunta}
+                        </td>
+
+                        <td>
+                            ${datos.categoria}
+                        </td>
+
+                        <td>
+                            ${fecha}
+                        </td>
+
+                        <td>
+
+                            <span
+                                class="estado ${claseEstado}">
+
+                                ${estado}
+
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <a href="#">
+                                Ver
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+
+                lista.innerHTML += fila;
+
+            });
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            lista.innerHTML = `
+
+                <tr>
+
+                    <td colspan="6">
+
+                        Error al cargar las preguntas.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+    }
+
+</script>
 </body>
 
 </html>
