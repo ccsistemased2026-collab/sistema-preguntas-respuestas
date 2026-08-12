@@ -190,6 +190,79 @@
         </div>
 
     </div>
+    
+<script type="module">
 
+    import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    import {
+        getAuth,
+        signInWithEmailAndPassword
+    } from
+    "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+    // CONFIGURACIÓN DE FIREBASE
+    const firebaseConfig = {
+        apiKey: "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
+        authDomain: "sistema-preguntas-respuestas.firebaseapp.com",
+        projectId: "sistema-preguntas-respuestas",
+        storageBucket: "sistema-preguntas-respuestas.firebasestorage.app",
+        messagingSenderId: "606737336904",
+        appId: "1:606737336904:web:44fb42be60fbdaaf08667d"
+    };
+
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Inicializar Authentication
+    const auth = getAuth(app);
+
+
+    // Formulario de Login
+    const loginForm = document.getElementById("loginForm");
+
+    loginForm.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const password =
+            document.getElementById("password").value;
+
+        const error = document.getElementById("error");
+
+        error.style.display = "none";
+
+
+        try {
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            // Login correcto
+            window.location.href = "dashboard.html";
+
+        } catch (e) {
+
+            console.error(e);
+
+            error.textContent =
+                "Correo o contraseña incorrectos.";
+
+            error.style.display = "block";
+
+        }
+
+    });
+
+</script>
 </body>
 </html>
