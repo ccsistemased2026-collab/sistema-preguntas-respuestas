@@ -202,7 +202,8 @@
     import {
         getAuth,
         onAuthStateChanged,
-        signOut
+        signOut,
+        
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
@@ -228,22 +229,75 @@
 
     // Verificar usuario autenticado
 
-    onAuthStateChanged(auth, (user) => {
+    import {
+    getFirestore,
+    doc,
+    getDoc
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-        if (user) {
 
-            document.getElementById("userEmail")
-                .textContent =
-                "Usuario: " + user.email;
+const db = getFirestore(app);
 
-        } else {
+
+onAuthStateChanged(auth, async (user) => {
+
+    if (!user) {
+
+        window.location.href = "login.html";
+        return;
+
+    }
+
+
+    try {
+
+        const userRef =
+            doc(db, "usuarios", user.uid);
+
+        const userSnapshot =
+            await getDoc(userRef);
+
+
+        if (!userSnapshot.exists()) {
+
+            alert(
+                "El usuario no tiene un perfil configurado."
+            );
+
+            await signOut(auth);
 
             window.location.href =
                 "login.html";
 
+            return;
         }
 
-    });
+
+        const datos =
+            userSnapshot.data();
+
+
+        document.getElementById("userEmail")
+            .textContent =
+            datos.nombre +
+            " | " +
+            datos.rol;
+
+
+        console.log("Usuario:", datos);
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "No fue posible cargar los datos del usuario."
+        );
+
+    }
+
+});
 
 
     // Cerrar sesión
