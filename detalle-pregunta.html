@@ -162,7 +162,184 @@
     </a>
 
 </main>
+<script type="module">
 
+    import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    import {
+        getAuth,
+        onAuthStateChanged
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    import {
+        getFirestore,
+        doc,
+        getDoc
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    // ==========================
+    // CONFIGURACIÓN FIREBASE
+    // ==========================
+
+    const firebaseConfig = {
+
+        apiKey: "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
+        authDomain: "sistema-preguntas-respuestas.firebaseapp.com",
+        projectId: "sistema-preguntas-respuestas",
+        storageBucket: "sistema-preguntas-respuestas.firebasestorage.app",
+        messagingSenderId: "606737336904",
+        appId: "1:606737336904:web:44fb42be60fbdaaf08667d"
+
+    };
+
+
+    const app =
+        initializeApp(firebaseConfig);
+
+    const auth =
+        getAuth(app);
+
+    const db =
+        getFirestore(app);
+
+
+    // ==========================
+    // OBTENER ID DE LA PREGUNTA
+    // ==========================
+
+    const parametros =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const preguntaId =
+        parametros.get("id");
+
+
+    // ==========================
+    // VERIFICAR USUARIO
+    // ==========================
+
+    onAuthStateChanged(auth, async (user) => {
+
+        if (!user) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        if (!preguntaId) {
+
+            alert(
+                "No se indicó la pregunta."
+            );
+
+            window.location.href =
+                "preguntas.html";
+
+            return;
+        }
+
+
+        await cargarPregunta();
+
+    });
+
+
+    // ==========================
+    // CARGAR PREGUNTA
+    // ==========================
+
+    async function cargarPregunta() {
+
+        try {
+
+            const referencia =
+                doc(
+                    db,
+                    "preguntas",
+                    preguntaId
+                );
+
+
+            const resultado =
+                await getDoc(referencia);
+
+
+            if (!resultado.exists()) {
+
+                alert(
+                    "La pregunta no existe."
+                );
+
+                window.location.href =
+                    "preguntas.html";
+
+                return;
+            }
+
+
+            const datos =
+                resultado.data();
+
+
+            document.getElementById(
+                "pregunta"
+            ).textContent =
+                datos.pregunta || "";
+
+
+            document.getElementById(
+                "categoria"
+            ).textContent =
+                datos.categoria || "";
+
+
+            document.getElementById(
+                "estado"
+            ).textContent =
+                datos.estado || "PENDIENTE";
+
+
+            document.getElementById(
+                "usuario"
+            ).textContent =
+                datos.usuarioCorreo || "";
+
+
+            if (datos.fecha) {
+
+                document.getElementById(
+                    "fecha"
+                ).textContent =
+                    datos.fecha
+                        .toDate()
+                        .toLocaleString(
+                            "es-PE"
+                        );
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "No se pudo cargar la pregunta."
+            );
+
+        }
+
+    }
+
+</script>
 </body>
 
 </html>
