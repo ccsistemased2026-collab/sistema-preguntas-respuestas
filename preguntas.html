@@ -130,6 +130,20 @@
             background: #5a6268;
         }
 
+        .btn-eliminar {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background: #dc3545;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .btn-eliminar:hover {
+            background: #bb2d3b;
+        }
+
     </style>
 
 </head>
@@ -285,7 +299,8 @@
         orderBy,
         doc,
         getDoc,
-        where
+        where,
+        deleteDoc
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
@@ -451,7 +466,19 @@ async function actualizarContadorPendientes(user) {
         }
     );
 
+    if (usuarioActualRol === "ADMINISTRADOR") {
 
+    botonEliminar = `
+        <button
+            class="btn-eliminar"
+            onclick="eliminarPregunta('${pregunta.id}')">
+
+            🗑️ ELIMINAR
+
+        </button>
+    `;
+
+}
     // Cargar preguntas
         function mostrarPreguntas() {
         
@@ -1152,6 +1179,65 @@ async function exportarExcel() {
         alert(
             "No se pudo generar el archivo Excel.\n\n"
             + error.message
+        );
+
+    }
+
+}
+
+    async function eliminarPregunta(id) {
+
+    const confirmar = confirm(
+        "¿Está seguro de eliminar esta pregunta?\n\n" +
+        "Esta acción no se puede deshacer."
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    try {
+
+        await deleteDoc(
+            doc(
+                db,
+                "preguntas",
+                id
+            )
+        );
+
+        alert(
+            "La pregunta fue eliminada correctamente."
+        );
+
+        // Recargar listado
+
+        await cargarPreguntas();
+
+        // Actualizar contador
+
+        if (typeof actualizarContadorPendientes === "function") {
+
+            if (typeof auth !== "undefined" && auth.currentUser) {
+
+                await actualizarContadorPendientes(
+                    auth.currentUser
+                );
+
+            }
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Error al eliminar pregunta:",
+            error
+        );
+
+        alert(
+            "No se pudo eliminar la pregunta.\n\n" +
+            error.message
         );
 
     }
