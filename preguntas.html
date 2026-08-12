@@ -1,274 +1,582 @@
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <title>Preguntas</title>
+    <title>Preguntas y Respuestas</title>
+
+
+    <!-- SheetJS para exportar Excel -->
+
+    <script
+        src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js">
+    </script>
+
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
+
             margin: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f4f6f9;
+
+            color: #333;
+
         }
 
-        header {
-            background: #1f4e78;
-            color: white;
-            padding: 18px 30px;
-        }
 
-        .container {
-            width: 90%;
+        .contenedor {
+
             max-width: 1200px;
-            margin: 30px auto;
+
+            margin: 0 auto;
+
+            padding: 30px 20px;
+
         }
 
-        .toolbar {
+
+        .encabezado {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
             margin-bottom: 20px;
-        }
 
-        .button {
-            background: #1f4e78;
-            color: white;
-            padding: 12px 18px;
-            border-radius: 6px;
-            text-decoration: none;
-        }
+            flex-wrap: wrap;
 
-        .table-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 14px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
-
-        th {
-            background: #f0f2f5;
-        }
-
-        .estado {
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 13px;
-        }
-
-        .pendiente {
-            background: #fff3cd;
-        }
-
-        .respondida {
-            background: #d1e7dd;
-        }
-
-        .filtros {
-            display: flex;
             gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .filtros input,
-        .filtros select {
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 15px;
-        }
-        
-        .filtros input {
-            flex: 1;
+
         }
 
-        .btn-exportar {
-            padding: 10px 16px;
+
+        .encabezado h1 {
+
+            margin: 0;
+
+            font-size: 28px;
+
+        }
+
+
+        .acciones {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        button,
+        .boton {
+
             border: none;
+
             border-radius: 6px;
-            background: #198754;
-            color: white;
-            cursor: pointer;
+
+            padding: 10px 16px;
+
             font-size: 14px;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            display: inline-block;
+
         }
-        
-        .btn-exportar:hover {
-            background: #157347;
-        }
+
 
         .btn-dashboard {
-            display: inline-block;
-            margin-bottom: 20px;
-            padding: 10px 16px;
+
             background: #6c757d;
+
             color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-        
-        .btn-dashboard:hover {
-            background: #5a6268;
+
+            margin-bottom: 20px;
+
         }
 
-        .btn-eliminar {
-            margin-left: 10px;
-            padding: 7px 12px;
-            border: none;
-            border-radius: 5px;
-            background: #dc3545;
-            color: white;
-            cursor: pointer;
-            font-size: 13px;
+
+        .btn-dashboard:hover {
+
+            background: #5a6268;
+
         }
-        
+
+
+        .btn-nueva {
+
+            background: #198754;
+
+            color: white;
+
+        }
+
+
+        .btn-nueva:hover {
+
+            background: #157347;
+
+        }
+
+
+        .btn-excel {
+
+            background: #217346;
+
+            color: white;
+
+        }
+
+
+        .btn-excel:hover {
+
+            background: #185c37;
+
+        }
+
+
+        .btn-ver {
+
+            background: #0d6efd;
+
+            color: white;
+
+            padding: 7px 12px;
+
+        }
+
+
+        .btn-eliminar {
+
+            background: #dc3545;
+
+            color: white;
+
+            padding: 7px 12px;
+
+            margin-left: 6px;
+
+        }
+
+
         .btn-eliminar:hover {
+
             background: #bb2d3b;
+
+        }
+
+
+        .notificacion {
+
+            background: #fff3cd;
+
+            border: 1px solid #ffe69c;
+
+            color: #856404;
+
+            padding: 15px 20px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        .filtros {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+
+            display: flex;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .filtros input,
+        .filtros select {
+
+            padding: 11px;
+
+            border: 1px solid #ced4da;
+
+            border-radius: 6px;
+
+            font-size: 14px;
+
+        }
+
+
+        .buscador {
+
+            flex: 1;
+
+            min-width: 250px;
+
+        }
+
+
+        .tabla-contenedor {
+
+            background: white;
+
+            border-radius: 8px;
+
+            overflow-x: auto;
+
+            box-shadow:
+                0 2px 8px
+                rgba(0, 0, 0, 0.08);
+
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 850px;
+
+        }
+
+
+        th {
+
+            background: #212529;
+
+            color: white;
+
+            padding: 14px;
+
+            text-align: left;
+
+            font-size: 13px;
+
+        }
+
+
+        td {
+
+            padding: 13px;
+
+            border-bottom: 1px solid #dee2e6;
+
+            vertical-align: top;
+
+            font-size: 14px;
+
+        }
+
+
+        tr:hover td {
+
+            background: #f8f9fa;
+
+        }
+
+
+        .estado {
+
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 15px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+        }
+
+
+        .estado-pendiente {
+
+            background: #fff3cd;
+
+            color: #856404;
+
+        }
+
+
+        .estado-respondida {
+
+            background: #d1e7dd;
+
+            color: #0f5132;
+
+        }
+
+
+        .mensaje {
+
+            text-align: center;
+
+            padding: 40px;
+
+            color: #6c757d;
+
+        }
+
+
+        .cargando {
+
+            font-size: 16px;
+
+        }
+
+
+        .error {
+
+            color: #dc3545;
+
+            background: #f8d7da;
+
+            padding: 20px;
+
+            border-radius: 8px;
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .encabezado {
+
+                align-items: flex-start;
+
+            }
+
+
+            .encabezado h1 {
+
+                font-size: 23px;
+
+            }
+
+
+            .acciones {
+
+                width: 100%;
+
+            }
+
+
+            .acciones button,
+            .acciones a {
+
+                width: 100%;
+
+                text-align: center;
+
+            }
+
         }
 
     </style>
 
 </head>
 
+
 <body>
 
-<header>
 
-    <h2>
-        Preguntas y Respuestas
-    </h2>
-
-</header>
+<div class="contenedor">
 
 
-<main class="container">
+    <!-- =====================================
+         ENCABEZADO
+    ====================================== -->
 
-    <div class="toolbar">
+    <div class="encabezado">
 
-        <h2>
-            Preguntas
-        </h2>
-        <a href="dashboard.html" class="btn-dashboard">
-            ← VOLVER
-        </a>
-        <a
-            href="nueva-pregunta.html"
-            class="button">
+        <h1>
+            PREGUNTAS
+        </h1>
 
-            + Nueva pregunta                   
-        </a>
 
-        <button
-            type="button"
-            id="btnExportarExcel"
-            class="btn-exportar">
-        
-            📊 EXPORTAR A EXCEL
-        
-        </button>
+        <div class="acciones">
+
+            <a
+                href="nueva-pregunta.html"
+                class="boton btn-nueva">
+
+                + NUEVA PREGUNTA
+
+            </a>
+
+
+            <button
+                type="button"
+                id="btnExcel"
+                class="btn-excel">
+
+                📊 EXPORTAR A EXCEL
+
+            </button>
+
+        </div>
 
     </div>
+
+
+    <!-- =====================================
+         VOLVER AL DASHBOARD
+    ====================================== -->
+
+    <a
+        href="dashboard.html"
+        class="boton btn-dashboard">
+
+        ← VOLVER AL DASHBOARD
+
+    </a>
+
+
+    <!-- =====================================
+         NOTIFICACIÓN
+    ====================================== -->
+
+    <div
+        id="notificacionPendientes"
+        class="notificacion"
+        style="display:none;">
+
+        🔔 Preguntas pendientes:
+
+        <span id="contadorPendientes">
+            0
+        </span>
+
+    </div>
+
+
+    <!-- =====================================
+         FILTROS
+    ====================================== -->
 
     <div class="filtros">
 
-    <div
-    id="notificacionPendientes"
-    style="display:none; margin-bottom:20px;">
+        <input
+            type="text"
+            id="buscador"
+            class="buscador"
+            placeholder="🔎 Buscar pregunta, categoría o usuario...">
 
-    <div
-            style="
-                background:#fff3cd;
-                color:#856404;
-                padding:15px 20px;
-                border-radius:8px;
-                font-weight:bold;
-            ">
-    
-            🔔 Preguntas pendientes:
-    
-            <span id="contadorPendientes">
-                0
-            </span>
-    
-        </div>
-    
+
+        <select
+            id="filtroEstado">
+
+            <option value="TODOS">
+                Todos los estados
+            </option>
+
+            <option value="PENDIENTE">
+                Pendiente
+            </option>
+
+            <option value="RESPONDIDA">
+                Respondida
+            </option>
+
+        </select>
+
     </div>
-    <input
-        type="text"
-        id="buscador"
-        placeholder="🔎 Buscar pregunta..."
-    >
-
-    <select id="filtroEstado">
-
-        <option value="TODOS">
-            Todos los estados
-        </option>
-
-        <option value="PENDIENTE">
-            Pendientes
-        </option>
-
-        <option value="RESPONDIDA">
-            Respondidas
-        </option>
-
-    </select>
-
-</div>
 
 
-    <div class="table-container">
+    <!-- =====================================
+         TABLA
+    ====================================== -->
+
+    <div class="tabla-contenedor">
 
         <table>
 
             <thead>
 
                 <tr>
-                
-                    <th>ID</th>
-                
-                    <th>Pregunta</th>
-                
-                    <th>Categoría</th>
-                
-                    <th>Usuario</th>
-                
-                    <th>Fecha</th>
-                
-                    <th>Estado</th>
-                
-                    <th>Acción</th>
-                
+
+                    <th>
+                        N°
+                    </th>
+
+                    <th>
+                        PREGUNTA
+                    </th>
+
+                    <th>
+                        CATEGORÍA
+                    </th>
+
+                    <th>
+                        USUARIO
+                    </th>
+
+                    <th>
+                        FECHA
+                    </th>
+
+                    <th>
+                        ESTADO
+                    </th>
+
+                    <th>
+                        ACCIONES
+                    </th>
+
                 </tr>
 
             </thead>
 
-            <tbody id="listaPreguntas">
+
+            <tbody id="tablaPreguntas">
 
                 <tr>
 
-                    <td colspan="7">
-                        Cargando preguntas...
+                    <td
+                        colspan="7"
+                        class="mensaje cargando">
+
+                        Cargando información...
+
                     </td>
 
                 </tr>
@@ -279,12 +587,21 @@
 
     </div>
 
-</main>
-<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>   
+</div>
+
+
 <script type="module">
 
-    import { initializeApp }
+
+    // =====================================================
+    // FIREBASE
+    // =====================================================
+
+    import {
+        initializeApp
+    }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
     import {
         getAuth,
@@ -292,160 +609,72 @@
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
+
     import {
         getFirestore,
         collection,
         getDocs,
         query,
         orderBy,
+        deleteDoc,
         doc,
-        getDoc,
-        where,
-        deleteDoc
+        getDoc
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
+    // =====================================================
     // CONFIGURACIÓN FIREBASE
+    // =====================================================
 
     const firebaseConfig = {
 
-        apiKey: "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
-        authDomain: "sistema-preguntas-respuestas.firebaseapp.com",
-        projectId: "sistema-preguntas-respuestas",
-        storageBucket: "sistema-preguntas-respuestas.firebasestorage.app",
-        messagingSenderId: "606737336904",
-        appId: "1:606737336904:web:44fb42be60fbdaaf08667d"
+          apiKey: "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
+          authDomain: "sistema-preguntas-respuestas.firebaseapp.com",
+          projectId: "sistema-preguntas-respuestas",
+          storageBucket: "sistema-preguntas-respuestas.firebasestorage.app",
+          messagingSenderId: "606737336904",
+          appId: "1:606737336904:web:44fb42be60fbdaaf08667d"
 
     };
 
 
+    // =====================================================
+    // INICIALIZAR FIREBASE
+    // =====================================================
+
     const app =
-        initializeApp(firebaseConfig);
+        initializeApp(
+            firebaseConfig
+        );
+
 
     const auth =
         getAuth(app);
 
+
     const db =
         getFirestore(app);
-        let todasLasPreguntas = [];
-        let usuarioActualRol = "";
-    // ==========================================
-// CONTADOR DE PREGUNTAS PENDIENTES
-// ==========================================
-
-async function actualizarContadorPendientes(user) {
-
-    try {
-
-        // Obtener perfil del usuario
-
-        const usuarioRef =
-            doc(
-                db,
-                "usuarios",
-                user.uid
-            );
-
-        const usuarioSnapshot =
-            await getDoc(
-                usuarioRef
-            );
 
 
-        if (!usuarioSnapshot.exists()) {
+    // =====================================================
+    // VARIABLES
+    // =====================================================
 
-            return;
+    let todasLasPreguntas = [];
 
-        }
-
-
-        const usuario =
-            usuarioSnapshot.data();
+    let usuarioActualRol = "";
 
 
-        // Solo RESPONDEDOR y ADMINISTRADOR
+    // =====================================================
+    // OBTENER ROL DEL USUARIO
+    // =====================================================
 
-        if (
-            usuario.rol !== "RESPONDEDOR" &&
-            usuario.rol !== "ADMINISTRADOR"
-        ) {
-
-            return;
-
-        }
-
-
-        // Buscar preguntas pendientes
-
-        const consulta =
-            query(
-                collection(
-                    db,
-                    "preguntas"
-                ),
-                where(
-                    "estado",
-                    "==",
-                    "PENDIENTE"
-                )
-            );
-
-
-        const resultado =
-            await getDocs(
-                consulta
-            );
-
-
-        const cantidad =
-            resultado.size;
-
-
-        // Mostrar contador
-
-        document.getElementById(
-            "contadorPendientes"
-        ).textContent =
-            cantidad;
-
-
-        document.getElementById(
-            "notificacionPendientes"
-        ).style.display =
-            "block";
-
-
-    } catch (error) {
-
-        console.error(
-            "Error contador:",
-            error
-        );
-
-    }
-
-}
-
-
-    // Verificar sesión
-
-onAuthStateChanged(
-    auth,
-    async (user) => {
-
-        if (!user) {
-
-            window.location.href =
-                "login.html";
-
-            return;
-
-        }
+    async function obtenerRolUsuario(
+        user
+    ) {
 
         try {
-
-            // Obtener perfil del usuario
 
             const usuarioRef =
                 doc(
@@ -462,27 +691,26 @@ onAuthStateChanged(
 
 
             if (
-                usuarioSnapshot.exists()
+                !usuarioSnapshot.exists()
             ) {
 
-                const datosUsuario =
-                    usuarioSnapshot.data();
+                console.error(
+                    "No existe el perfil del usuario."
+                );
 
-
-                usuarioActualRol =
-                    datosUsuario.rol
-                    || "";
+                return "";
 
             }
 
 
-            console.log(
-                "Rol actual:",
-                usuarioActualRol
+            const datosUsuario =
+                usuarioSnapshot.data();
+
+
+            return (
+                datosUsuario.rol
+                || ""
             );
-
-
-            await cargarPreguntas();
 
 
         } catch (error) {
@@ -492,329 +720,34 @@ onAuthStateChanged(
                 error
             );
 
-            alert(
-                "No se pudo verificar el rol del usuario."
-            );
+            return "";
 
         }
 
     }
-);
-    
-    
-            // Actualizar cada 30 segundos
-    
-            setInterval(
-                function() {
-    
-                    actualizarContadorPendientes(
-                        user
-                    );
-    
-                },
-                30000
-            );
-    
-        }
-    );
-
-    if (usuarioActualRol === "ADMINISTRADOR") {
-
-    botonEliminar = `
-        <button
-            class="btn-eliminar"
-            onclick="eliminarPregunta('${pregunta.id}')">
-
-            🗑️ ELIMINAR
-
-        </button>
-    `;
-
-}
-    // Cargar preguntas
-        function mostrarPreguntas() {
-        
-            const lista =
-                document.getElementById(
-                    "listaPreguntas"
-                );
-        
-        
-            const texto =
-                document
-                    .getElementById("buscador")
-                    .value
-                    .toLowerCase()
-                    .trim();
-        
-        
-            const estadoSeleccionado =
-                document
-                    .getElementById("filtroEstado")
-                    .value;
-        
-        
-            const preguntasFiltradas =
-                todasLasPreguntas.filter(
-                    function(pregunta) {
-        
-        
-                        // ==========================
-                        // BUSCADOR
-                        // ==========================
-        
-                        const coincideTexto =
-        
-                            pregunta.pregunta
-                                .toLowerCase()
-                                .includes(texto)
-        
-                            ||
-        
-                            pregunta.categoria
-                                .toLowerCase()
-                                .includes(texto)
-        
-                            ||
-        
-                            pregunta.usuarioCorreo
-                                .toLowerCase()
-                                .includes(texto);
-        
-        
-                        // ==========================
-                        // ESTADO
-                        // ==========================
-        
-                        const coincideEstado =
-        
-                            estadoSeleccionado ===
-                            "TODOS"
-        
-                            ||
-        
-                            pregunta.estado ===
-                            estadoSeleccionado;
-        
-        
-                        return (
-                            coincideTexto &&
-                            coincideEstado
-                        );
-        
-                    }
-                );
-        
-        
-            lista.innerHTML = "";
-        
-        
-            if (
-                preguntasFiltradas.length === 0
-            ) {
-        
-                lista.innerHTML = `
-        
-                    <tr>
-        
-                        <td colspan="7">
-        
-                            No se encontraron preguntas.
-        
-                        </td>
-        
-                    </tr>
-        
-                `;
-        
-                return;
-        
-            }
-        
-        
-            preguntasFiltradas.forEach(
-                function(pregunta) {
-        
-        
-                    let fecha = "-";
-        
-        
-                    if (pregunta.fecha) {
-        
-                        fecha =
-                            pregunta.fecha
-                                .toDate()
-                                .toLocaleString(
-                                    "es-PE"
-                                );
-        
-                    }
-        
-        
-                    const claseEstado =
-        
-                        pregunta.estado ===
-                        "RESPONDIDA"
-        
-                            ? "respondida"
-        
-                            : "pendiente";
-        
-        
-                    const fila = `
-        
-                        <tr>
-        
-                            <td>
-                                ${pregunta.id.substring(0,8)}
-                            </td>
-        
-                            <td>
-                                ${pregunta.pregunta}
-                            </td>
-        
-                            <td>
-                                ${pregunta.categoria}
-                            </td>
-        
-                            <td>
-                                ${pregunta.usuarioCorreo}
-                            </td>
-        
-                            <td>
-                                ${fecha}
-                            </td>
-        
-                            <td>
-        
-                                <span
-                                    class="estado ${claseEstado}">
-        
-                                    ${pregunta.estado}
-        
-                                </span>
-        
-                            </td>
-        
-                            <td>
-                            
-                                <a
-                                    href="detalle-pregunta.html?id=${pregunta.id}">
-                            
-                                    Ver
-                            
-                                </a>
-                            
-                            
-                                ${
-                                    usuarioActualRol === "ADMINISTRADOR"
-                            
-                                    ?
-                            
-                                    `
-                                    <button
-                                        type="button"
-                                        class="btn-eliminar"
-                                        onclick="eliminarPregunta('${pregunta.id}')">
-                            
-                                        🗑️ Eliminar
-                            
-                                    </button>
-                                    `
-                            
-                                    :
-                            
-                                    ""
-                            
-                                }
-                            
-                            </td>
-        
-                        </tr>
-        
-                    `;
-        
-        
-                    lista.innerHTML += fila;
-        
-                }
-            );
-        
-        }
-    
-
-async function cargarPreguntas() {
-
-    const lista =
-        document.getElementById(
-            "listaPreguntas"
-        );
 
 
-    try {
+    // =====================================================
+    // CARGAR PREGUNTAS
+    // =====================================================
 
-        const consulta =
-            query(
-                collection(db, "preguntas"),
-                orderBy("fecha", "desc")
+    async function cargarPreguntas() {
+
+        const tabla =
+            document.getElementById(
+                "tablaPreguntas"
             );
 
 
-        const resultado =
-            await getDocs(consulta);
-
-
-        todasLasPreguntas = [];
-
-
-        resultado.forEach(
-            function(documento) {
-
-                const datos =
-                    documento.data();
-
-
-                todasLasPreguntas.push({
-
-                    id:
-                        documento.id,
-
-                    pregunta:
-                        datos.pregunta || "",
-
-                    categoria:
-                        datos.categoria || "",
-
-                    usuarioCorreo:
-                        datos.usuarioCorreo || "",
-
-                    estado:
-                        datos.estado || "PENDIENTE",
-
-                    fecha:
-                        datos.fecha || null
-
-                });
-
-            }
-        );
-
-
-        mostrarPreguntas();
-
-
-    } catch (error) {
-
-        console.error(error);
-
-
-        lista.innerHTML = `
+        tabla.innerHTML = `
 
             <tr>
 
-                <td colspan="7">
+                <td
+                    colspan="7"
+                    class="mensaje cargando">
 
-                    Error al cargar las preguntas.
+                    Cargando información...
 
                 </td>
 
@@ -822,92 +755,369 @@ async function cargarPreguntas() {
 
         `;
 
+
+        try {
+
+            const consulta =
+                query(
+
+                    collection(
+                        db,
+                        "preguntas"
+                    ),
+
+                    orderBy(
+                        "fecha",
+                        "desc"
+                    )
+
+                );
+
+
+            const resultado =
+                await getDocs(
+                    consulta
+                );
+
+
+            todasLasPreguntas = [];
+
+
+            resultado.forEach(
+                (documento) => {
+
+                    const datos =
+                        documento.data();
+
+
+                    todasLasPreguntas.push({
+
+                        id:
+                            documento.id,
+
+                        pregunta:
+                            datos.pregunta
+                            || "",
+
+                        categoria:
+                            datos.categoria
+                            || "",
+
+                        usuarioCorreo:
+                            datos.usuarioCorreo
+                            || "",
+
+                        estado:
+                            datos.estado
+                            || "PENDIENTE",
+
+                        fecha:
+                            datos.fecha
+                            || null
+
+                    });
+
+                }
+            );
+
+
+            mostrarPreguntas(
+                todasLasPreguntas
+            );
+
+
+            actualizarContadorPendientes();
+
+
+        } catch (error) {
+
+            console.error(
+                "Error cargando preguntas:",
+                error
+            );
+
+
+            tabla.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        class="mensaje error">
+
+                        <strong>
+                            No se pudo cargar la información.
+                        </strong>
+
+                        <br><br>
+
+                        ${error.message}
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
     }
 
-}
 
-    document
-        .getElementById("buscador")
-        .addEventListener(
-            "input",
-            mostrarPreguntas
-        );
-    
-    
-    document
-        .getElementById("filtroEstado")
-        .addEventListener(
-            "change",
-            mostrarPreguntas
-        );  
+    // =====================================================
+    // MOSTRAR PREGUNTAS
+    // =====================================================
 
-    // ==========================================
-// EXPORTAR PREGUNTAS Y RESPUESTAS A EXCEL
-// ==========================================
+    function mostrarPreguntas(
+        preguntas
+    ) {
 
-document
-    .getElementById("btnExportarExcel")
-    .addEventListener(
-        "click",
-        exportarExcel
-    );
+        const tabla =
+            document.getElementById(
+                "tablaPreguntas"
+            );
 
-
-async function exportarExcel() {
-
-    try {
-
-        // ======================================
-        // VERIFICAR PREGUNTAS
-        // ======================================
 
         if (
-            todasLasPreguntas.length === 0
+            preguntas.length === 0
         ) {
 
-            alert(
-                "No existen preguntas para exportar."
-            );
+            tabla.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        class="mensaje">
+
+                        No existen preguntas.
+
+                    </td>
+
+                </tr>
+
+            `;
 
             return;
 
         }
 
 
-        // ======================================
-        // OBTENER RESPUESTAS
-        // ======================================
-
-        const respuestasSnapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "respuestas"
-                )
-            );
+        tabla.innerHTML = "";
 
 
-        const respuestas = {};
+        preguntas.forEach(
+            (pregunta, indice) => {
 
 
-        respuestasSnapshot.forEach(
-            function(documento) {
-
-                const datos =
-                    documento.data();
+                let fecha =
+                    "";
 
 
-                respuestas[
-                    datos.preguntaId
-                ] = datos;
+                if (
+                    pregunta.fecha
+                    &&
+                    typeof pregunta.fecha.toDate === "function"
+                ) {
+
+                    fecha =
+                        pregunta.fecha
+                            .toDate()
+                            .toLocaleString(
+                                "es-PE"
+                            );
+
+                }
+
+
+                let claseEstado =
+                    "estado-pendiente";
+
+
+                if (
+                    pregunta.estado ===
+                    "RESPONDIDA"
+                ) {
+
+                    claseEstado =
+                        "estado-respondida";
+
+                }
+
+
+                let botonEliminar =
+                    "";
+
+
+                // SOLO ADMINISTRADOR
+
+                if (
+                    usuarioActualRol ===
+                    "ADMINISTRADOR"
+                ) {
+
+                    botonEliminar = `
+
+                        <button
+
+                            type="button"
+
+                            class="btn-eliminar"
+
+                            data-id="${pregunta.id}">
+
+                            🗑️ Eliminar
+
+                        </button>
+
+                    `;
+
+                }
+
+
+                const fila =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                fila.innerHTML = `
+
+                    <td>
+                        ${indice + 1}
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            pregunta.pregunta
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            pregunta.categoria
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            pregunta.usuarioCorreo
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${fecha}
+
+                    </td>
+
+
+                    <td>
+
+                        <span
+                            class="estado ${claseEstado}">
+
+                            ${pregunta.estado}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        <a
+
+                            href="detalle-pregunta.html?id=${encodeURIComponent(
+                                pregunta.id
+                            )}"
+
+                            class="boton btn-ver">
+
+                            Ver
+
+                        </a>
+
+
+                        ${botonEliminar}
+
+                    </td>
+
+                `;
+
+
+                tabla.appendChild(
+                    fila
+                );
 
             }
         );
 
 
-        // ======================================
-        // OBTENER FILTROS
-        // ======================================
+        // Eventos de eliminación
+
+        document
+            .querySelectorAll(
+                ".btn-eliminar"
+            )
+            .forEach(
+                (boton) => {
+
+                    boton.addEventListener(
+                        "click",
+                        () => {
+
+                            eliminarPregunta(
+                                boton.dataset.id
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+    }
+
+
+    // =====================================================
+    // ESCAPAR HTML
+    // =====================================================
+
+    function escapeHTML(
+        texto
+    ) {
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.textContent =
+            texto;
+
+
+        return div.innerHTML;
+
+    }
+
+
+    // =====================================================
+    // BUSCAR Y FILTRAR
+    // =====================================================
+
+    function aplicarFiltros() {
 
         const texto =
             document
@@ -919,7 +1129,7 @@ async function exportarExcel() {
                 .trim();
 
 
-        const estadoSeleccionado =
+        const estado =
             document
                 .getElementById(
                     "filtroEstado"
@@ -927,13 +1137,9 @@ async function exportarExcel() {
                 .value;
 
 
-        // ======================================
-        // FILTRAR
-        // ======================================
-
-        const preguntasFiltradas =
+        const filtradas =
             todasLasPreguntas.filter(
-                function(pregunta) {
+                (pregunta) => {
 
 
                     const coincideTexto =
@@ -957,17 +1163,18 @@ async function exportarExcel() {
 
                     const coincideEstado =
 
-                        estadoSeleccionado ===
+                        estado ===
                         "TODOS"
 
                         ||
 
                         pregunta.estado ===
-                        estadoSeleccionado;
+                        estado;
 
 
                     return (
-                        coincideTexto &&
+                        coincideTexto
+                        &&
                         coincideEstado
                     );
 
@@ -975,12 +1182,81 @@ async function exportarExcel() {
             );
 
 
+        mostrarPreguntas(
+            filtradas
+        );
+
+    }
+
+
+    // =====================================================
+    // CONTADOR DE PENDIENTES
+    // =====================================================
+
+    function actualizarContadorPendientes() {
+
+        const cantidad =
+            todasLasPreguntas.filter(
+                (pregunta) =>
+                    pregunta.estado ===
+                    "PENDIENTE"
+            ).length;
+
+
+        const contenedor =
+            document.getElementById(
+                "notificacionPendientes"
+            );
+
+
+        const contador =
+            document.getElementById(
+                "contadorPendientes"
+            );
+
+
         if (
-            preguntasFiltradas.length === 0
+            usuarioActualRol ===
+                "ADMINISTRADOR"
+            ||
+            usuarioActualRol ===
+                "RESPONDEDOR"
+        ) {
+
+            contador.textContent =
+                cantidad;
+
+
+            contenedor.style.display =
+                "block";
+
+        } else {
+
+            contenedor.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    // =====================================================
+    // ELIMINAR PREGUNTA
+    // =====================================================
+
+    async function eliminarPregunta(
+        id
+    ) {
+
+        // Verificación adicional
+
+        if (
+            usuarioActualRol !==
+            "ADMINISTRADOR"
         ) {
 
             alert(
-                "No existen registros para exportar."
+                "No tiene permisos para eliminar preguntas."
             );
 
             return;
@@ -988,88 +1264,301 @@ async function exportarExcel() {
         }
 
 
-        // ======================================
-        // FECHA DE GENERACIÓN
-        // ======================================
+        const confirmar =
+            confirm(
 
-        const ahora =
-            new Date();
+                "¿Está seguro de eliminar esta pregunta?\n\n" +
 
+                "Esta acción no se puede deshacer."
 
-        const fechaGeneracion =
-            ahora.toLocaleString(
-                "es-PE"
             );
 
 
-        // ======================================
-        // DATOS
-        // ======================================
+        if (!confirmar) {
 
-        const filas = [];
+            return;
+
+        }
 
 
-        preguntasFiltradas.forEach(
-            function(
-                pregunta,
-                indice
+        try {
+
+            await deleteDoc(
+
+                doc(
+                    db,
+                    "preguntas",
+                    id
+                )
+
+            );
+
+
+            alert(
+                "Pregunta eliminada correctamente."
+            );
+
+
+            await cargarPreguntas();
+
+
+        } catch (error) {
+
+            console.error(
+                "Error eliminando pregunta:",
+                error
+            );
+
+
+            alert(
+
+                "No se pudo eliminar la pregunta.\n\n"
+
+                +
+
+                error.message
+
+            );
+
+        }
+
+    }
+
+
+    // =====================================================
+    // EXPORTAR EXCEL
+    // =====================================================
+
+    async function exportarExcel() {
+
+        try {
+
+            if (
+                todasLasPreguntas.length === 0
             ) {
 
+                alert(
+                    "No existen preguntas para exportar."
+                );
 
-                const respuesta =
-                    respuestas[
-                        pregunta.id
-                    ];
+                return;
 
-
-                let fechaPregunta =
-                    "";
+            }
 
 
-                if (
-                    pregunta.fecha
-                ) {
+            // ---------------------------------------------
+            // FILTROS ACTUALES
+            // ---------------------------------------------
 
-                    fechaPregunta =
-                        pregunta.fecha
-                            .toDate()
-                            .toLocaleString(
-                                "es-PE"
-                            );
-
-                }
-
-
-                let textoRespuesta =
-                    "";
+            const texto =
+                document
+                    .getElementById(
+                        "buscador"
+                    )
+                    .value
+                    .toLowerCase()
+                    .trim();
 
 
-                let respondidoPor =
-                    "";
+            const estadoSeleccionado =
+                document
+                    .getElementById(
+                        "filtroEstado"
+                    )
+                    .value;
 
 
-                let fechaRespuesta =
-                    "";
+            const preguntasFiltradas =
+                todasLasPreguntas.filter(
+                    (pregunta) => {
 
 
-                if (respuesta) {
+                        const coincideTexto =
 
-                    textoRespuesta =
-                        respuesta.respuesta
-                        || "";
+                            pregunta.pregunta
+                                .toLowerCase()
+                                .includes(texto)
+
+                            ||
+
+                            pregunta.categoria
+                                .toLowerCase()
+                                .includes(texto)
+
+                            ||
+
+                            pregunta.usuarioCorreo
+                                .toLowerCase()
+                                .includes(texto);
 
 
-                    respondidoPor =
-                        respuesta.usuarioCorreo
-                        || "";
+                        const coincideEstado =
+
+                            estadoSeleccionado ===
+                            "TODOS"
+
+                            ||
+
+                            pregunta.estado ===
+                            estadoSeleccionado;
+
+
+                        return (
+                            coincideTexto
+                            &&
+                            coincideEstado
+                        );
+
+                    }
+                );
+
+
+            if (
+                preguntasFiltradas.length === 0
+            ) {
+
+                alert(
+                    "No existen registros para exportar."
+                );
+
+                return;
+
+            }
+
+
+            // ---------------------------------------------
+            // OBTENER RESPUESTAS
+            // ---------------------------------------------
+
+            const respuestasSnapshot =
+                await getDocs(
+
+                    collection(
+                        db,
+                        "respuestas"
+                    )
+
+                );
+
+
+            const respuestas = {};
+
+
+            respuestasSnapshot.forEach(
+                (documento) => {
+
+                    const datos =
+                        documento.data();
 
 
                     if (
-                        respuesta.fecha
+                        datos.preguntaId
                     ) {
 
-                        fechaRespuesta =
-                            respuesta.fecha
+                        respuestas[
+                            datos.preguntaId
+                        ] = datos;
+
+                    }
+
+                }
+            );
+
+
+            // ---------------------------------------------
+            // FECHA
+            // ---------------------------------------------
+
+            const ahora =
+                new Date();
+
+
+            const fechaGeneracion =
+                ahora.toLocaleString(
+                    "es-PE"
+                );
+
+
+            // ---------------------------------------------
+            // INFORMACIÓN
+            // ---------------------------------------------
+
+            const datosExcel = [
+
+                [
+                    "BANCO DE PREGUNTAS Y RESPUESTAS"
+                ],
+
+                [
+                    "Fecha de generación",
+                    fechaGeneracion
+                ],
+
+                [
+                    "Estado filtrado",
+                    estadoSeleccionado
+                ],
+
+                [
+                    "Texto buscado",
+                    texto || "-"
+                ],
+
+                [
+                    "Total de registros",
+                    preguntasFiltradas.length
+                ],
+
+                [],
+
+                [
+
+                    "N°",
+
+                    "ID",
+
+                    "PREGUNTA",
+
+                    "CATEGORÍA",
+
+                    "USUARIO",
+
+                    "FECHA PREGUNTA",
+
+                    "ESTADO",
+
+                    "RESPUESTA",
+
+                    "RESPONDIDO POR",
+
+                    "FECHA RESPUESTA"
+
+                ]
+
+            ];
+
+
+            // ---------------------------------------------
+            // FILAS
+            // ---------------------------------------------
+
+            preguntasFiltradas.forEach(
+                (pregunta, indice) => {
+
+
+                    let fechaPregunta =
+                        "";
+
+
+                    if (
+                        pregunta.fecha
+                        &&
+                        typeof pregunta.fecha.toDate ===
+                            "function"
+                    ) {
+
+                        fechaPregunta =
+                            pregunta.fecha
                                 .toDate()
                                 .toLocaleString(
                                     "es-PE"
@@ -1077,243 +1566,309 @@ async function exportarExcel() {
 
                     }
 
+
+                    const respuesta =
+                        respuestas[
+                            pregunta.id
+                        ];
+
+
+                    let textoRespuesta =
+                        "";
+
+
+                    let respondidoPor =
+                        "";
+
+
+                    let fechaRespuesta =
+                        "";
+
+
+                    if (
+                        respuesta
+                    ) {
+
+                        textoRespuesta =
+                            respuesta.respuesta
+                            || "";
+
+
+                        respondidoPor =
+                            respuesta.usuarioCorreo
+                            || "";
+
+
+                        if (
+                            respuesta.fecha
+                            &&
+                            typeof respuesta.fecha.toDate ===
+                                "function"
+                        ) {
+
+                            fechaRespuesta =
+                                respuesta.fecha
+                                    .toDate()
+                                    .toLocaleString(
+                                        "es-PE"
+                                    );
+
+                        }
+
+                    }
+
+
+                    datosExcel.push([
+
+                        indice + 1,
+
+                        pregunta.id,
+
+                        pregunta.pregunta,
+
+                        pregunta.categoria,
+
+                        pregunta.usuarioCorreo,
+
+                        fechaPregunta,
+
+                        pregunta.estado,
+
+                        textoRespuesta,
+
+                        respondidoPor,
+
+                        fechaRespuesta
+
+                    ]);
+
                 }
-
-
-                filas.push([
-
-                    indice + 1,
-
-                    pregunta.id,
-
-                    pregunta.pregunta,
-
-                    pregunta.categoria,
-
-                    pregunta.usuarioCorreo,
-
-                    fechaPregunta,
-
-                    pregunta.estado,
-
-                    textoRespuesta,
-
-                    respondidoPor,
-
-                    fechaRespuesta
-
-                ]);
-
-            }
-        );
-
-
-        // ======================================
-        // CONSTRUIR HOJA
-        // ======================================
-
-        const datosHoja = [
-
-            [
-                "BANCO DE PREGUNTAS Y RESPUESTAS"
-            ],
-
-            [
-                "Fecha de generación:",
-                fechaGeneracion
-            ],
-
-            [
-                "Estado filtrado:",
-                estadoSeleccionado
-            ],
-
-            [
-                "Texto buscado:",
-                texto || "-"
-            ],
-
-            [
-                "Total de registros:",
-                preguntasFiltradas.length
-            ],
-
-            [],
-
-            [
-
-                "N°",
-
-                "ID",
-
-                "PREGUNTA",
-
-                "CATEGORÍA",
-
-                "USUARIO",
-
-                "FECHA PREGUNTA",
-
-                "ESTADO",
-
-                "RESPUESTA",
-
-                "RESPONDIDO POR",
-
-                "FECHA RESPUESTA"
-
-            ],
-
-            ...filas
-
-        ];
-
-
-        const hoja =
-            XLSX.utils.aoa_to_sheet(
-                datosHoja
             );
 
 
-        // ======================================
-        // ANCHO DE COLUMNAS
-        // ======================================
+            // ---------------------------------------------
+            // CREAR HOJA
+            // ---------------------------------------------
 
-        hoja["!cols"] = [
-
-            { wch: 6 },
-
-            { wch: 15 },
-
-            { wch: 60 },
-
-            { wch: 20 },
-
-            { wch: 30 },
-
-            { wch: 22 },
-
-            { wch: 15 },
-
-            { wch: 70 },
-
-            { wch: 30 },
-
-            { wch: 22 }
-
-        ];
-
-
-        // ======================================
-        // CREAR LIBRO
-        // ======================================
-
-        const libro =
-            XLSX.utils.book_new();
-
-
-        XLSX.utils.book_append_sheet(
-            libro,
-            hoja,
-            "Preguntas y Respuestas"
-        );
-
-
-        // ======================================
-        // NOMBRE DEL ARCHIVO
-        // ======================================
-
-        const fechaArchivo =
-            ahora
-                .toISOString()
-                .slice(
-                    0,
-                    10
+            const hoja =
+                XLSX.utils.aoa_to_sheet(
+                    datosExcel
                 );
 
 
-        XLSX.writeFile(
+            hoja["!cols"] = [
 
-            libro,
+                { wch: 6 },
 
-            "BANCO_PREGUNTAS_RESPUESTAS_"
-            + fechaArchivo
-            + ".xlsx"
+                { wch: 20 },
 
-        );
+                { wch: 60 },
+
+                { wch: 20 },
+
+                { wch: 30 },
+
+                { wch: 22 },
+
+                { wch: 15 },
+
+                { wch: 70 },
+
+                { wch: 30 },
+
+                { wch: 22 }
+
+            ];
 
 
-    } catch (error) {
+            // ---------------------------------------------
+            // CREAR LIBRO
+            // ---------------------------------------------
 
-        console.error(
-            "Error al exportar:",
-            error
-        );
+            const libro =
+                XLSX.utils.book_new();
 
 
-        alert(
-            "No se pudo generar el archivo Excel.\n\n"
-            + error.message
-        );
+            XLSX.utils.book_append_sheet(
+
+                libro,
+
+                hoja,
+
+                "Preguntas y Respuestas"
+
+            );
+
+
+            // ---------------------------------------------
+            // DESCARGAR
+            // ---------------------------------------------
+
+            const fechaArchivo =
+                ahora
+                    .toISOString()
+                    .slice(
+                        0,
+                        10
+                    );
+
+
+            XLSX.writeFile(
+
+                libro,
+
+                `BANCO_PREGUNTAS_RESPUESTAS_${fechaArchivo}.xlsx`
+
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Error exportando Excel:",
+                error
+            );
+
+
+            alert(
+
+                "No se pudo generar el archivo Excel.\n\n"
+
+                +
+
+                error.message
+
+            );
+
+        }
 
     }
 
-}
 
-async function eliminarPregunta(id) {
+    // =====================================================
+    // EVENTOS
+    // =====================================================
 
-    const confirmar =
-        confirm(
-            "¿Está seguro de eliminar esta pregunta?\n\n" +
-            "Esta acción no se puede deshacer."
+    document
+        .getElementById(
+            "buscador"
+        )
+        .addEventListener(
+            "input",
+            aplicarFiltros
         );
 
 
-    if (!confirmar) {
-
-        return;
-
-    }
-
-
-    try {
-
-        await deleteDoc(
-            doc(
-                db,
-                "preguntas",
-                id
-            )
+    document
+        .getElementById(
+            "filtroEstado"
+        )
+        .addEventListener(
+            "change",
+            aplicarFiltros
         );
 
 
-        alert(
-            "Pregunta eliminada correctamente."
+    document
+        .getElementById(
+            "btnExcel"
+        )
+        .addEventListener(
+            "click",
+            exportarExcel
         );
 
 
-        // Recargar preguntas
+    // =====================================================
+    // AUTENTICACIÓN
+    // =====================================================
 
-        await cargarPreguntas();
+    onAuthStateChanged(
 
+        auth,
 
-    } catch (error) {
-
-        console.error(
-            "Error al eliminar:",
-            error
-        );
+        async (user) => {
 
 
-        alert(
-            "No se pudo eliminar la pregunta.\n\n" +
-            error.message
-        );
+            if (!user) {
 
-    }
+                window.location.href =
+                    "login.html";
 
-}
+                return;
+
+            }
+
+
+            try {
+
+                // Obtener rol
+
+                usuarioActualRol =
+                    await obtenerRolUsuario(
+                        user
+                    );
+
+
+                console.log(
+                    "Usuario:",
+                    user.email
+                );
+
+
+                console.log(
+                    "Rol:",
+                    usuarioActualRol
+                );
+
+
+                // Cargar preguntas
+
+                await cargarPreguntas();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error inicializando:",
+                    error
+                );
+
+
+                document
+                    .getElementById(
+                        "tablaPreguntas"
+                    )
+                    .innerHTML = `
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="mensaje error">
+
+                                Error al iniciar la página.
+
+                                <br><br>
+
+                                ${error.message}
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+            }
+
+        }
+
+    );
+
+
 </script>
+
+
 </body>
 
 </html>
