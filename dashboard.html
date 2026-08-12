@@ -140,10 +140,10 @@
                 Preguntas
             </h3>
 
-            <div class="number">
-                0
-            </div>
-
+            <div id="totalPreguntas">
+                    0
+                </div>
+            
         </div>
 
 
@@ -153,7 +153,7 @@
                 Pendientes
             </h3>
 
-            <div class="number">
+            <div id="preguntasPendientes">
                 0
             </div>
 
@@ -166,7 +166,7 @@
                 Respondidas
             </h3>
 
-            <div class="number">
+            <div id="preguntasRespondidas">
                 0
             </div>
 
@@ -314,7 +314,194 @@ onAuthStateChanged(auth, async (user) => {
         });
 
 </script>
+<script type="module">
 
+    import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    import {
+        getAuth,
+        onAuthStateChanged
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    import {
+        getFirestore,
+        collection,
+        getDocs
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    // ==========================================
+    // CONFIGURACIÓN FIREBASE
+    // ==========================================
+
+    const firebaseConfig = {
+
+          apiKey: "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
+          authDomain: "sistema-preguntas-respuestas.firebaseapp.com",
+          projectId: "sistema-preguntas-respuestas",
+          storageBucket: "sistema-preguntas-respuestas.firebasestorage.app",
+          messagingSenderId: "606737336904",
+          appId: "1:606737336904:web:44fb42be60fbdaaf08667d"
+
+    };
+
+
+    // ==========================================
+    // INICIALIZAR FIREBASE
+    // ==========================================
+
+    const app =
+        initializeApp(firebaseConfig);
+
+    const auth =
+        getAuth(app);
+
+    const db =
+        getFirestore(app);
+
+
+    // ==========================================
+    // SESIÓN
+    // ==========================================
+
+    onAuthStateChanged(
+        auth,
+        async function(user) {
+
+            if (!user) {
+
+                window.location.href =
+                    "login.html";
+
+                return;
+
+            }
+
+
+            await cargarEstadisticas();
+
+        }
+    );
+
+
+    // ==========================================
+    // ESTADÍSTICAS
+    // ==========================================
+
+    async function cargarEstadisticas() {
+
+        try {
+
+            const resultado =
+                await getDocs(
+                    collection(
+                        db,
+                        "preguntas"
+                    )
+                );
+
+
+            let total =
+                0;
+
+            let pendientes =
+                0;
+
+            let respondidas =
+                0;
+
+
+            resultado.forEach(
+                function(documento) {
+
+                    const datos =
+                        documento.data();
+
+
+                    total++;
+
+
+                    if (
+                        datos.estado ===
+                        "PENDIENTE"
+                    ) {
+
+                        pendientes++;
+
+                    }
+
+
+                    if (
+                        datos.estado ===
+                        "RESPONDIDA"
+                    ) {
+
+                        respondidas++;
+
+                    }
+
+                }
+            );
+
+
+            // ==================================
+            // MOSTRAR RESULTADOS
+            // ==================================
+
+            const elementoTotal =
+                document.getElementById(
+                    "totalPreguntas"
+                );
+
+
+            const elementoPendientes =
+                document.getElementById(
+                    "preguntasPendientes"
+                );
+
+
+            const elementoRespondidas =
+                document.getElementById(
+                    "preguntasRespondidas"
+                );
+
+
+            if (elementoTotal) {
+
+                elementoTotal.textContent =
+                    total;
+
+            }
+
+
+            if (elementoPendientes) {
+
+                elementoPendientes.textContent =
+                    pendientes;
+
+            }
+
+
+            if (elementoRespondidas) {
+
+                elementoRespondidas.textContent =
+                    respondidas;
+
+            }
+
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
+
+</script>
 </body>
 
 </html>
