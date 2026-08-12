@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Detalle de pregunta</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+        }
+
+        header {
+            background: #1f4e78;
+            color: white;
+            padding: 18px 30px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.08);
+            margin-bottom: 20px;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #555;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .pregunta {
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .respuesta {
+            background: #f1f7fb;
+            padding: 20px;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-block;
+            background: #1f4e78;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h2>
+        Detalle de pregunta
+    </h2>
+
+</header>
+
+
+<main class="container">
+
+    <div class="card">
+
+        <div class="label">
+            Pregunta
+        </div>
+
+        <div
+            id="pregunta"
+            class="pregunta">
+
+            Cargando...
+
+        </div>
+
+
+        <div class="label">
+            Categoría
+        </div>
+
+        <div id="categoria">
+            -
+        </div>
+
+
+        <div class="label">
+            Estado
+        </div>
+
+        <div id="estado">
+            -
+        </div>
+
+
+        <div class="label">
+            Usuario
+        </div>
+
+        <div id="usuario">
+            -
+        </div>
+
+
+        <div class="label">
+            Fecha
+        </div>
+
+        <div id="fecha">
+            -
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="label">
+            Respuesta
+        </div>
+
+        <div
+            id="respuesta"
+            class="respuesta">
+
+            Aún no existe una respuesta.
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="preguntas.html"
+        class="button">
+
+        ← Volver a preguntas
+
+    </a>
+
+</main>
+
+</body>
+
+</html>
