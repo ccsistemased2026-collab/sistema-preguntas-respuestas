@@ -73,6 +73,43 @@
             cursor: pointer;
         }
 
+        .botones {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .btn-registrar {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            background: #1f4e78;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .btn-cancelar {
+            flex: 1;
+            padding: 14px;
+            background: #6c757d;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+        
+        .btn-registrar:hover {
+            background: #163a5c;
+        }
+        
+        .btn-cancelar:hover {
+            background: #5a6268;
+        }
+
     </style>
 
 </head>
@@ -141,11 +178,26 @@
             </div>
 
 
-            <button type="submit">
-
-                REGISTRAR PREGUNTA
-
-            </button>
+            <div class="botones">
+            
+                <button
+                    type="submit"
+                    class="btn-registrar">
+            
+                    REGISTRAR PREGUNTA
+            
+                </button>
+            
+            
+                <a
+                    href="preguntas.html"
+                    class="btn-cancelar">
+            
+                    CANCELAR
+            
+                </a>
+            
+            </div>
 
         </form>
 
