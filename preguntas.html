@@ -83,6 +83,24 @@
             background: #d1e7dd;
         }
 
+        .filtros {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .filtros input,
+        .filtros select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+        
+        .filtros input {
+            flex: 1;
+        }
+
     </style>
 
 </head>
@@ -116,6 +134,32 @@
 
     </div>
 
+    <div class="filtros">
+
+    <input
+        type="text"
+        id="buscador"
+        placeholder="🔎 Buscar pregunta..."
+    >
+
+    <select id="filtroEstado">
+
+        <option value="TODOS">
+            Todos los estados
+        </option>
+
+        <option value="PENDIENTE">
+            Pendientes
+        </option>
+
+        <option value="RESPONDIDA">
+            Respondidas
+        </option>
+
+    </select>
+
+</div>
+
 
     <div class="table-container">
 
@@ -124,19 +168,21 @@
             <thead>
 
                 <tr>
-
+                
                     <th>ID</th>
-
+                
                     <th>Pregunta</th>
-
+                
                     <th>Categoría</th>
-
+                
+                    <th>Usuario</th>
+                
                     <th>Fecha</th>
-
+                
                     <th>Estado</th>
-
+                
                     <th>Acción</th>
-
+                
                 </tr>
 
             </thead>
@@ -145,7 +191,7 @@
 
                 <tr>
 
-                    <td colspan="6">
+                    <td colspan="7">
                         Cargando preguntas...
                     </td>
 
@@ -201,6 +247,7 @@
 
     const db =
         getFirestore(app);
+        let todasLasPreguntas = [];
 
 
     // Verificar sesión
@@ -222,146 +269,291 @@
 
 
     // Cargar preguntas
+        function mostrarPreguntas() {
+        
+            const lista =
+                document.getElementById(
+                    "listaPreguntas"
+                );
+        
+        
+            const texto =
+                document
+                    .getElementById("buscador")
+                    .value
+                    .toLowerCase()
+                    .trim();
+        
+        
+            const estadoSeleccionado =
+                document
+                    .getElementById("filtroEstado")
+                    .value;
+        
+        
+            const preguntasFiltradas =
+                todasLasPreguntas.filter(
+                    function(pregunta) {
+        
+        
+                        // ==========================
+                        // BUSCADOR
+                        // ==========================
+        
+                        const coincideTexto =
+        
+                            pregunta.pregunta
+                                .toLowerCase()
+                                .includes(texto)
+        
+                            ||
+        
+                            pregunta.categoria
+                                .toLowerCase()
+                                .includes(texto)
+        
+                            ||
+        
+                            pregunta.usuarioCorreo
+                                .toLowerCase()
+                                .includes(texto);
+        
+        
+                        // ==========================
+                        // ESTADO
+                        // ==========================
+        
+                        const coincideEstado =
+        
+                            estadoSeleccionado ===
+                            "TODOS"
+        
+                            ||
+        
+                            pregunta.estado ===
+                            estadoSeleccionado;
+        
+        
+                        return (
+                            coincideTexto &&
+                            coincideEstado
+                        );
+        
+                    }
+                );
+        
+        
+            lista.innerHTML = "";
+        
+        
+            if (
+                preguntasFiltradas.length === 0
+            ) {
+        
+                lista.innerHTML = `
+        
+                    <tr>
+        
+                        <td colspan="7">
+        
+                            No se encontraron preguntas.
+        
+                        </td>
+        
+                    </tr>
+        
+                `;
+        
+                return;
+        
+            }
+        
+        
+            preguntasFiltradas.forEach(
+                function(pregunta) {
+        
+        
+                    let fecha = "-";
+        
+        
+                    if (pregunta.fecha) {
+        
+                        fecha =
+                            pregunta.fecha
+                                .toDate()
+                                .toLocaleString(
+                                    "es-PE"
+                                );
+        
+                    }
+        
+        
+                    const claseEstado =
+        
+                        pregunta.estado ===
+                        "RESPONDIDA"
+        
+                            ? "respondida"
+        
+                            : "pendiente";
+        
+        
+                    const fila = `
+        
+                        <tr>
+        
+                            <td>
+                                ${pregunta.id.substring(0,8)}
+                            </td>
+        
+                            <td>
+                                ${pregunta.pregunta}
+                            </td>
+        
+                            <td>
+                                ${pregunta.categoria}
+                            </td>
+        
+                            <td>
+                                ${pregunta.usuarioCorreo}
+                            </td>
+        
+                            <td>
+                                ${fecha}
+                            </td>
+        
+                            <td>
+        
+                                <span
+                                    class="estado ${claseEstado}">
+        
+                                    ${pregunta.estado}
+        
+                                </span>
+        
+                            </td>
+        
+                            <td>
+        
+                                <a
+                                    href="detalle-pregunta.html?id=${pregunta.id}">
+        
+                                    Ver
+        
+                                </a>
+        
+                            </td>
+        
+                        </tr>
+        
+                    `;
+        
+        
+                    lista.innerHTML += fila;
+        
+                }
+            );
+        
+        }
+    
 
-    async function cargarPreguntas() {
+async function cargarPreguntas() {
 
-        const lista =
-            document.getElementById(
-                "listaPreguntas"
+    const lista =
+        document.getElementById(
+            "listaPreguntas"
+        );
+
+
+    try {
+
+        const consulta =
+            query(
+                collection(db, "preguntas"),
+                orderBy("fecha", "desc")
             );
 
 
-        try {
-
-            const consulta =
-                query(
-                    collection(db, "preguntas"),
-                    orderBy("fecha", "desc")
-                );
+        const resultado =
+            await getDocs(consulta);
 
 
-            const resultado =
-                await getDocs(consulta);
+        todasLasPreguntas = [];
 
 
-            lista.innerHTML = "";
-
-
-            if (resultado.empty) {
-
-                lista.innerHTML = `
-                    <tr>
-                        <td colspan="6">
-                            No existen preguntas registradas.
-                        </td>
-                    </tr>
-                `;
-
-                return;
-            }
-
-
-            resultado.forEach((documento) => {
+        resultado.forEach(
+            function(documento) {
 
                 const datos =
                     documento.data();
 
 
-                let fecha = "";
+                todasLasPreguntas.push({
 
-                if (datos.fecha) {
+                    id:
+                        documento.id,
 
-                    fecha =
-                        datos.fecha
-                            .toDate()
-                            .toLocaleString(
-                                "es-PE"
-                            );
+                    pregunta:
+                        datos.pregunta || "",
 
-                }
+                    categoria:
+                        datos.categoria || "",
 
+                    usuarioCorreo:
+                        datos.usuarioCorreo || "",
 
-                const estado =
-                    datos.estado || "PENDIENTE";
+                    estado:
+                        datos.estado || "PENDIENTE",
 
+                    fecha:
+                        datos.fecha || null
 
-                const claseEstado =
-                    estado === "RESPONDIDA"
-                        ? "respondida"
-                        : "pendiente";
+                });
 
-
-                const fila = `
-
-                    <tr>
-
-                        <td>
-                            ${documento.id.substring(0, 8)}
-                        </td>
-
-                        <td>
-                            ${datos.pregunta}
-                        </td>
-
-                        <td>
-                            ${datos.categoria}
-                        </td>
-
-                        <td>
-                            ${fecha}
-                        </td>
-
-                        <td>
-
-                            <span
-                                class="estado ${claseEstado}">
-
-                                ${estado}
-
-                            </span>
-
-                        </td>
-
-                        <td>
-
-                        <a href="detalle-pregunta.html?id=${documento.id}">
-                        Ver
-                        </a>
-
-                        </td>
-
-                    </tr>
-
-                `;
+            }
+        );
 
 
-                lista.innerHTML += fila;
-
-            });
+        mostrarPreguntas();
 
 
-        } catch (error) {
+    } catch (error) {
 
-            console.error(error);
+        console.error(error);
 
-            lista.innerHTML = `
 
-                <tr>
+        lista.innerHTML = `
 
-                    <td colspan="6">
+            <tr>
 
-                        Error al cargar las preguntas.
+                <td colspan="7">
 
-                    </td>
+                    Error al cargar las preguntas.
 
-                </tr>
+                </td>
 
-            `;
+            </tr>
 
-        }
+        `;
 
     }
 
+}
+
+    document
+        .getElementById("buscador")
+        .addEventListener(
+            "input",
+            mostrarPreguntas
+        );
+    
+    
+    document
+        .getElementById("filtroEstado")
+        .addEventListener(
+            "change",
+            mostrarPreguntas
+        );    
 </script>
 </body>
 
