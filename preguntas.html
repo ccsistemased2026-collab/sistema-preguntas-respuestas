@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Preguntas</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+        }
+
+        header {
+            background: #1f4e78;
+            color: white;
+            padding: 18px 30px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            background: #1f4e78;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #f0f2f5;
+        }
+
+        .estado {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+        .pendiente {
+            background: #fff3cd;
+        }
+
+        .respondida {
+            background: #d1e7dd;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h2>
+        Preguntas y Respuestas
+    </h2>
+
+</header>
+
+
+<main class="container">
+
+    <div class="toolbar">
+
+        <h2>
+            Preguntas
+        </h2>
+
+        <a
+            href="nueva-pregunta.html"
+            class="button">
+
+            + Nueva pregunta
+
+        </a>
+
+    </div>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Pregunta</th>
+
+                    <th>Categoría</th>
+
+                    <th>Fecha</th>
+
+                    <th>Estado</th>
+
+                    <th>Acción</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="listaPreguntas">
+
+                <tr>
+
+                    <td colspan="6">
+                        Cargando preguntas...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>
