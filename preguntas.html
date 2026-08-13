@@ -1036,63 +1036,64 @@
     // CARGAR USUARIOS
     // =====================================================
     
-    async function cargarUsuarios() {
-    
-        try {
-    
-            const resultado =
-                await getDocs(
-                    collection(
-                        db,
-                        "usuarios"
-                    )
-                );
-    
-            usuarios = {};
-    
-            resultado.forEach(
-                (documento) => {
-    
-                    const datos =
-                        documento.data();
-    
-                    usuarios[documento.id] = {
-                    
-                        nombre:
-                            datos.nombre || "",
-                    
-                        cargo:
-                            datos.cargo || "",
-                    
-                        sedeOperativa:
-                            datos.sedeOperativa || ""
-                    
-                    };
-                    
-                    console.log(
-                        "DATOS USUARIO:",
-                        documento.id,
-                        datos
+            async function cargarUsuarios() {
+            
+                try {
+            
+                    const resultado =
+                        await getDocs(
+                            collection(
+                                db,
+                                "usuarios"
+                            )
+                        );
+            
+                    usuarios = {};
+            
+                    resultado.forEach(
+                        (documento) => {
+            
+                            const datos =
+                                documento.data();
+            
+                            usuarios[documento.id] = {
+            
+                                nombre:
+                                    datos.nombre || "",
+            
+                                correo:
+                                    datos.correo ||
+                                    datos.email ||
+                                    "",
+            
+                                cargo:
+                                    datos.cargo || "",
+            
+                                sedeOperativa:
+                                    datos.sedeOperativa || ""
+            
+                            };
+            
+                        }
                     );
-    
+            
+                    console.log(
+                        "Índice de usuarios:",
+                        usuarios
+                    );
+            
+                } catch (error) {
+            
+                    console.error(
+                        "Error cargando usuarios:",
+                        error
+                    );
+            
+                    throw error;
+            
                 }
-            );
-    
-            console.log(
-                "Usuarios cargados:",
-                usuarios
-            );
-    
-        } catch (error) {
-    
-            console.error(
-                "Error cargando usuarios:",
-                error
-            );
-    
-        }
-    
-    }
+            
+            }
 
     // =====================================================
     // CARGAR PREGUNTAS
@@ -1152,16 +1153,34 @@
             todasLasPreguntas = [];
 
 
-            resultado.forEach(
-                (documento) => {
-
-
-                    const datos =
-                        documento.data();
-
-
-                    const usuario =
-                        usuarios[datos.usuarioId] || {};
+                resultado.forEach(
+                    (documento) => {
+                
+                        const datos =
+                            documento.data();
+                
+                
+                        const usuario =
+                            usuarios[datos.usuarioId] || {};
+                
+                
+                        console.log(
+                            "RELACIÓN PREGUNTA → USUARIO",
+                            {
+                                preguntaId: documento.id,
+                                usuarioId: datos.usuarioId,
+                                usuarioEncontrado: usuario
+                            }
+                        );
+                    
+                    console.log(
+                        "Pregunta:",
+                        documento.id,
+                        "usuarioId:",
+                        datos.usuarioId,
+                        "usuario encontrado:",
+                        usuario
+                    );
                     
                     todasLasPreguntas.push({
                     
