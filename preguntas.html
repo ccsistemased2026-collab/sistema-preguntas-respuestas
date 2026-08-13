@@ -2335,51 +2335,235 @@ async function exportarExcel() {
         // CREAR HOJA
         // =================================================
 
-        const hoja =
-            XLSX.utils.aoa_to_sheet(
-                datosExcel
-            );
-
-
-        // =================================================
-        // ANCHO DE COLUMNAS
-        // =================================================
-
-        hoja["!cols"] = [
-
-            { wch: 6 },    // N°
-
-            { wch: 22 },   // ID
-
-            { wch: 60 },   // Pregunta
-
-            { wch: 25 },   // Área
-
-            { wch: 35 },   // Sede pregunta
-
-            { wch: 35 },   // Cargo pregunta
-
-            { wch: 32 },   // Usuario
-
-            { wch: 22 },   // Fecha
-
-            { wch: 15 },   // Estado
-
-            { wch: 70 },   // Respuesta
-
-            { wch: 35 },   // Sede respondedor
-
-            { wch: 35 },   // Cargo respondedor
-
-            { wch: 32 },   // Respondido por
-
-            { wch: 22 },   // Fecha respuesta
-
-            { wch: 35 },   // Archivo
-
-            { wch: 70 }    // Enlace
-
-        ];
+            const hoja =
+                XLSX.utils.aoa_to_sheet(
+                    datosExcel
+                );
+            
+            
+            // =====================================================
+            // ESTILOS DEL EXCEL
+            // =====================================================
+            
+            // Determinar rango utilizado
+            const rango =
+                XLSX.utils.decode_range(
+                    hoja["!ref"]
+                );
+            
+            
+            // -----------------------------------------------------
+            // ESTILO DE CABECERA
+            // -----------------------------------------------------
+            
+            const estiloCabecera = {
+            
+                fill: {
+                    patternType: "solid",
+                    fgColor: {
+                        rgb: "1F4E78"
+                    }
+                },
+            
+                font: {
+                    color: {
+                        rgb: "FFFFFF"
+                    },
+                    bold: true
+                },
+            
+                alignment: {
+                    horizontal: "center",
+                    vertical: "center",
+                    wrapText: true
+                },
+            
+                border: {
+            
+                    top: {
+                        style: "thin",
+                        color: {
+                            rgb: "FFFFFF"
+                        }
+                    },
+            
+                    bottom: {
+                        style: "thin",
+                        color: {
+                            rgb: "FFFFFF"
+                        }
+                    },
+            
+                    left: {
+                        style: "thin",
+                        color: {
+                            rgb: "FFFFFF"
+                        }
+                    },
+            
+                    right: {
+                        style: "thin",
+                        color: {
+                            rgb: "FFFFFF"
+                        }
+                    }
+            
+                }
+            
+            };
+            
+            
+            // -----------------------------------------------------
+            // ESTILO DE CELDAS CON DATOS
+            // -----------------------------------------------------
+            
+            const estiloDatos = {
+            
+                border: {
+            
+                    top: {
+                        style: "thin",
+                        color: {
+                            rgb: "B7B7B7"
+                        }
+                    },
+            
+                    bottom: {
+                        style: "thin",
+                        color: {
+                            rgb: "B7B7B7"
+                        }
+                    },
+            
+                    left: {
+                        style: "thin",
+                        color: {
+                            rgb: "B7B7B7"
+                        }
+                    },
+            
+                    right: {
+                        style: "thin",
+                        color: {
+                            rgb: "B7B7B7"
+                        }
+                    }
+            
+                },
+            
+                alignment: {
+                    vertical: "top",
+                    wrapText: true
+                }
+            
+            };
+            
+            
+            // =====================================================
+            // APLICAR ESTILOS
+            // =====================================================
+            
+            for (
+                let fila = rango.s.r;
+                fila <= rango.e.r;
+                fila++
+            ) {
+            
+                for (
+                    let columna = rango.s.c;
+                    columna <= rango.e.c;
+                    columna++
+                ) {
+            
+                    const direccion =
+                        XLSX.utils.encode_cell({
+                            r: fila,
+                            c: columna
+                        });
+            
+            
+                    // Si la celda no existe, crearla
+                    if (!hoja[direccion]) {
+            
+                        hoja[direccion] = {
+                            t: "s",
+                            v: ""
+                        };
+            
+                    }
+            
+            
+                    // Primera fila de encabezados
+                    if (fila === 6) {
+            
+                        hoja[direccion].s =
+                            estiloCabecera;
+            
+                    }
+            
+                    // Filas con datos
+                    else if (fila > 6) {
+            
+                        hoja[direccion].s =
+                            estiloDatos;
+            
+                    }
+            
+                }
+            
+            }
+            
+            
+            // =====================================================
+            // ALTURA DE LA CABECERA
+            // =====================================================
+            
+            hoja["!rows"] = [];
+            
+            hoja["!rows"][6] = {
+                hpt: 30
+            };
+            
+            
+            // =====================================================
+            // ANCHO DE COLUMNAS
+            // =====================================================
+            
+            hoja["!cols"] = [
+            
+                { wch: 6 },    // N°
+            
+                { wch: 22 },   // ID
+            
+                { wch: 60 },   // Pregunta
+            
+                { wch: 25 },   // Área
+            
+                { wch: 35 },   // Sede pregunta
+            
+                { wch: 35 },   // Cargo pregunta
+            
+                { wch: 32 },   // Usuario
+            
+                { wch: 22 },   // Fecha
+            
+                { wch: 15 },   // Estado
+            
+                { wch: 70 },   // Respuesta
+            
+                { wch: 35 },   // Sede respondedor
+            
+                { wch: 35 },   // Cargo respondedor
+            
+                { wch: 32 },   // Respondido por
+            
+                { wch: 22 },   // Fecha respuesta
+            
+                { wch: 35 },   // Archivo
+            
+                { wch: 70 }    // Enlace
+            
+            ];
 
 
         // =================================================
