@@ -1873,773 +1873,936 @@
     // =====================================================
 // EXPORTAR EXCEL
 // =====================================================
-
-async function exportarExcel() {
-
-    try {
-
-        // =================================================
-        // VALIDAR REGISTROS
-        // =================================================
-
-        if (todasLasPreguntas.length === 0) {
-
-            alert(
-                "No existen preguntas para exportar."
-            );
-
-            return;
-        }
-
-
-        // =================================================
-        // OBTENER FILTROS ACTUALES
-        // =================================================
-
-        const texto =
-            document
-                .getElementById("buscador")
-                .value
-                .toLowerCase()
-                .trim();
-
-
-        const estadoSeleccionado =
-            document
-                .getElementById("filtroEstado")
-                .value;
-
-
-        // =================================================
-        // APLICAR FILTROS
-        // =================================================
-
-        const preguntasFiltradas =
-            todasLasPreguntas.filter(
-                (pregunta) => {
-
+    // =====================================================
+    // EXPORTAR EXCEL - MÓDULO DE DERIVACIÓN DE CONSULTAS
+    // =====================================================
+    
+    async function exportarExcel() {
+    
+        try {
+    
+            if (todasLasPreguntas.length === 0) {
+    
+                alert("No existen preguntas para exportar.");
+                return;
+    
+            }
+    
+            // =================================================
+            // FILTROS ACTUALES
+            // =================================================
+    
+            const texto =
+                document
+                    .getElementById("buscador")
+                    .value
+                    .toLowerCase()
+                    .trim();
+    
+            const estadoSeleccionado =
+                document
+                    .getElementById("filtroEstado")
+                    .value;
+    
+    
+            // =================================================
+            // APLICAR FILTROS
+            // =================================================
+    
+            const preguntasFiltradas =
+                todasLasPreguntas.filter((pregunta) => {
+    
                     const coincideTexto =
-
+    
                         pregunta.pregunta
                             .toLowerCase()
                             .includes(texto)
-
+    
                         ||
-
+    
                         pregunta.area
                             .toLowerCase()
                             .includes(texto)
-
+    
                         ||
-
+    
                         pregunta.usuarioCorreo
                             .toLowerCase()
                             .includes(texto);
-
-
+    
+    
                     const coincideEstado =
-
+    
                         estadoSeleccionado === "TODOS"
-
+    
                         ||
-
-                        pregunta.estado ===
-                        estadoSeleccionado;
-
-
+    
+                        pregunta.estado === estadoSeleccionado;
+    
+    
                     return (
                         coincideTexto &&
                         coincideEstado
                     );
-
-                }
-            );
-
-
-        if (
-            preguntasFiltradas.length === 0
-        ) {
-
-            alert(
-                "No existen registros para exportar con los filtros seleccionados."
-            );
-
-            return;
-        }
-
-
-        // =================================================
-        // OBTENER RESPUESTAS
-        // =================================================
-
-        const respuestasSnapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "respuestas"
-                )
-            );
-
-
-        const respuestas = {};
-
-
-        respuestasSnapshot.forEach(
-            (documento) => {
-
-                const datos =
-                    documento.data();
-
-
-                if (datos.preguntaId) {
-
-                    respuestas[
-                        datos.preguntaId
-                    ] = datos;
-
-                }
-
+    
+                });
+    
+    
+            if (preguntasFiltradas.length === 0) {
+    
+                alert(
+                    "No existen registros para exportar."
+                );
+    
+                return;
+    
             }
-        );
-
-
-        // =================================================
-        // OBTENER USUARIOS
-        // =================================================
-
-        const usuariosSnapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "usuarios"
-                )
-            );
-
-
-        const usuarios = {};
-
-
-        usuariosSnapshot.forEach(
-            (documento) => {
-
-                const datos =
-                    documento.data();
-
-
-                usuarios[
-                    documento.id
-                ] = datos;
-
-            }
-        );
-
-
-        // =================================================
-        // FECHA DE GENERACIÓN
-        // =================================================
-
-        const ahora =
-            new Date();
-
-
-        const fechaGeneracion =
-            ahora.toLocaleString(
-                "es-PE"
-            );
-
-
-        // =================================================
-        // ENCABEZADO DEL EXCEL
-        // =================================================
-
-        const datosExcel = [
-
-            [
-                "BANCO DE PREGUNTAS Y RESPUESTAS"
-            ],
-
-            [
-                "Fecha de generación",
-                fechaGeneracion
-            ],
-
-            [
-                "Estado filtrado",
-                estadoSeleccionado
-            ],
-
-            [
-                "Texto buscado",
-                texto || "-"
-            ],
-
-            [
-                "Total de registros",
-                preguntasFiltradas.length
-            ],
-
-            [],
-
-            [
-
-                "N°",
-
-                "ID PREGUNTA",
-
-                "PREGUNTA",
-
-                "ÁREA",
-
-                "SEDE OPERATIVA",
-
-                "CARGO DEL USUARIO",
-
-                "USUARIO",
-
-                "FECHA PREGUNTA",
-
-                "ESTADO",
-
-                "RESPUESTA",
-
-                "SEDE OPERATIVA REPLICANTE",
-
-                "CARGO DEL REPLICANTE",
-
-                "RESPONDIDO POR",
-
-                "FECHA RESPUESTA",
-
-                "ARCHIVO",
-
-                "ENLACE ARCHIVO"
-
-            ]
-
-        ];
-
-
-        // =================================================
-        // GENERAR FILAS
-        // =================================================
-
-        preguntasFiltradas.forEach(
-            (pregunta, indice) => {
-
-
-                // =============================================
-                // USUARIO QUE REALIZÓ LA PREGUNTA
-                // =============================================
-
-                const usuarioPregunta =
-                    usuarios[
-                        pregunta.usuarioId
-                    ] || {};
-
-
-                const sedePregunta =
-                    usuarioPregunta.sedeOperativa
-                    || "";
-
-
-                const cargoPregunta =
-                    usuarioPregunta.cargo
-                    || "";
-
-
-                // =============================================
-                // FECHA DE LA PREGUNTA
-                // =============================================
-
-                let fechaPregunta =
-                    "";
-
-
-                if (
-                    pregunta.fecha
-                    &&
-                    typeof pregunta.fecha.toDate ===
-                        "function"
-                ) {
-
-                    fechaPregunta =
-                        pregunta.fecha
-                            .toDate()
-                            .toLocaleString(
-                                "es-PE"
-                            );
-
+    
+    
+            // =================================================
+            // OBTENER RESPUESTAS
+            // =================================================
+    
+            const respuestasSnapshot =
+                await getDocs(
+                    collection(
+                        db,
+                        "respuestas"
+                    )
+                );
+    
+    
+            const respuestas = {};
+    
+    
+            respuestasSnapshot.forEach(
+                (documento) => {
+    
+                    const datos =
+                        documento.data();
+    
+    
+                    if (datos.preguntaId) {
+    
+                        respuestas[
+                            datos.preguntaId
+                        ] = datos;
+    
+                    }
+    
                 }
-
-
-                // =============================================
-                // RESPUESTA
-                // =============================================
-
-                const respuesta =
-                    respuestas[
-                        pregunta.id
-                    ];
-
-
-                let textoRespuesta =
-                    "";
-
-
-                let respondidoPor =
-                    "";
-
-
-                let cargoRespondedor =
-                    "";
-
-
-                let sedeRespondedor =
-                    "";
-
-
-                let fechaRespuesta =
-                    "";
-
-
-                let archivoRespuesta =
-                    "";
-
-
-                if (respuesta) {
-
-
-                    textoRespuesta =
-                        respuesta.respuesta
-                        || "";
-
-
-                    respondidoPor =
-                        respuesta.usuarioCorreo
-                        || "";
-
-
-                    // =========================================
-                    // DATOS DEL RESPONDEDOR
-                    // =========================================
-
-                    const usuarioRespondedor =
-                        usuarios[
-                            respuesta.usuarioId
-                        ] || {};
-
-
-                    cargoRespondedor =
-                        usuarioRespondedor.cargo
-                        || "";
-
-
-                    sedeRespondedor =
-                        usuarioRespondedor.sedeOperativa
-                        || "";
-
-
-                    // =========================================
-                    // FECHA RESPUESTA
-                    // =========================================
-
+            );
+    
+    
+            // =================================================
+            // FECHA DE GENERACIÓN
+            // =================================================
+    
+            const ahora =
+                new Date();
+    
+    
+            const fechaGeneracion =
+                ahora.toLocaleString(
+                    "es-PE"
+                );
+    
+    
+            // =================================================
+            // CREAR ESTRUCTURA
+            // =================================================
+    
+            const datosExcel = [
+    
+                // FILA 1
+                [
+                    "APLICACIÓN DE LA PRUEBA NACIONAL DE LOS CONCURSOS PÚBLICOS PARA EL ASCENSO DE ESCALA DE LOS PROFESORES DE EDUCACIÓN BÁSICA Y DE LOS QUE LABORAN EN INSTITUCIONES EDUCATIVAS ADMINISTRADAS POR EL MINISTERIO DE DEFENSA Y EL MINISTERIO DEL INTERIOR, EN LA CARRERA PÚBLICA MAGISTERIAL, PARA EL AÑO 2026"
+                ],
+    
+    
+                // FILA 2
+                [
+                    "MÓDULO DE DERIVACIÓN DE CONSULTAS DE CAMPO"
+                ],
+    
+    
+                // FILA 3
+                [
+                    "CONSULTADOR",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "RESPONDEDOR",
+                    "",
+                    "",
+                    ""
+                ],
+    
+    
+                // FILA 4
+                [
+                    "FECHA",
+                    "SEDE OPERATIVA",
+                    "CONSULTA",
+                    "EVIDENCIA",
+                    "NOMBRE CONSULTADOR",
+                    "FECHA",
+                    "RESPUESTA",
+                    "CARGO",
+                    "NOMBRE RESPONDEDOR"
+                ]
+    
+            ];
+    
+    
+            // =================================================
+            // REGISTROS
+            // =================================================
+    
+            preguntasFiltradas.forEach(
+                (pregunta) => {
+    
+    
+                    // -----------------------------------------
+                    // FECHA DE LA CONSULTA
+                    // -----------------------------------------
+    
+                    let fechaPregunta = "";
+    
+    
                     if (
-                        respuesta.fecha
-                        &&
-                        typeof respuesta.fecha.toDate ===
-                            "function"
+                        pregunta.fecha &&
+                        typeof pregunta.fecha.toDate ===
+                        "function"
                     ) {
-
-                        fechaRespuesta =
-                            respuesta.fecha
+    
+                        fechaPregunta =
+                            pregunta.fecha
                                 .toDate()
                                 .toLocaleString(
                                     "es-PE"
                                 );
-
+    
                     }
-
-
-                    // =========================================
-                    // ARCHIVO DE LA RESPUESTA
-                    // =========================================
-
-                    archivoRespuesta =
-                        respuesta.archivoNombre
+    
+    
+                    // -----------------------------------------
+                    // RESPUESTA
+                    // -----------------------------------------
+    
+                    const respuesta =
+                        respuestas[
+                            pregunta.id
+                        ];
+    
+    
+                    let fechaRespuesta = "";
+    
+                    let textoRespuesta = "";
+    
+                    let cargoRespondedor = "";
+    
+                    let nombreRespondedor = "";
+    
+    
+                    if (respuesta) {
+    
+    
+                        textoRespuesta =
+                            respuesta.respuesta
+                            || "";
+    
+    
+                        // Fecha de respuesta
+                        if (
+                            respuesta.fecha &&
+                            typeof respuesta.fecha.toDate ===
+                            "function"
+                        ) {
+    
+                            fechaRespuesta =
+                                respuesta.fecha
+                                    .toDate()
+                                    .toLocaleString(
+                                        "es-PE"
+                                    );
+    
+                        }
+    
+    
+                        // Cargo del respondedor
+                        cargoRespondedor =
+                            respuesta.cargo
+                            || "";
+    
+    
+                        // Nombre del respondedor
+                        nombreRespondedor =
+                            respuesta.nombre
+                            || respuesta.nombreRespondedor
+                            || "";
+    
+                    }
+    
+    
+                    // -----------------------------------------
+                    // DATOS DEL CONSULTADOR
+                    // -----------------------------------------
+    
+                    const sedeOperativa =
+                        pregunta.sedeOperativa
                         || "";
-
+    
+    
+                    const nombreConsultador =
+                        pregunta.nombreConsultador
+                        || pregunta.usuarioNombre
+                        || "";
+    
+    
+                    // -----------------------------------------
+                    // EVIDENCIA
+                    // -----------------------------------------
+    
+                    let evidencia = "";
+    
+    
+                    if (
+                        pregunta.archivoUrl
+                    ) {
+    
+                        evidencia =
+                            pregunta.archivoNombre
+                            || "Ver archivo";
+    
+                    }
+    
+    
+                    // -----------------------------------------
+                    // AGREGAR FILA
+                    // -----------------------------------------
+    
+                    datosExcel.push([
+    
+                        fechaPregunta,
+    
+                        sedeOperativa,
+    
+                        pregunta.pregunta
+                        || "",
+    
+                        evidencia,
+    
+                        nombreConsultador,
+    
+                        fechaRespuesta,
+    
+                        textoRespuesta,
+    
+                        cargoRespondedor,
+    
+                        nombreRespondedor
+    
+                    ]);
+    
                 }
-
-
-                // =============================================
-                // ARCHIVO DE LA PREGUNTA
-                // =============================================
-
-                const nombreArchivo =
-                    pregunta.archivoNombre
-                    || archivoRespuesta
-                    || "";
-
-
-                const enlaceArchivo =
-                    pregunta.archivoUrl
-                    || respuesta?.archivoUrl
-                    || "";
-
-
-                // =============================================
-                // AGREGAR FILA
-                // =============================================
-
-                datosExcel.push([
-
-                    indice + 1,
-
-                    pregunta.id,
-
-                    pregunta.pregunta,
-
-                    pregunta.area,
-
-                    sedePregunta,
-
-                    cargoPregunta,
-
-                    pregunta.usuarioCorreo,
-
-                    fechaPregunta,
-
-                    pregunta.estado,
-
-                    textoRespuesta,
-
-                    sedeRespondedor,
-
-                    cargoRespondedor,
-
-                    respondidoPor,
-
-                    fechaRespuesta,
-
-                    nombreArchivo,
-
-                    enlaceArchivo
-
-                ]);
-
-            }
-        );
-
-
-        // =================================================
-        // CREAR HOJA
-        // =================================================
-
+            );
+    
+    
+            // =================================================
+            // INFORMACIÓN DE IMPORTACIÓN
+            // =================================================
+    
+            const filaInformacion =
+                datosExcel.length + 2;
+    
+    
+            datosExcel.push([]);
+    
+    
+            datosExcel.push([
+                "INFORMACIÓN DE IMPORTACIÓN"
+            ]);
+    
+    
+            datosExcel.push([
+                "Fecha de generación",
+                fechaGeneracion
+            ]);
+    
+    
+            datosExcel.push([
+                "Estado filtrado",
+                estadoSeleccionado
+            ]);
+    
+    
+            datosExcel.push([
+                "Texto buscado",
+                texto || "-"
+            ]);
+    
+    
+            datosExcel.push([
+                "Total de registros",
+                preguntasFiltradas.length
+            ]);
+    
+    
+            // =================================================
+            // CREAR HOJA
+            // =================================================
+    
             const hoja =
                 XLSX.utils.aoa_to_sheet(
                     datosExcel
                 );
-            
-            
-            // =====================================================
-            // ESTILOS DEL EXCEL
-            // =====================================================
-            
-            // Determinar rango utilizado
-            const rango =
-                XLSX.utils.decode_range(
-                    hoja["!ref"]
-                );
-            
-            
-            // -----------------------------------------------------
-            // ESTILO DE CABECERA
-            // -----------------------------------------------------
-            
-            const estiloCabecera = {
-            
-                fill: {
-                    patternType: "solid",
-                    fgColor: {
-                        rgb: "1F4E78"
+    
+    
+            // =================================================
+            // ANCHOS DE COLUMNAS
+            // =================================================
+    
+            hoja["!cols"] = [
+    
+                { wch: 20 }, // FECHA
+                { wch: 30 }, // SEDE OPERATIVA
+                { wch: 60 }, // CONSULTA
+                { wch: 25 }, // EVIDENCIA
+                { wch: 30 }, // NOMBRE CONSULTADOR
+                { wch: 20 }, // FECHA RESPUESTA
+                { wch: 65 }, // RESPUESTA
+                { wch: 35 }, // CARGO
+                { wch: 30 }  // NOMBRE RESPONDEDOR
+    
+            ];
+    
+    
+            // =================================================
+            // COMBINAR CELDAS
+            // =================================================
+    
+            hoja["!merges"] = [
+    
+                // TÍTULO PRINCIPAL
+                {
+                    s: { r: 0, c: 0 },
+                    e: { r: 0, c: 8 }
+                },
+    
+                // SUBTÍTULO
+                {
+                    s: { r: 1, c: 0 },
+                    e: { r: 1, c: 8 }
+                },
+    
+                // CONSULTADOR
+                {
+                    s: { r: 2, c: 0 },
+                    e: { r: 2, c: 4 }
+                },
+    
+                // RESPONDEDOR
+                {
+                    s: { r: 2, c: 5 },
+                    e: { r: 2, c: 8 }
+                },
+    
+                // INFORMACIÓN DE IMPORTACIÓN
+                {
+                    s: { r: filaInformacion, c: 0 },
+                    e: { r: filaInformacion, c: 8 }
+                }
+    
+            ];
+    
+    
+            // =================================================
+            // ESTILOS
+            // =================================================
+    
+            const azul =
+                "002060";
+    
+            const blanco =
+                "FFFFFF";
+    
+            const negro =
+                "000000";
+    
+    
+            // -------------------------------------------------
+            // TÍTULO PRINCIPAL
+            // -------------------------------------------------
+    
+            hoja["A1"].s = {
+    
+                font: {
+                    bold: true,
+                    sz: 11,
+                    color: {
+                        rgb: negro
                     }
                 },
-            
-                font: {
-                    color: {
-                        rgb: "FFFFFF"
-                    },
-                    bold: true
-                },
-            
+    
                 alignment: {
                     horizontal: "center",
                     vertical: "center",
                     wrapText: true
-                },
-            
-                border: {
-            
-                    top: {
-                        style: "thin",
-                        color: {
-                            rgb: "FFFFFF"
-                        }
-                    },
-            
-                    bottom: {
-                        style: "thin",
-                        color: {
-                            rgb: "FFFFFF"
-                        }
-                    },
-            
-                    left: {
-                        style: "thin",
-                        color: {
-                            rgb: "FFFFFF"
-                        }
-                    },
-            
-                    right: {
-                        style: "thin",
-                        color: {
-                            rgb: "FFFFFF"
-                        }
-                    }
-            
                 }
-            
+    
             };
-            
-            
-            // -----------------------------------------------------
-            // ESTILO DE CELDAS CON DATOS
-            // -----------------------------------------------------
-            
-            const estiloDatos = {
-            
-                border: {
-            
-                    top: {
-                        style: "thin",
-                        color: {
-                            rgb: "B7B7B7"
-                        }
-                    },
-            
-                    bottom: {
-                        style: "thin",
-                        color: {
-                            rgb: "B7B7B7"
-                        }
-                    },
-            
-                    left: {
-                        style: "thin",
-                        color: {
-                            rgb: "B7B7B7"
-                        }
-                    },
-            
-                    right: {
-                        style: "thin",
-                        color: {
-                            rgb: "B7B7B7"
-                        }
+    
+    
+            // -------------------------------------------------
+            // SUBTÍTULO
+            // -------------------------------------------------
+    
+            hoja["A2"].s = {
+    
+                font: {
+                    bold: true,
+                    sz: 18,
+                    color: {
+                        rgb: negro
                     }
-            
                 },
-            
+    
                 alignment: {
-                    vertical: "top",
-                    wrapText: true
+                    horizontal: "center",
+                    vertical: "center"
                 }
-            
+    
             };
-            
-            
-            // =====================================================
-            // APLICAR ESTILOS
-            // =====================================================
-            
+    
+    
+            // -------------------------------------------------
+            // CABECERAS AGRUPADAS
+            // -------------------------------------------------
+    
             for (
-                let fila = rango.s.r;
-                fila <= rango.e.r;
+                let columna = 0;
+                columna < 9;
+                columna++
+            ) {
+    
+                const celda =
+                    XLSX.utils.encode_cell({
+                        r: 2,
+                        c: columna
+                    });
+    
+    
+                if (
+                    hoja[celda]
+                ) {
+    
+                    hoja[celda].s = {
+    
+                        fill: {
+                            fgColor: {
+                                rgb: azul
+                            }
+                        },
+    
+                        font: {
+                            bold: true,
+                            color: {
+                                rgb: blanco
+                            },
+                            sz: 11
+                        },
+    
+                        alignment: {
+                            horizontal: "center",
+                            vertical: "center"
+                        },
+    
+                        border: {
+    
+                            top: {
+                                style: "thin",
+                                color: {
+                                    rgb: blanco
+                                }
+                            },
+    
+                            bottom: {
+                                style: "thin",
+                                color: {
+                                    rgb: blanco
+                                }
+                            },
+    
+                            left: {
+                                style: "thin",
+                                color: {
+                                    rgb: blanco
+                                }
+                            },
+    
+                            right: {
+                                style: "thin",
+                                color: {
+                                    rgb: blanco
+                                }
+                            }
+    
+                        }
+    
+                    };
+    
+                }
+    
+            }
+    
+    
+            // -------------------------------------------------
+            // CABECERAS DE COLUMNAS
+            // -------------------------------------------------
+    
+            for (
+                let columna = 0;
+                columna < 9;
+                columna++
+            ) {
+    
+                const celda =
+                    XLSX.utils.encode_cell({
+                        r: 3,
+                        c: columna
+                    });
+    
+    
+                hoja[celda].s = {
+    
+                    fill: {
+                        fgColor: {
+                            rgb: azul
+                        }
+                    },
+    
+                    font: {
+                        bold: true,
+                        color: {
+                            rgb: blanco
+                        },
+                        sz: 10
+                    },
+    
+                    alignment: {
+                        horizontal: "center",
+                        vertical: "center",
+                        wrapText: true
+                    },
+    
+                    border: {
+    
+                        top: {
+                            style: "thin",
+                            color: {
+                                rgb: blanco
+                            }
+                        },
+    
+                        bottom: {
+                            style: "thin",
+                            color: {
+                                rgb: blanco
+                            }
+                        },
+    
+                        left: {
+                            style: "thin",
+                            color: {
+                                rgb: blanco
+                            }
+                        },
+    
+                        right: {
+                            style: "thin",
+                            color: {
+                                rgb: blanco
+                            }
+                        }
+    
+                    }
+    
+                };
+    
+            }
+    
+    
+            // =================================================
+            // BORDES DE LOS DATOS
+            // =================================================
+    
+            for (
+                let fila = 4;
+                fila < 4 + preguntasFiltradas.length;
                 fila++
             ) {
-            
+    
                 for (
-                    let columna = rango.s.c;
-                    columna <= rango.e.c;
+                    let columna = 0;
+                    columna < 9;
                     columna++
                 ) {
-            
-                    const direccion =
+    
+                    const celda =
                         XLSX.utils.encode_cell({
                             r: fila,
                             c: columna
                         });
-            
-            
-                    // Si la celda no existe, crearla
-                    if (!hoja[direccion]) {
-            
-                        hoja[direccion] = {
-                            t: "s",
-                            v: ""
+    
+    
+                    if (
+                        hoja[celda]
+                    ) {
+    
+                        hoja[celda].s = {
+    
+                            alignment: {
+    
+                                vertical: "top",
+    
+                                wrapText: true
+    
+                            },
+    
+                            border: {
+    
+                                top: {
+                                    style: "thin",
+                                    color: {
+                                        rgb: "B7B7B7"
+                                    }
+                                },
+    
+                                bottom: {
+                                    style: "thin",
+                                    color: {
+                                        rgb: "B7B7B7"
+                                    }
+                                },
+    
+                                left: {
+                                    style: "thin",
+                                    color: {
+                                        rgb: "B7B7B7"
+                                    }
+                                },
+    
+                                right: {
+                                    style: "thin",
+                                    color: {
+                                        rgb: "B7B7B7"
+                                    }
+                                }
+    
+                            }
+    
                         };
-            
+    
                     }
-            
-            
-                    // Primera fila de encabezados
-                    if (fila === 6) {
-            
-                        hoja[direccion].s =
-                            estiloCabecera;
-            
-                    }
-            
-                    // Filas con datos
-                    else if (fila > 6) {
-            
-                        hoja[direccion].s =
-                            estiloDatos;
-            
-                    }
-            
+    
                 }
-            
+    
             }
-            
-            
-            // =====================================================
-            // ALTURA DE LA CABECERA
-            // =====================================================
-            
-            hoja["!rows"] = [];
-            
-            hoja["!rows"][6] = {
-                hpt: 30
+    
+    
+            // =================================================
+            // INFORMACIÓN DE IMPORTACIÓN
+            // =================================================
+    
+            const filaInfo =
+                filaInformacion;
+    
+    
+            hoja[
+                XLSX.utils.encode_cell({
+                    r: filaInfo,
+                    c: 0
+                })
+            ].s = {
+    
+                fill: {
+                    fgColor: {
+                        rgb: azul
+                    }
+                },
+    
+                font: {
+                    bold: true,
+                    color: {
+                        rgb: blanco
+                    }
+                },
+    
+                alignment: {
+                    horizontal: "left"
+                }
+    
             };
-            
-            
-            // =====================================================
-            // ANCHO DE COLUMNAS
-            // =====================================================
-            
-            hoja["!cols"] = [
-            
-                { wch: 6 },    // N°
-            
-                { wch: 22 },   // ID
-            
-                { wch: 60 },   // Pregunta
-            
-                { wch: 25 },   // Área
-            
-                { wch: 35 },   // Sede pregunta
-            
-                { wch: 35 },   // Cargo pregunta
-            
-                { wch: 32 },   // Usuario
-            
-                { wch: 22 },   // Fecha
-            
-                { wch: 15 },   // Estado
-            
-                { wch: 70 },   // Respuesta
-            
-                { wch: 35 },   // Sede respondedor
-            
-                { wch: 35 },   // Cargo respondedor
-            
-                { wch: 32 },   // Respondido por
-            
-                { wch: 22 },   // Fecha respuesta
-            
-                { wch: 35 },   // Archivo
-            
-                { wch: 70 }    // Enlace
-            
+    
+    
+            // =================================================
+            // BORDES INFORMACIÓN
+            // =================================================
+    
+            for (
+                let fila = filaInfo + 1;
+                fila < datosExcel.length;
+                fila++
+            ) {
+    
+                for (
+                    let columna = 0;
+                    columna < 2;
+                    columna++
+                ) {
+    
+                    const celda =
+                        XLSX.utils.encode_cell({
+                            r: fila,
+                            c: columna
+                        });
+    
+    
+                    if (
+                        hoja[celda]
+                    ) {
+    
+                        hoja[celda].s = {
+    
+                            border: {
+    
+                                top: {
+                                    style: "thin",
+                                    color: {
+                                        rgb: "B7B7B7"
+                                    }
+                                },
+    
+                                bottom: {
+                                    style: "thin",
+                                    color: {
+                                        rgb: "B7B7B7"
+                                    }
+                                },
+    
+                                left: {
+                                    style: "thin",
+                                    color: {
+                                        rgb: "B7B7B7"
+                                    }
+                                },
+    
+                                right: {
+                                    style: "thin",
+                                    color: {
+                                        rgb: "B7B7B7"
+                                    }
+                                }
+    
+                            }
+    
+                        };
+    
+                    }
+    
+                }
+    
+            }
+    
+    
+            // =================================================
+            // ALTURA DE FILAS
+            // =================================================
+    
+            hoja["!rows"] = [
+    
+                {
+                    hpt: 45
+                },
+    
+                {
+                    hpt: 32
+                },
+    
+                {
+                    hpt: 25
+                },
+    
+                {
+                    hpt: 35
+                }
+    
             ];
-
-
-        // =================================================
-        // CREAR LIBRO
-        // =================================================
-
-        const libro =
-            XLSX.utils.book_new();
-
-
-        XLSX.utils.book_append_sheet(
-
-            libro,
-
-            hoja,
-
-            "Preguntas y Respuestas"
-
-        );
-
-
-        // =================================================
-        // NOMBRE DEL ARCHIVO
-        // =================================================
-
-        const fechaArchivo =
-            ahora
-                .toISOString()
-                .slice(
-                    0,
-                    10
-                );
-
-
-        const nombreArchivo =
-            `BANCO_PREGUNTAS_RESPUESTAS_${fechaArchivo}.xlsx`;
-
-
-        // =================================================
-        // DESCARGAR
-        // =================================================
-
-        XLSX.writeFile(
-
-            libro,
-
-            nombreArchivo
-
-        );
-
-
-        alert(
-            "Archivo Excel generado correctamente."
-        );
-
-
-    } catch (error) {
-
-
-        console.error(
-            "Error exportando Excel:",
-            error
-        );
-
-
-        alert(
-
-            "No se pudo generar el archivo Excel.\n\n"
-            +
-            error.message
-
-        );
-
+    
+    
+            // =================================================
+            // CREAR LIBRO
+            // =================================================
+    
+            const libro =
+                XLSX.utils.book_new();
+    
+    
+            XLSX.utils.book_append_sheet(
+    
+                libro,
+    
+                hoja,
+    
+                "Consultas de Campo"
+    
+            );
+    
+    
+            // =================================================
+            // NOMBRE DEL ARCHIVO
+            // =================================================
+    
+            const fechaArchivo =
+                ahora
+                    .toISOString()
+                    .slice(
+                        0,
+                        10
+                    );
+    
+    
+            XLSX.writeFile(
+    
+                libro,
+    
+                `MODULO_DERIVACION_CONSULTAS_${fechaArchivo}.xlsx`
+    
+            );
+    
+    
+        } catch (error) {
+    
+            console.error(
+                "Error exportando Excel:",
+                error
+            );
+    
+    
+            alert(
+    
+                "No se pudo generar el archivo Excel.\n\n"
+                +
+                error.message
+    
+            );
+    
+        }
+    
     }
 
-}
 
 
 
