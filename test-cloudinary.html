@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Prueba Cloudinary</title>
+
+
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f6f8;
+
+            margin: 0;
+
+            padding: 40px;
+
+        }
+
+
+        .card {
+
+            max-width: 600px;
+
+            margin: auto;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 2px 10px
+                rgba(0,0,0,.1);
+
+        }
+
+
+        h1 {
+
+            color: #1f4e78;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            margin: 15px 0;
+
+        }
+
+
+        button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #1f4e78;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+        }
+
+
+        button:disabled {
+
+            background: #999;
+
+            cursor: not-allowed;
+
+        }
+
+
+        #resultado {
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 6px;
+
+            background: #f1f1f1;
+
+            word-break: break-all;
+
+        }
+
+
+        .exito {
+
+            background: #d1e7dd !important;
+
+            color: #0f5132;
+
+        }
+
+
+        .error {
+
+            background: #f8d7da !important;
+
+            color: #842029;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="card">
+
+
+    <h1>
+        Prueba de carga de archivos
+    </h1>
+
+
+    <p>
+        Seleccione un archivo JPG, JPEG o PDF.
+    </p>
+
+
+    <input
+        type="file"
+        id="archivo"
+        accept=".jpg,.jpeg,.pdf">
+
+
+    <button
+        id="btnSubir">
+
+        SUBIR ARCHIVO
+
+    </button>
+
+
+    <div
+        id="resultado">
+
+        Esperando archivo...
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+    // ==================================================
+    // CONFIGURACIÓN CLOUDINARY
+    // ==================================================
+
+    const cloudName =
+        "aiq51pxu";
+
+
+    const uploadPreset =
+        "preguntas_adjuntos";
+
+
+    // ==================================================
+    // ELEMENTOS
+    // ==================================================
+
+    const archivoInput =
+        document.getElementById(
+            "archivo"
+        );
+
+
+    const btnSubir =
+        document.getElementById(
+            "btnSubir"
+        );
+
+
+    const resultado =
+        document.getElementById(
+            "resultado"
+        );
+
+
+    // ==================================================
+    // SUBIR ARCHIVO
+    // ==================================================
+
+    btnSubir.addEventListener(
+        "click",
+        async () => {
+
+
+            const archivo =
+                archivoInput.files[0];
+
+
+            // ------------------------------------------
+            // VALIDAR ARCHIVO
+            // ------------------------------------------
+
+            if (!archivo) {
+
+                resultado.className =
+                    "error";
+
+                resultado.textContent =
+                    "Debe seleccionar un archivo.";
+
+                return;
+
+            }
+
+
+            // ------------------------------------------
+            // VALIDAR EXTENSIÓN
+            // ------------------------------------------
+
+            const nombre =
+                archivo.name.toLowerCase();
+
+
+            const extensionesPermitidas = [
+                ".jpg",
+                ".jpeg",
+                ".pdf"
+            ];
+
+
+            const extensionPermitida =
+                extensionesPermitidas.some(
+                    extension =>
+                        nombre.endsWith(
+                            extension
+                        )
+                );
+
+
+            if (!extensionPermitida) {
+
+                resultado.className =
+                    "error";
+
+                resultado.textContent =
+                    "Solo se permiten archivos JPG, JPEG o PDF.";
+
+                return;
+
+            }
+
+
+            // ------------------------------------------
+            // VALIDAR TAMAÑO
+            // ------------------------------------------
+
+            const maximo =
+                10 * 1024 * 1024;
+
+
+            if (
+                archivo.size >
+                maximo
+            ) {
+
+                resultado.className =
+                    "error";
+
+                resultado.textContent =
+                    "El archivo no puede superar los 10 MB.";
+
+                return;
+
+            }
+
+
+            try {
+
+
+                btnSubir.disabled =
+                    true;
+
+
+                btnSubir.textContent =
+                    "SUBIENDO...";
+
+
+                resultado.className =
+                    "";
+
+
+                resultado.textContent =
+                    "Subiendo archivo a Cloudinary...";
+
+
+                // --------------------------------------
+                // FORM DATA
+                // --------------------------------------
+
+                const formData =
+                    new FormData();
+
+
+                formData.append(
+                    "file",
+                    archivo
+                );
+
+
+                formData.append(
+                    "upload_preset",
+                    uploadPreset
+                );
+
+
+                // --------------------------------------
+                // URL CLOUDINARY
+                // --------------------------------------
+
+                const url =
+                    `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
+
+
+                // --------------------------------------
+                // SUBIR
+                // --------------------------------------
+
+                const respuesta =
+                    await fetch(
+                        url,
+                        {
+
+                            method: "POST",
+
+                            body: formData
+
+                        }
+                    );
+
+
+                const datos =
+                    await respuesta.json();
+
+
+                // --------------------------------------
+                // ERROR
+                // --------------------------------------
+
+                if (!respuesta.ok) {
+
+                    console.error(
+                        datos
+                    );
+
+                    throw new Error(
+                        datos.error?.message
+                        ||
+                        "Error al subir el archivo."
+                    );
+
+                }
+
+
+                // --------------------------------------
+                // ÉXITO
+                // --------------------------------------
+
+                console.log(
+                    "Respuesta Cloudinary:",
+                    datos
+                );
+
+
+                resultado.className =
+                    "exito";
+
+
+                resultado.innerHTML = `
+
+                    <strong>
+                        ✅ Archivo subido correctamente
+                    </strong>
+
+                    <br><br>
+
+                    <strong>
+                        Nombre:
+                    </strong>
+
+                    ${datos.original_filename || archivo.name}
+
+                    <br><br>
+
+                    <strong>
+                        Tipo:
+                    </strong>
+
+                    ${datos.resource_type}
+
+                    <br><br>
+
+                    <strong>
+                        URL:
+                    </strong>
+
+                    <br>
+
+                    <a
+                        href="${datos.secure_url}"
+                        target="_blank">
+
+                        Abrir archivo
+
+                    </a>
+
+                `;
+
+
+            } catch (error) {
+
+
+                console.error(
+                    error
+                );
+
+
+                resultado.className =
+                    "error";
+
+
+                resultado.textContent =
+                    "Error: "
+                    +
+                    error.message;
+
+
+            } finally {
+
+
+                btnSubir.disabled =
+                    false;
+
+
+                btnSubir.textContent =
+                    "SUBIR ARCHIVO";
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>
