@@ -574,8 +574,11 @@
                     <th>
                         ESTADO
                     </th>
-
-
+                    
+                    <th>
+                        ARCHIVO
+                    </th>
+                    
                     <th>
                         ACCIONES
                     </th>
@@ -594,7 +597,7 @@
 
 
                     <td
-                        colspan="7"
+                        colspan="8"
                         class="mensaje cargando">
 
                         Cargando información...
@@ -856,40 +859,34 @@
 
 
                     todasLasPreguntas.push({
-
+                    
                         id:
                             documento.id,
-
-
+                    
                         pregunta:
-                            datos.pregunta
-                            || "",
-
-
-                        // =================================
-                        // ÁREA
-                        // =================================
-
+                            datos.pregunta || "",
+                    
                         area:
-                            obtenerArea(
-                                datos
-                            ),
-
-
+                            obtenerArea(datos),
+                    
                         usuarioCorreo:
-                            datos.usuarioCorreo
-                            || "",
-
-
+                            datos.usuarioCorreo || "",
+                    
                         estado:
-                            datos.estado
-                            || "PENDIENTE",
-
-
+                            datos.estado || "PENDIENTE",
+                    
                         fecha:
-                            datos.fecha
-                            || null
-
+                            datos.fecha || null,
+                    
+                        archivoUrl:
+                            datos.archivoUrl || "",
+                    
+                        archivoNombre:
+                            datos.archivoNombre || "",
+                    
+                        archivoTipo:
+                            datos.archivoTipo || ""
+                    
                     });
 
 
@@ -1059,7 +1056,27 @@
                     `;
 
                 }
+                let botonArchivo = "";
 
+                    if (pregunta.archivoUrl) {
+                    
+                        botonArchivo = `
+                            <a
+                                href="${escapeHTML(pregunta.archivoUrl)}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="boton btn-ver">
+                    
+                                📎 Ver archivo
+                    
+                            </a>
+                        `;
+                    
+                    } else {
+                    
+                        botonArchivo = "—";
+                    
+                    }
 
                 const fila =
                     document.createElement(
@@ -1111,34 +1128,40 @@
 
 
                     <td>
-
+                    
                         <span
                             class="estado ${claseEstado}">
-
+                    
                             ${escapeHTML(
                                 pregunta.estado
                             )}
-
+                    
                         </span>
-
+                    
                     </td>
-
-
+                    
+                    
                     <td>
-
+                    
+                        ${botonArchivo}
+                    
+                    </td>
+                    
+                    
+                    <td>
+                    
                         <a
                             href="detalle-pregunta.html?id=${encodeURIComponent(
                                 pregunta.id
                             )}"
                             class="boton btn-ver">
-
+                    
                             Ver
-
+                    
                         </a>
-
-
+                    
                         ${botonEliminar}
-
+                    
                     </td>
 
                 `;
