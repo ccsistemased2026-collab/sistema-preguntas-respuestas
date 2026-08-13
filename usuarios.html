@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Usuarios</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+        }
+
+        header {
+            background: #1f4e78;
+            color: white;
+            padding: 18px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1300px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+
+            box-shadow:
+                0 2px 10px rgba(0,0,0,.08);
+        }
+
+        .titulo {
+            margin-bottom: 20px;
+        }
+
+        .tabla-contenedor {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #1f4e78;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            font-size: 13px;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .boton {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 6px 10px;
+
+            border: none;
+            border-radius: 5px;
+
+            color: white;
+            cursor: pointer;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+        }
+
+        .editar {
+            background: #1f4e78;
+        }
+
+        .guardar {
+            background: #198754;
+        }
+
+        .cancelar {
+            background: #6c757d;
+        }
+
+        .volver {
+            display: inline-block;
+
+            margin-bottom: 15px;
+
+            padding: 7px 12px;
+
+            background: #6c757d;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 5px;
+
+            font-size: 13px;
+        }
+
+        .mensaje {
+            padding: 12px;
+
+            margin-bottom: 15px;
+
+            border-radius: 6px;
+
+            display: none;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .cargando {
+            text-align: center;
+            padding: 20px;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 7px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 5px;
+
+            font-size: 12px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<header>
+
+    <strong>
+        Administración de usuarios
+    </strong>
+
+</header>
+
+
+<main class="container">
+
+    <a
+        href="dashboard.html"
+        class="volver">
+
+        ← Volver al Dashboard
+
+    </a>
+
+
+    <div
+        id="mensajeError"
+        class="mensaje error">
+    </div>
+
+
+    <div class="card">
+
+        <div class="titulo">
+
+            <h2>
+                Usuarios registrados
+            </h2>
+
+        </div>
+
+
+        <div
+            id="cargando"
+            class="cargando">
+
+            Cargando usuarios...
+
+        </div>
+
+
+        <div
+            class="tabla-contenedor">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            NOMBRE
+                        </th>
+
+                        <th>
+                            CORREO
+                        </th>
+
+                        <th>
+                            CARGO
+                        </th>
+
+                        <th>
+                            SEDE OPERATIVA
+                        </th>
+
+                        <th>
+                            ROL
+                        </th>
+
+                        <th>
+                            ACCIONES
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody
+                    id="tablaUsuarios">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<script type="module">
+
+
+    // =====================================================
+    // IMPORTACIONES FIREBASE
+    // =====================================================
+
+    import {
+        initializeApp
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+    import {
+        getAuth,
+        onAuthStateChanged
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+    import {
+        getFirestore,
+        collection,
+        getDocs,
+        doc,
+        getDoc,
+        updateDoc
+    }
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+    // =====================================================
+    // CONFIGURACIÓN
+    // =====================================================
+
+    const firebaseConfig = {
+
+        apiKey:
+            "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
+
+        authDomain:
+            "sistema-preguntas-respuestas.firebaseapp.com",
+
+        projectId:
+            "sistema-preguntas-respuestas",
+
+        storageBucket:
+            "sistema-preguntas-respuestas.firebasestorage.app",
+
+        messagingSenderId:
+            "606737336904",
+
+        appId:
+            "1:606737336904:web:44fb42be60fbdaaf08667d"
+
+    };
+
+
+    // =====================================================
+    // FIREBASE
+    // =====================================================
+
+    const app =
+        initializeApp(
+            firebaseConfig
+        );
+
+
+    const auth =
+        getAuth(app);
+
+
+    const db =
+        getFirestore(app);
+
+
+    // =====================================================
+    // ELEMENTOS
+    // =====================================================
+
+    const tablaUsuarios =
+        document.getElementById(
+            "tablaUsuarios"
+        );
+
+
+    const cargando =
+        document.getElementById(
+            "cargando"
+        );
+
+
+    const mensajeError =
+        document.getElementById(
+            "mensajeError"
+        );
+
+
+    // =====================================================
+    // ERROR
+    // =====================================================
+
+    function mostrarError(mensaje) {
+
+        mensajeError.textContent =
+            mensaje;
+
+        mensajeError.style.display =
+            "block";
+
+        cargando.style.display =
+            "none";
+
+    }
+
+
+    // =====================================================
+    // SESIÓN
+    // =====================================================
+
+    onAuthStateChanged(
+
+        auth,
+
+        async (user) => {
+
+            if (!user) {
+
+                window.location.href =
+                    "login.html";
+
+                return;
+
+            }
+
+
+            try {
+
+                // =========================================
+                // VERIFICAR PERFIL
+                // =========================================
+
+                const usuarioRef =
+                    doc(
+                        db,
+                        "usuarios",
+                        user.uid
+                    );
+
+
+                const usuarioSnapshot =
+                    await getDoc(
+                        usuarioRef
+                    );
+
+
+                if (
+                    !usuarioSnapshot.exists()
+                ) {
+
+                    mostrarError(
+                        "No existe el perfil del usuario."
+                    );
+
+                    return;
+
+                }
+
+
+                const usuarioActual =
+                    usuarioSnapshot.data();
+
+
+                // =========================================
+                // VERIFICAR ADMINISTRADOR
+                // =========================================
+
+                if (
+                    usuarioActual.rol !==
+                    "ADMINISTRADOR"
+                ) {
+
+                    mostrarError(
+                        "No tiene permisos para acceder a este módulo."
+                    );
+
+                    return;
+
+                }
+
+
+                // =========================================
+                // CARGAR USUARIOS
+                // =========================================
+
+                await cargarUsuarios();
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                mostrarError(
+                    "No fue posible verificar los permisos."
+                );
+
+            }
+
+        }
+
+    );
+
+
+    // =====================================================
+    // CARGAR USUARIOS
+    // =====================================================
+
+    async function cargarUsuarios() {
+
+        try {
+
+            const resultado =
+                await getDocs(
+                    collection(
+                        db,
+                        "usuarios"
+                    )
+                );
+
+
+            tablaUsuarios.innerHTML =
+                "";
+
+
+            resultado.forEach(
+                (documento) => {
+
+                    const datos =
+                        documento.data();
+
+
+                    const fila =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    fila.innerHTML = `
+
+                        <td>
+                            ${datos.nombre || "-"}
+                        </td>
+
+                        <td>
+                            ${datos.correo || "-"}
+                        </td>
+
+                        <td>
+                            ${datos.cargo || "-"}
+                        </td>
+
+                        <td>
+                            ${datos.sedeOperativa || "-"}
+                        </td>
+
+                        <td>
+                            ${datos.rol || "-"}
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="boton editar"
+                                data-id="${documento.id}">
+
+                                Editar
+
+                            </button>
+
+                        </td>
+
+                    `;
+
+
+                    tablaUsuarios.appendChild(
+                        fila
+                    );
+
+                }
+            );
+
+
+            // =========================================
+            // EVENTOS EDITAR
+            // =========================================
+
+            document
+                .querySelectorAll(
+                    ".editar"
+                )
+                .forEach(
+                    (boton) => {
+
+                        boton.addEventListener(
+                            "click",
+                            () => {
+
+                                editarUsuario(
+                                    boton.dataset.id
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+
+            cargando.style.display =
+                "none";
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            mostrarError(
+                "No fue posible cargar los usuarios."
+            );
+
+        }
+
+    }
+
+
+    // =====================================================
+    // EDITAR USUARIO
+    // =====================================================
+
+    function editarUsuario(id) {
+
+        const fila =
+            document
+                .querySelector(
+                    `.editar[data-id="${id}"]`
+                )
+                .closest("tr");
+
+
+        const nombre =
+            fila.children[0]
+                .textContent
+                .trim();
+
+
+        const correo =
+            fila.children[1]
+                .textContent
+                .trim();
+
+
+        const cargoActual =
+            fila.children[2]
+                .textContent
+                .trim();
+
+
+        const sedeActual =
+            fila.children[3]
+                .textContent
+                .trim();
+
+
+        const rolActual =
+            fila.children[4]
+                .textContent
+                .trim();
+
+
+        fila.innerHTML = `
+
+            <td>
+                ${nombre}
+            </td>
+
+            <td>
+                ${correo}
+            </td>
+
+            <td>
+
+                <input
+                    type="text"
+                    class="inputCargo"
+                    value="${
+                        cargoActual === "-"
+                        ? ""
+                        : cargoActual
+                    }">
+
+            </td>
+
+            <td>
+
+                <input
+                    type="text"
+                    class="inputSede"
+                    value="${
+                        sedeActual === "-"
+                        ? ""
+                        : sedeActual
+                    }">
+
+            </td>
+
+            <td>
+
+                <select
+                    class="inputRol">
+
+                    <option
+                        value="CONSULTOR"
+                        ${
+                            rolActual === "CONSULTOR"
+                            ? "selected"
+                            : ""
+                        }>
+
+                        CONSULTOR
+
+                    </option>
+
+                    <option
+                        value="RESPONDEDOR"
+                        ${
+                            rolActual === "RESPONDEDOR"
+                            ? "selected"
+                            : ""
+                        }>
+
+                        RESPONDEDOR
+
+                    </option>
+
+                    <option
+                        value="ADMINISTRADOR"
+                        ${
+                            rolActual === "ADMINISTRADOR"
+                            ? "selected"
+                            : ""
+                        }>
+
+                        ADMINISTRADOR
+
+                    </option>
+
+                </select>
+
+            </td>
+
+            <td>
+
+                <button
+                    class="boton guardar"
+                    id="guardar-${id}">
+
+                    Guardar
+
+                </button>
+
+                <button
+                    class="boton cancelar"
+                    id="cancelar-${id}">
+
+                    Cancelar
+
+                </button>
+
+            </td>
+
+        `;
+
+
+        // =============================================
+        // GUARDAR
+        // =============================================
+
+        document
+            .getElementById(
+                `guardar-${id}`
+            )
+            .addEventListener(
+                "click",
+                async () => {
+
+                    await guardarUsuario(
+                        id,
+                        fila
+                    );
+
+                }
+            );
+
+
+        // =============================================
+        // CANCELAR
+        // =============================================
+
+        document
+            .getElementById(
+                `cancelar-${id}`
+            )
+            .addEventListener(
+                "click",
+                () => {
+
+                    cargarUsuarios();
+
+                }
+            );
+
+    }
+
+
+    // =====================================================
+    // GUARDAR USUARIO
+    // =====================================================
+
+    async function guardarUsuario(
+        id,
+        fila
+    ) {
+
+        try {
+
+            const cargo =
+                fila
+                    .querySelector(
+                        ".inputCargo"
+                    )
+                    .value
+                    .trim();
+
+
+            const sede =
+                fila
+                    .querySelector(
+                        ".inputSede"
+                    )
+                    .value
+                    .trim();
+
+
+            const rol =
+                fila
+                    .querySelector(
+                        ".inputRol"
+                    )
+                    .value;
+
+
+            if (!cargo) {
+
+                alert(
+                    "Ingrese el cargo."
+                );
+
+                return;
+
+            }
+
+
+            if (!sede) {
+
+                alert(
+                    "Ingrese la sede operativa."
+                );
+
+                return;
+
+            }
+
+
+            await updateDoc(
+
+                doc(
+                    db,
+                    "usuarios",
+                    id
+                ),
+
+                {
+
+                    cargo:
+                        cargo,
+
+                    sedeOperativa:
+                        sede,
+
+                    rol:
+                        rol
+
+                }
+
+            );
+
+
+            alert(
+                "Usuario actualizado correctamente."
+            );
+
+
+            await cargarUsuarios();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "No fue posible actualizar el usuario."
+            );
+
+        }
+
+    }
+
+
+</script>
+
+</body>
+
+</html>
