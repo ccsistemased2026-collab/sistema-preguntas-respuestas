@@ -10,145 +10,451 @@
 
     <title>Detalle de pregunta</title>
 
+
     <style>
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
+        * {
+            box-sizing: border-box;
         }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f4f6f8;
+
+            margin: 0;
+
+            color: #333;
+
+        }
+
 
         header {
+
             background: #1f4e78;
+
             color: white;
+
             padding: 20px 30px;
+
         }
+
+
+        header h2 {
+
+            margin: 0;
+
+        }
+
 
         .container {
+
             width: 90%;
+
             max-width: 900px;
+
             margin: 30px auto;
+
         }
+
 
         .card {
+
             background: white;
+
             padding: 25px;
+
             margin-bottom: 20px;
+
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,.08);
+
+            box-shadow:
+                0 2px 8px
+                rgba(0, 0, 0, .08);
+
         }
+
 
         .titulo {
+
             font-weight: bold;
+
             color: #555;
+
             margin-top: 15px;
+
+            margin-bottom: 5px;
+
         }
+
 
         .pregunta {
+
             font-size: 20px;
+
             margin-top: 8px;
+
             line-height: 1.6;
+
         }
+
 
         .estado {
+
             display: inline-block;
+
             margin-top: 8px;
+
             padding: 7px 12px;
+
             border-radius: 5px;
+
             font-weight: bold;
+
         }
+
 
         .pendiente {
+
             background: #fff3cd;
+
             color: #856404;
+
         }
+
 
         .respondida {
+
             background: #d1e7dd;
+
             color: #0f5132;
+
         }
+
 
         textarea {
+
             width: 100%;
+
             min-height: 150px;
+
             padding: 12px;
+
             box-sizing: border-box;
+
             border: 1px solid #ccc;
+
             border-radius: 6px;
+
             font-size: 15px;
+
+            resize: vertical;
+
         }
 
-            button,
-            .volver,
-            .btn-archivo {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-            
-                margin-top: 15px;
-            
-                padding: 7px 12px;
-            
-                border: none;
-            
-                border-radius: 5px;
-            
-                background: #1f4e78;
-            
-                color: white;
-            
-                cursor: pointer;
-            
-                text-decoration: none;
-            
-                font-size: 13px;
-            
-                line-height: 1.2;
-            }
-            
-            button:hover,
-            .volver:hover,
-            .btn-archivo:hover {
-                opacity: 0.9;
-            }
-            
-            .btn-volver {
-                background: #6c757d;
-            }
-            
-            .btn-responder {
-                background: #1f4e78;
-            }
-            
-            .btn-archivo {
-                background: #5c6f82;
-            }
 
-        #contenido {
-            display: none;
+        button,
+        .volver,
+        .btn-archivo {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-top: 15px;
+
+            padding: 7px 12px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: #1f4e78;
+
+            color: white;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            line-height: 1.2;
+
         }
 
-        #error {
-            display: none;
-            background: #f8d7da;
-            color: #842029;
-            padding: 15px;
+
+        button:hover,
+        .volver:hover,
+        .btn-archivo:hover {
+
+            opacity: .9;
+
+        }
+
+
+        button:disabled {
+
+            opacity: .6;
+
+            cursor: not-allowed;
+
+        }
+
+
+        .btn-volver {
+
+            background: #6c757d;
+
+        }
+
+
+        .btn-responder {
+
+            background: #1f4e78;
+
+        }
+
+
+        .btn-archivo {
+
+            background: #5c6f82;
+
+        }
+
+
+        /* =========================================
+           DERIVACIÓN
+        ========================================= */
+
+        .derivacion {
+
+            margin-top: 20px;
+
+            padding: 18px;
+
+            background: #f8f9fa;
+
+            border: 1px solid #dee2e6;
+
+            border-radius: 8px;
+
+        }
+
+
+        .derivacion-titulo {
+
+            font-weight: bold;
+
+            color: #1f4e78;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .derivacion-contenedor {
+
+            display: flex;
+
+            gap: 10px;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .derivacion select {
+
+            padding: 9px 12px;
+
+            border: 1px solid #ced4da;
+
             border-radius: 6px;
-            margin-bottom: 20px;
+
+            font-size: 14px;
+
+            min-width: 280px;
+
+            background: white;
+
         }
+
+
+        .btn-derivar {
+
+            background: #198754;
+
+            margin-top: 0;
+
+        }
+
+
+        .btn-derivar:hover {
+
+            background: #157347;
+
+        }
+
+
+        .mensaje-derivacion {
+
+            margin-top: 12px;
+
+            padding: 10px;
+
+            border-radius: 6px;
+
+            display: none;
+
+            font-size: 14px;
+
+        }
+
+
+        .mensaje-exito {
+
+            display: block;
+
+            background: #d1e7dd;
+
+            color: #0f5132;
+
+            border: 1px solid #badbcc;
+
+        }
+
+
+        .mensaje-error {
+
+            display: block;
+
+            background: #f8d7da;
+
+            color: #842029;
+
+            border: 1px solid #f5c2c7;
+
+        }
+
+
+        /* =========================================
+           ARCHIVOS
+        ========================================= */
 
         .archivo-imagen {
+
             display: block;
-        
+
             max-width: 100%;
-        
+
             max-height: 450px;
-        
+
             margin-top: 12px;
-        
+
             border: 1px solid #ddd;
-        
+
             border-radius: 6px;
+
+        }
+
+
+        /* =========================================
+           MENSAJES
+        ========================================= */
+
+        #contenido {
+
+            display: none;
+
+        }
+
+
+        #error {
+
+            display: none;
+
+            background: #f8d7da;
+
+            color: #842029;
+
+            padding: 15px;
+
+            border-radius: 6px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .cargando {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 2px 8px
+                rgba(0, 0, 0, .08);
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 700px) {
+
+            .container {
+
+                width: 95%;
+
+            }
+
+
+            .card {
+
+                padding: 18px;
+
+            }
+
+
+            .derivacion-contenedor {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+            }
+
+
+            .derivacion select {
+
+                width: 100%;
+
+                min-width: 0;
+
+            }
+
+
+            .btn-derivar {
+
+                width: 100%;
+
+            }
+
         }
 
     </style>
@@ -158,34 +464,57 @@
 
 <body>
 
+
 <header>
 
-    <h2>Detalle de pregunta</h2>
+    <h2>
+        Detalle de pregunta
+    </h2>
 
 </header>
 
 
 <main class="container">
 
-    <div id="cargando" class="card">
+
+    <!-- =========================================
+         CARGANDO
+    ========================================== -->
+
+    <div
+        id="cargando"
+        class="cargando">
 
         Cargando información...
 
     </div>
 
 
+    <!-- =========================================
+         ERROR
+    ========================================== -->
+
     <div id="error"></div>
 
 
+    <!-- =========================================
+         CONTENIDO
+    ========================================== -->
+
     <div id="contenido">
 
-        <!-- PREGUNTA -->
+
+        <!-- =====================================
+             PREGUNTA
+        ====================================== -->
 
         <div class="card">
+
 
             <div class="titulo">
                 Pregunta
             </div>
+
 
             <div
                 id="pregunta"
@@ -197,13 +526,121 @@
                 Área
             </div>
 
+
             <div id="area">
             </div>
 
 
+            <!-- =================================
+                 DERIVACIÓN
+            ================================== -->
+
+            <div
+                id="contenedorDerivacion"
+                class="derivacion"
+                style="display:none;">
+
+
+                <div class="derivacion-titulo">
+
+                    🔄 Derivar pregunta a otra área
+
+                </div>
+
+
+                <div
+                    style="
+                        font-size:13px;
+                        color:#666;
+                        margin-bottom:12px;
+                    ">
+
+                    Seleccione el área a la que desea
+                    derivar la pregunta.
+
+                </div>
+
+
+                <div class="derivacion-contenedor">
+
+
+                    <select
+                        id="selectAreaDerivacion">
+
+
+                        <option
+                            value="">
+
+                            Seleccione un área
+
+                        </option>
+
+
+                        <option
+                            value="METODOLOGÍA">
+
+                            METODOLOGÍA
+
+                        </option>
+
+
+                        <option
+                            value="CAPACITACIÓN">
+
+                            CAPACITACIÓN
+
+                        </option>
+
+
+                        <option
+                            value="ADMIN Y RRHH">
+
+                            ADMIN Y RRHH
+
+                        </option>
+
+
+                        <option
+                            value="SISTEMAS">
+
+                            SISTEMAS
+
+                        </option>
+
+
+                    </select>
+
+
+                    <button
+                        type="button"
+                        id="btnDerivar"
+                        class="btn-derivar">
+
+                        🔄 DERIVAR PREGUNTA
+
+                    </button>
+
+
+                </div>
+
+
+                <div
+                    id="mensajeDerivacion"
+                    class="mensaje-derivacion">
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================
+                 ESTADO
+            ================================== -->
+
             <div class="titulo">
                 Estado
             </div>
+
 
             <span
                 id="estado"
@@ -211,43 +648,67 @@
             </span>
 
 
+            <!-- =================================
+                 USUARIO
+            ================================== -->
+
             <div class="titulo">
                 Usuario
             </div>
+
 
             <div id="usuario">
             </div>
 
 
+            <!-- =================================
+                 FECHA
+            ================================== -->
+
             <div class="titulo">
                 Fecha
             </div>
 
+
             <div id="fecha">
             </div>
+
+
+            <!-- =================================
+                 ARCHIVO
+            ================================== -->
 
             <div
                 id="contenedorArchivo"
                 style="display:none;">
-            
+
+
                 <div class="titulo">
                     Archivo adjunto
                 </div>
-            
+
+
                 <div id="archivo">
                 </div>
-            
+
+
             </div>
+
+
         </div>
 
 
-        <!-- RESPUESTA -->
+        <!-- =====================================
+             RESPUESTA
+        ====================================== -->
 
         <div class="card">
+
 
             <div class="titulo">
                 Respuesta
             </div>
+
 
             <div id="respuesta">
 
@@ -255,47 +716,63 @@
 
             </div>
 
+
         </div>
 
 
-        <!-- FORMULARIO -->
+        <!-- =====================================
+             FORMULARIO RESPUESTA
+        ====================================== -->
 
         <div
             id="formularioRespuesta"
             class="card"
             style="display:none;">
 
+
             <div class="titulo">
+
                 Registrar respuesta
+
             </div>
 
+
             <br>
+
 
             <textarea
                 id="textoRespuesta"
                 placeholder="Escriba la respuesta...">
             </textarea>
 
+
             <br>
+
 
             <button
                 id="btnResponder"
                 class="btn-responder">
-            
+
                 REGISTRAR RESPUESTA
-            
+
             </button>
+
 
         </div>
 
 
+        <!-- =====================================
+             VOLVER
+        ====================================== -->
+
         <a
             href="preguntas.html"
             class="volver btn-volver">
-        
+
             ← Volver a preguntas
-        
+
         </a>
+
 
     </div>
 
@@ -304,18 +781,25 @@
 
 <script type="module">
 
+
     // =========================================
     // FIREBASE
     // =========================================
 
-    import { initializeApp }
-    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import {
+        initializeApp
+    }
+    from
+        "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
     import {
         getAuth,
         onAuthStateChanged
     }
-    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    from
+        "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 
     import {
         getFirestore,
@@ -329,21 +813,33 @@
         updateDoc,
         serverTimestamp
     }
-    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    from
+        "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
     // =========================================
-    // CONFIGURACIÓN
+    // CONFIGURACIÓN FIREBASE
     // =========================================
 
     const firebaseConfig = {
 
-          apiKey: "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
-          authDomain: "sistema-preguntas-respuestas.firebaseapp.com",
-          projectId: "sistema-preguntas-respuestas",
-          storageBucket: "sistema-preguntas-respuestas.firebasestorage.app",
-          messagingSenderId: "606737336904",
-          appId: "1:606737336904:web:44fb42be60fbdaaf08667d"
+        apiKey:
+            "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
+
+        authDomain:
+            "sistema-preguntas-respuestas.firebaseapp.com",
+
+        projectId:
+            "sistema-preguntas-respuestas",
+
+        storageBucket:
+            "sistema-preguntas-respuestas.firebasestorage.app",
+
+        messagingSenderId:
+            "606737336904",
+
+        appId:
+            "1:606737336904:web:44fb42be60fbdaaf08667d"
 
     };
 
@@ -353,10 +849,14 @@
     // =========================================
 
     const app =
-        initializeApp(firebaseConfig);
+        initializeApp(
+            firebaseConfig
+        );
+
 
     const auth =
         getAuth(app);
+
 
     const db =
         getFirestore(app);
@@ -367,30 +867,96 @@
     // =========================================
 
     const cargando =
-        document.getElementById("cargando");
+        document.getElementById(
+            "cargando"
+        );
+
 
     const contenido =
-        document.getElementById("contenido");
+        document.getElementById(
+            "contenido"
+        );
+
 
     const error =
-        document.getElementById("error");
+        document.getElementById(
+            "error"
+        );
+
+
+    const contenedorDerivacion =
+        document.getElementById(
+            "contenedorDerivacion"
+        );
+
+
+    const selectAreaDerivacion =
+        document.getElementById(
+            "selectAreaDerivacion"
+        );
+
+
+    const btnDerivar =
+        document.getElementById(
+            "btnDerivar"
+        );
+
+
+    const mensajeDerivacion =
+        document.getElementById(
+            "mensajeDerivacion"
+        );
+
+
+    // =========================================
+    // VARIABLES
+    // =========================================
+
+    let usuarioActual = null;
+
+    let preguntaActual = null;
+
+
+    // =========================================
+    // ÁREAS DISPONIBLES
+    // =========================================
+
+    const areasDisponibles = [
+
+        "METODOLOGÍA",
+
+        "CAPACITACIÓN",
+
+        "ADMIN Y RRHH",
+
+        "SISTEMAS"
+
+    ];
 
 
     // =========================================
     // MOSTRAR ERROR
     // =========================================
 
-    function mostrarError(mensaje) {
+    function mostrarError(
+        mensaje
+    ) {
 
-        cargando.style.display = "none";
+        cargando.style.display =
+            "none";
+
 
         error.textContent =
             mensaje;
 
+
         error.style.display =
             "block";
 
-        console.error(mensaje);
+
+        console.error(
+            mensaje
+        );
 
     }
 
@@ -404,8 +970,11 @@
             window.location.search
         );
 
+
     const preguntaId =
-        parametros.get("id");
+        parametros.get(
+            "id"
+        );
 
 
     console.log(
@@ -428,8 +997,11 @@
     // =========================================
 
     onAuthStateChanged(
+
         auth,
+
         async function(user) {
+
 
             console.log(
                 "Usuario:",
@@ -449,8 +1021,9 @@
 
             try {
 
+
                 // =================================
-                // PERFIL
+                // PERFIL DEL USUARIO
                 // =================================
 
                 const usuarioRef =
@@ -467,7 +1040,9 @@
                     );
 
 
-                if (!usuarioSnapshot.exists()) {
+                if (
+                    !usuarioSnapshot.exists()
+                ) {
 
                     mostrarError(
                         "No existe el documento del usuario en Firestore."
@@ -478,13 +1053,13 @@
                 }
 
 
-                const usuario =
+                usuarioActual =
                     usuarioSnapshot.data();
 
 
                 console.log(
                     "ROL:",
-                    usuario.rol
+                    usuarioActual.rol
                 );
 
 
@@ -506,7 +1081,9 @@
                     );
 
 
-                if (!preguntaSnapshot.exists()) {
+                if (
+                    !preguntaSnapshot.exists()
+                ) {
 
                     mostrarError(
                         "La pregunta no existe en Firestore."
@@ -517,13 +1094,13 @@
                 }
 
 
-                const datos =
+                preguntaActual =
                     preguntaSnapshot.data();
 
 
                 console.log(
                     "Pregunta:",
-                    datos
+                    preguntaActual
                 );
 
 
@@ -531,162 +1108,11 @@
                 // MOSTRAR DATOS
                 // =================================
 
-                document.getElementById(
-                    "pregunta"
-                ).textContent =
-                    datos.pregunta || "";
-
-
-                document.getElementById(
-                    "area"
-                ).textContent =
-                    datos.area || "";
-
-
-                document.getElementById(
-                    "usuario"
-                ).textContent =
-                    datos.usuarioCorreo || "";
-
-
-                const estado =
-                    datos.estado || "PENDIENTE";
-
-
-                const estadoElemento =
-                    document.getElementById(
-                        "estado"
-                    );
-
-
-                estadoElemento.textContent =
-                    estado;
-
-
-                estadoElemento.className =
-                    "estado " +
-                    (
-                        estado === "RESPONDIDA"
-                            ? "respondida"
-                            : "pendiente"
-                    );
-
-
-                if (datos.fecha) {
-
-                    document.getElementById(
-                        "fecha"
-                    ).textContent =
-                        datos.fecha
-                            .toDate()
-                            .toLocaleString(
-                                "es-PE"
-                            );
-
-                } else {
-
-                    document.getElementById(
-                        "fecha"
-                    ).textContent =
-                        "-";
-
-                }
-
-                // =========================================
-                // ARCHIVO ADJUNTO
-                // =========================================
-                
-                const contenedorArchivo =
-                    document.getElementById(
-                        "contenedorArchivo"
-                    );
-                
-                const archivoElemento =
-                    document.getElementById(
-                        "archivo"
-                    );
-                
-                
-                if (datos.archivoUrl) {
-                
-                    contenedorArchivo.style.display =
-                        "block";
-                
-                
-                    const nombreArchivo =
-                        datos.archivoNombre ||
-                        "Archivo adjunto";
-                
-                
-                    const tipoArchivo =
-                        datos.archivoTipo || "";
-                
-                
-                    // =====================================
-                    // IMAGEN
-                    // =====================================
-                
-                    if (
-                        tipoArchivo === "image" ||
-                        /\.(jpg|jpeg)$/i.test(
-                            nombreArchivo
-                        )
-                    ) {
-                
-                        archivoElemento.innerHTML = `
-                
-                            <img
-                                src="${datos.archivoUrl}"
-                                alt="${nombreArchivo}"
-                                class="archivo-imagen">
-                
-                            <br>
-                
-                            <a
-                                href="${datos.archivoUrl}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="btn-archivo">
-                
-                                📎 Abrir imagen
-                
-                            </a>
-                
-                        `;
-                
-                    }
-                
-                    // =====================================
-                    // PDF
-                    // =====================================
-                
-                    else {
-                
-                        archivoElemento.innerHTML = `
-                
-                            <a
-                                href="${datos.archivoUrl}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="btn-archivo">
-                
-                                📎 Ver PDF
-                
-                            </a>
-                
-                            <span style="margin-left:8px;">
-                                ${nombreArchivo}
-                            </span>
-                
-                        `;
-                
-                    }
-                
-                }
+                mostrarDatosPregunta();
 
 
                 // =================================
-                // BUSCAR RESPUESTA
+                // RESPUESTA
                 // =================================
 
                 await cargarRespuesta(
@@ -695,24 +1121,17 @@
 
 
                 // =================================
-                // MOSTRAR FORMULARIO
+                // FORMULARIO RESPUESTA
                 // =================================
 
-                if (
-                    usuario.rol === "RESPONDEDOR" ||
-                    usuario.rol === "ADMINISTRADOR"
-                ) {
+                mostrarFormularioRespuesta();
 
-                    if (estado === "PENDIENTE") {
 
-                        document.getElementById(
-                            "formularioRespuesta"
-                        ).style.display =
-                            "block";
+                // =================================
+                // OPCIÓN DERIVAR
+                // =================================
 
-                    }
-
-                }
+                mostrarOpcionDerivacion();
 
 
                 // =================================
@@ -722,6 +1141,7 @@
                 cargando.style.display =
                     "none";
 
+
                 contenido.style.display =
                     "block";
 
@@ -730,21 +1150,675 @@
 
                 console.error(e);
 
+
                 mostrarError(
-                    "Error: " + e.message
+                    "Error: " +
+                    e.message
                 );
 
             }
 
         }
+
     );
+
+
+    // =========================================
+    // MOSTRAR DATOS DE LA PREGUNTA
+    // =========================================
+
+    function mostrarDatosPregunta() {
+
+
+        document.getElementById(
+            "pregunta"
+        ).textContent =
+            preguntaActual.pregunta
+            || "";
+
+
+        document.getElementById(
+            "area"
+        ).textContent =
+            preguntaActual.area
+            || "";
+
+
+        document.getElementById(
+            "usuario"
+        ).textContent =
+            preguntaActual.usuarioCorreo
+            || "";
+
+
+        const estado =
+            preguntaActual.estado
+            || "PENDIENTE";
+
+
+        const estadoElemento =
+            document.getElementById(
+                "estado"
+            );
+
+
+        estadoElemento.textContent =
+            estado;
+
+
+        estadoElemento.className =
+            "estado " +
+            (
+                estado === "RESPONDIDA"
+                    ? "respondida"
+                    : "pendiente"
+            );
+
+
+        // =====================================
+        // FECHA
+        // =====================================
+
+        if (
+            preguntaActual.fecha
+        ) {
+
+            try {
+
+                document.getElementById(
+                    "fecha"
+                ).textContent =
+                    preguntaActual.fecha
+                        .toDate()
+                        .toLocaleString(
+                            "es-PE"
+                        );
+
+            } catch {
+
+                document.getElementById(
+                    "fecha"
+                ).textContent =
+                    "-";
+
+            }
+
+        } else {
+
+            document.getElementById(
+                "fecha"
+            ).textContent =
+                "-";
+
+        }
+
+
+        // =====================================
+        // ARCHIVO
+        // =====================================
+
+        mostrarArchivo();
+
+    }
+
+
+    // =========================================
+    // MOSTRAR ARCHIVO
+    // =========================================
+
+    function mostrarArchivo() {
+
+
+        const contenedorArchivo =
+            document.getElementById(
+                "contenedorArchivo"
+            );
+
+
+        const archivoElemento =
+            document.getElementById(
+                "archivo"
+            );
+
+
+        if (
+            preguntaActual.archivoUrl
+        ) {
+
+
+            contenedorArchivo.style.display =
+                "block";
+
+
+            const nombreArchivo =
+                preguntaActual.archivoNombre
+                ||
+                "Archivo adjunto";
+
+
+            const tipoArchivo =
+                preguntaActual.archivoTipo
+                ||
+                "";
+
+
+            // =================================
+            // IMAGEN
+            // =================================
+
+            if (
+
+                tipoArchivo === "image"
+
+                ||
+
+                /\.(jpg|jpeg|png|gif|webp)$/i.test(
+                    nombreArchivo
+                )
+
+            ) {
+
+
+                archivoElemento.innerHTML = `
+
+                    <img
+                        src="${preguntaActual.archivoUrl}"
+                        alt="${escapeHTML(nombreArchivo)}"
+                        class="archivo-imagen">
+
+                    <br>
+
+                    <a
+                        href="${preguntaActual.archivoUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn-archivo">
+
+                        📎 Abrir imagen
+
+                    </a>
+
+                `;
+
+            }
+
+
+            // =================================
+            // PDF / OTRO
+            // =================================
+
+            else {
+
+
+                archivoElemento.innerHTML = `
+
+                    <a
+                        href="${preguntaActual.archivoUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn-archivo">
+
+                        📎 Ver archivo
+
+                    </a>
+
+                    <span style="margin-left:8px;">
+
+                        ${escapeHTML(
+                            nombreArchivo
+                        )}
+
+                    </span>
+
+                `;
+
+            }
+
+        }
+
+    }
+
+
+    // =========================================
+    // MOSTRAR FORMULARIO RESPUESTA
+    // =========================================
+
+    function mostrarFormularioRespuesta() {
+
+
+        const formulario =
+            document.getElementById(
+                "formularioRespuesta"
+            );
+
+
+        const estado =
+            preguntaActual.estado
+            || "PENDIENTE";
+
+
+        if (
+
+            (
+
+                usuarioActual.rol ===
+                "RESPONDEDOR"
+
+                ||
+
+                usuarioActual.rol ===
+                "ADMINISTRADOR"
+
+            )
+
+            &&
+
+            estado === "PENDIENTE"
+
+        ) {
+
+            formulario.style.display =
+                "block";
+
+        } else {
+
+            formulario.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    // =========================================
+    // MOSTRAR OPCIÓN DERIVACIÓN
+    // =========================================
+
+    function mostrarOpcionDerivacion() {
+
+
+        if (
+
+            usuarioActual.rol ===
+            "RESPONDEDOR"
+
+            ||
+
+            usuarioActual.rol ===
+            "ADMINISTRADOR"
+
+        ) {
+
+            contenedorDerivacion.style.display =
+                "block";
+
+
+            // =================================
+            // SELECCIONAR ÁREA ACTUAL
+            // =================================
+
+            const areaActual =
+                preguntaActual.area
+                || "";
+
+
+            selectAreaDerivacion.value =
+                areaActual;
+
+
+        } else {
+
+            contenedorDerivacion.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    // =========================================
+    // DERIVAR PREGUNTA
+    // =========================================
+
+    btnDerivar.addEventListener(
+
+        "click",
+
+        async function() {
+
+
+            // =================================
+            // VALIDAR SESIÓN
+            // =================================
+
+            const user =
+                auth.currentUser;
+
+
+            if (!user) {
+
+                mostrarMensajeDerivacion(
+
+                    "La sesión no es válida.",
+
+                    false
+
+                );
+
+                return;
+
+            }
+
+
+            // =================================
+            // VALIDAR ROL
+            // =================================
+
+            if (
+
+                usuarioActual.rol !==
+                "RESPONDEDOR"
+
+                &&
+
+                usuarioActual.rol !==
+                "ADMINISTRADOR"
+
+            ) {
+
+                mostrarMensajeDerivacion(
+
+                    "No tiene permisos para derivar preguntas.",
+
+                    false
+
+                );
+
+                return;
+
+            }
+
+
+            // =================================
+            // OBTENER ÁREA
+            // =================================
+
+            const nuevaArea =
+                selectAreaDerivacion.value;
+
+
+            const areaActual =
+                preguntaActual.area
+                || "";
+
+
+            // =================================
+            // VALIDAR ÁREA
+            // =================================
+
+            if (!nuevaArea) {
+
+                mostrarMensajeDerivacion(
+
+                    "Seleccione el área a la que desea derivar la pregunta.",
+
+                    false
+
+                );
+
+                return;
+
+            }
+
+
+            // =================================
+            // VALIDAR MISMA ÁREA
+            // =================================
+
+            if (
+                nuevaArea === areaActual
+            ) {
+
+                mostrarMensajeDerivacion(
+
+                    "La pregunta ya pertenece al área seleccionada.",
+
+                    false
+
+                );
+
+                return;
+
+            }
+
+
+            // =================================
+            // CONFIRMACIÓN
+            // =================================
+
+            const confirmar =
+                confirm(
+
+                    "¿Está seguro de derivar esta pregunta?\n\n"
+
+                    +
+
+                    "Área actual: "
+                    +
+                    (
+                        areaActual
+                        ||
+                        "Sin área"
+                    )
+
+                    +
+
+                    "\nNueva área: "
+                    +
+                    nuevaArea
+
+                    +
+
+                    "\n\nLa pregunta permanecerá en estado PENDIENTE."
+
+                );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            try {
+
+
+                // =================================
+                // DESHABILITAR BOTÓN
+                // =================================
+
+                btnDerivar.disabled =
+                    true;
+
+
+                btnDerivar.textContent =
+                    "DERIVANDO...";
+
+
+                // =================================
+                // REFERENCIA
+                // =================================
+
+                const preguntaRef =
+                    doc(
+                        db,
+                        "preguntas",
+                        preguntaId
+                    );
+
+
+                // =================================
+                // ACTUALIZAR ÁREA
+                // =================================
+
+                await updateDoc(
+
+                    preguntaRef,
+
+                    {
+
+                        area:
+                            nuevaArea
+
+                    }
+
+                );
+
+
+                // =================================
+                // ACTUALIZAR VARIABLE LOCAL
+                // =================================
+
+                preguntaActual.area =
+                    nuevaArea;
+
+
+                // =================================
+                // ACTUALIZAR INTERFAZ
+                // =================================
+
+                document.getElementById(
+                    "area"
+                ).textContent =
+                    nuevaArea;
+
+
+                selectAreaDerivacion.value =
+                    nuevaArea;
+
+
+                // =================================
+                // MENSAJE
+                // =================================
+
+                mostrarMensajeDerivacion(
+
+                    "Pregunta derivada correctamente al área: "
+                    +
+                    nuevaArea,
+
+                    true
+
+                );
+
+
+                console.log(
+                    "Pregunta derivada:",
+                    preguntaId,
+                    "Área:",
+                    nuevaArea
+                );
+
+
+            } catch (e) {
+
+
+                console.error(
+                    "Error derivando pregunta:",
+                    e
+                );
+
+
+                let mensaje =
+                    "No se pudo derivar la pregunta.";
+
+
+                if (
+                    e.code ===
+                    "permission-denied"
+                ) {
+
+                    mensaje +=
+
+                        " Firestore rechazó la operación por permisos. Verifique las reglas de seguridad.";
+
+                } else {
+
+                    mensaje +=
+                        " " +
+                        e.message;
+
+                }
+
+
+                mostrarMensajeDerivacion(
+
+                    mensaje,
+
+                    false
+
+                );
+
+
+            } finally {
+
+
+                btnDerivar.disabled =
+                    false;
+
+
+                btnDerivar.textContent =
+                    "🔄 DERIVAR PREGUNTA";
+
+            }
+
+        }
+
+    );
+
+
+    // =========================================
+    // MENSAJE DERIVACIÓN
+    // =========================================
+
+    function mostrarMensajeDerivacion(
+
+        mensaje,
+
+        exito
+
+    ) {
+
+
+        mensajeDerivacion.textContent =
+            mensaje;
+
+
+        mensajeDerivacion.className =
+            "mensaje-derivacion " +
+
+            (
+
+                exito
+
+                    ? "mensaje-exito"
+
+                    : "mensaje-error"
+
+            );
+
+    }
 
 
     // =========================================
     // CARGAR RESPUESTA
     // =========================================
 
-    async function cargarRespuesta(id) {
+    async function cargarRespuesta(
+        id
+    ) {
+
 
         const referencia =
             collection(
@@ -755,12 +1829,15 @@
 
         const consulta =
             query(
+
                 referencia,
+
                 where(
                     "preguntaId",
                     "==",
                     id
                 )
+
             );
 
 
@@ -770,7 +1847,9 @@
             );
 
 
-        if (resultado.empty) {
+        if (
+            resultado.empty
+        ) {
 
             document.getElementById(
                 "respuesta"
@@ -787,27 +1866,48 @@
 
 
         let texto =
-            datos.respuesta || "";
+            datos.respuesta
+            || "";
 
 
-        if (datos.usuarioCorreo) {
+        if (
+            datos.usuarioCorreo
+        ) {
 
             texto +=
+
                 "\n\nRespondido por: "
-                + datos.usuarioCorreo;
+
+                +
+
+                datos.usuarioCorreo;
 
         }
 
 
-        if (datos.fecha) {
+        if (
+            datos.fecha
+        ) {
 
-            texto +=
-                "\nFecha: "
-                + datos.fecha
-                    .toDate()
-                    .toLocaleString(
-                        "es-PE"
-                    );
+            try {
+
+                texto +=
+
+                    "\nFecha: "
+
+                    +
+
+                    datos.fecha
+                        .toDate()
+                        .toLocaleString(
+                            "es-PE"
+                        );
+
+            } catch {
+
+                // No hacer nada
+
+            }
 
         }
 
@@ -829,7 +1929,9 @@
             "btnResponder"
         )
         .addEventListener(
+
             "click",
+
             async function() {
 
 
@@ -868,16 +1970,59 @@
                 }
 
 
+                if (
+
+                    usuarioActual.rol !==
+                    "RESPONDEDOR"
+
+                    &&
+
+                    usuarioActual.rol !==
+                    "ADMINISTRADOR"
+
+                ) {
+
+                    alert(
+                        "No tiene permisos para registrar respuestas."
+                    );
+
+                    return;
+
+                }
+
+
                 try {
 
 
+                    // =================================
+                    // DESHABILITAR BOTÓN
+                    // =================================
+
+                    const boton =
+                        document.getElementById(
+                            "btnResponder"
+                        );
+
+
+                    boton.disabled =
+                        true;
+
+
+                    boton.textContent =
+                        "REGISTRANDO...";
+
+
+                    // =================================
                     // GUARDAR RESPUESTA
+                    // =================================
 
                     await addDoc(
+
                         collection(
                             db,
                             "respuestas"
                         ),
+
                         {
 
                             preguntaId:
@@ -896,23 +2041,29 @@
                                 serverTimestamp()
 
                         }
+
                     );
 
 
+                    // =================================
                     // ACTUALIZAR ESTADO
+                    // =================================
 
                     await updateDoc(
+
                         doc(
                             db,
                             "preguntas",
                             preguntaId
                         ),
+
                         {
 
                             estado:
                                 "RESPONDIDA"
 
                         }
+
                     );
 
 
@@ -926,19 +2077,66 @@
 
                 } catch (e) {
 
+
                     console.error(e);
 
+
                     alert(
-                        "Error al registrar respuesta: "
-                        + e.message
+
+                        "Error al registrar la respuesta: "
+
+                        +
+
+                        e.message
+
                     );
+
+
+                    const boton =
+                        document.getElementById(
+                            "btnResponder"
+                        );
+
+
+                    boton.disabled =
+                        false;
+
+
+                    boton.textContent =
+                        "REGISTRAR RESPUESTA";
 
                 }
 
             }
+
         );
 
+
+    // =========================================
+    // ESCAPAR HTML
+    // =========================================
+
+    function escapeHTML(
+        texto
+    ) {
+
+
+        const div =
+            document.createElement(
+                "div"
+            );
+
+
+        div.textContent =
+            texto ?? "";
+
+
+        return div.innerHTML;
+
+    }
+
 </script>
+
 
 </body>
 
