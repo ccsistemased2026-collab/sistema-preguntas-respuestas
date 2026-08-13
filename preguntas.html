@@ -1057,17 +1057,23 @@
                         documento.data();
     
                     usuarios[documento.id] = {
-    
+                    
                         nombre:
                             datos.nombre || "",
-    
+                    
                         cargo:
                             datos.cargo || "",
-    
+                    
                         sedeOperativa:
                             datos.sedeOperativa || ""
-    
+                    
                     };
+                    
+                    console.log(
+                        "DATOS USUARIO:",
+                        documento.id,
+                        datos
+                    );
     
                 }
             );
