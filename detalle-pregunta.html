@@ -78,18 +78,51 @@
             font-size: 15px;
         }
 
-        button,
-        .volver {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            background: #1f4e78;
-            color: white;
-            cursor: pointer;
-            text-decoration: none;
-        }
+            button,
+            .volver,
+            .btn-archivo {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            
+                margin-top: 15px;
+            
+                padding: 7px 12px;
+            
+                border: none;
+            
+                border-radius: 5px;
+            
+                background: #1f4e78;
+            
+                color: white;
+            
+                cursor: pointer;
+            
+                text-decoration: none;
+            
+                font-size: 13px;
+            
+                line-height: 1.2;
+            }
+            
+            button:hover,
+            .volver:hover,
+            .btn-archivo:hover {
+                opacity: 0.9;
+            }
+            
+            .btn-volver {
+                background: #6c757d;
+            }
+            
+            .btn-responder {
+                background: #1f4e78;
+            }
+            
+            .btn-archivo {
+                background: #5c6f82;
+            }
 
         #contenido {
             display: none;
@@ -102,6 +135,20 @@
             padding: 15px;
             border-radius: 6px;
             margin-bottom: 20px;
+        }
+
+        .archivo-imagen {
+            display: block;
+        
+            max-width: 100%;
+        
+            max-height: 450px;
+        
+            margin-top: 12px;
+        
+            border: 1px solid #ddd;
+        
+            border-radius: 6px;
         }
 
     </style>
@@ -147,7 +194,7 @@
 
 
             <div class="titulo">
-                Categoría
+                Área
             </div>
 
             <div id="categoria">
@@ -179,6 +226,18 @@
             <div id="fecha">
             </div>
 
+            <div
+                id="contenedorArchivo"
+                style="display:none;">
+            
+                <div class="titulo">
+                    Archivo adjunto
+                </div>
+            
+                <div id="archivo">
+                </div>
+            
+            </div>
         </div>
 
 
@@ -219,10 +278,12 @@
 
             <br>
 
-            <button id="btnResponder">
-
+            <button
+                id="btnResponder"
+                class="btn-responder">
+            
                 REGISTRAR RESPUESTA
-
+            
             </button>
 
         </div>
@@ -230,10 +291,10 @@
 
         <a
             href="preguntas.html"
-            class="volver">
-
+            class="volver btn-volver">
+        
             ← Volver a preguntas
-
+        
         </a>
 
     </div>
@@ -477,7 +538,7 @@
 
 
                 document.getElementById(
-                    "categoria"
+                    "area"
                 ).textContent =
                     datos.categoria || "";
 
@@ -529,6 +590,98 @@
                     ).textContent =
                         "-";
 
+                }
+
+                // =========================================
+                // ARCHIVO ADJUNTO
+                // =========================================
+                
+                const contenedorArchivo =
+                    document.getElementById(
+                        "contenedorArchivo"
+                    );
+                
+                const archivoElemento =
+                    document.getElementById(
+                        "archivo"
+                    );
+                
+                
+                if (datos.archivoUrl) {
+                
+                    contenedorArchivo.style.display =
+                        "block";
+                
+                
+                    const nombreArchivo =
+                        datos.archivoNombre ||
+                        "Archivo adjunto";
+                
+                
+                    const tipoArchivo =
+                        datos.archivoTipo || "";
+                
+                
+                    // =====================================
+                    // IMAGEN
+                    // =====================================
+                
+                    if (
+                        tipoArchivo === "image" ||
+                        /\.(jpg|jpeg)$/i.test(
+                            nombreArchivo
+                        )
+                    ) {
+                
+                        archivoElemento.innerHTML = `
+                
+                            <img
+                                src="${datos.archivoUrl}"
+                                alt="${nombreArchivo}"
+                                class="archivo-imagen">
+                
+                            <br>
+                
+                            <a
+                                href="${datos.archivoUrl}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn-archivo">
+                
+                                📎 Abrir imagen
+                
+                            </a>
+                
+                        `;
+                
+                    }
+                
+                    // =====================================
+                    // PDF
+                    // =====================================
+                
+                    else {
+                
+                        archivoElemento.innerHTML = `
+                
+                            <a
+                                href="${datos.archivoUrl}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn-archivo">
+                
+                                📎 Ver PDF
+                
+                            </a>
+                
+                            <span style="margin-left:8px;">
+                                ${nombreArchivo}
+                            </span>
+                
+                        `;
+                
+                    }
+                
                 }
 
 
