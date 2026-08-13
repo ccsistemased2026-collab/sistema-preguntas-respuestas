@@ -88,7 +88,7 @@
 
             margin-top: 15px;
 
-            margin-bottom: 5px;
+            margin-bottom: 6px;
 
         }
 
@@ -153,7 +153,26 @@
 
             font-size: 15px;
 
+            font-family: Arial, sans-serif;
+
             resize: vertical;
+
+        }
+
+
+        select {
+
+            width: 100%;
+
+            padding: 11px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 6px;
+
+            font-size: 14px;
+
+            background: white;
 
         }
 
@@ -176,8 +195,6 @@
 
             border-radius: 5px;
 
-            background: #1f4e78;
-
             color: white;
 
             cursor: pointer;
@@ -195,14 +212,14 @@
         .volver:hover,
         .btn-archivo:hover {
 
-            opacity: .9;
+            opacity: 0.9;
 
         }
 
 
         button:disabled {
 
-            opacity: .6;
+            opacity: 0.6;
 
             cursor: not-allowed;
 
@@ -223,6 +240,13 @@
         }
 
 
+        .btn-derivar {
+
+            background: #198754;
+
+        }
+
+
         .btn-archivo {
 
             background: #5c6f82;
@@ -230,147 +254,12 @@
         }
 
 
-        /* =========================================
-           DERIVACIÓN
-        ========================================= */
+        .btn-cancelar {
 
-        .derivacion {
-
-            margin-top: 20px;
-
-            padding: 18px;
-
-            background: #f8f9fa;
-
-            border: 1px solid #dee2e6;
-
-            border-radius: 8px;
+            background: #6c757d;
 
         }
 
-
-        .derivacion-titulo {
-
-            font-weight: bold;
-
-            color: #1f4e78;
-
-            margin-bottom: 10px;
-
-        }
-
-
-        .derivacion-contenedor {
-
-            display: flex;
-
-            gap: 10px;
-
-            align-items: center;
-
-            flex-wrap: wrap;
-
-        }
-
-
-        .derivacion select {
-
-            padding: 9px 12px;
-
-            border: 1px solid #ced4da;
-
-            border-radius: 6px;
-
-            font-size: 14px;
-
-            min-width: 280px;
-
-            background: white;
-
-        }
-
-
-        .btn-derivar {
-
-            background: #198754;
-
-            margin-top: 0;
-
-        }
-
-
-        .btn-derivar:hover {
-
-            background: #157347;
-
-        }
-
-
-        .mensaje-derivacion {
-
-            margin-top: 12px;
-
-            padding: 10px;
-
-            border-radius: 6px;
-
-            display: none;
-
-            font-size: 14px;
-
-        }
-
-
-        .mensaje-exito {
-
-            display: block;
-
-            background: #d1e7dd;
-
-            color: #0f5132;
-
-            border: 1px solid #badbcc;
-
-        }
-
-
-        .mensaje-error {
-
-            display: block;
-
-            background: #f8d7da;
-
-            color: #842029;
-
-            border: 1px solid #f5c2c7;
-
-        }
-
-
-        /* =========================================
-           ARCHIVOS
-        ========================================= */
-
-        .archivo-imagen {
-
-            display: block;
-
-            max-width: 100%;
-
-            max-height: 450px;
-
-            margin-top: 12px;
-
-            border: 1px solid #ddd;
-
-            border-radius: 6px;
-
-        }
-
-
-        /* =========================================
-           MENSAJES
-        ========================================= */
 
         #contenido {
 
@@ -396,24 +285,97 @@
         }
 
 
-        .cargando {
+        .archivo-imagen {
 
-            background: white;
+            display: block;
 
-            padding: 25px;
+            max-width: 100%;
 
-            border-radius: 10px;
+            max-height: 450px;
 
-            box-shadow:
-                0 2px 8px
-                rgba(0, 0, 0, .08);
+            margin-top: 12px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 6px;
 
         }
 
 
-        /* =========================================
-           RESPONSIVE
-        ========================================= */
+        .bloque-derivacion {
+
+            background: #f8f9fa;
+
+            border: 1px solid #dee2e6;
+
+            border-radius: 8px;
+
+            padding: 18px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .bloque-derivacion h3 {
+
+            margin-top: 0;
+
+            color: #1f4e78;
+
+            font-size: 17px;
+
+        }
+
+
+        .ayuda {
+
+            color: #6c757d;
+
+            font-size: 13px;
+
+            margin-top: 7px;
+
+        }
+
+
+        .mensaje-exito {
+
+            display: none;
+
+            background: #d1e7dd;
+
+            color: #0f5132;
+
+            border: 1px solid #badbcc;
+
+            padding: 12px;
+
+            border-radius: 6px;
+
+            margin-top: 15px;
+
+        }
+
+
+        .mensaje-error {
+
+            display: none;
+
+            background: #f8d7da;
+
+            color: #842029;
+
+            border: 1px solid #f5c2c7;
+
+            padding: 12px;
+
+            border-radius: 6px;
+
+            margin-top: 15px;
+
+        }
+
 
         @media (max-width: 700px) {
 
@@ -431,27 +393,9 @@
             }
 
 
-            .derivacion-contenedor {
+            .pregunta {
 
-                flex-direction: column;
-
-                align-items: stretch;
-
-            }
-
-
-            .derivacion select {
-
-                width: 100%;
-
-                min-width: 0;
-
-            }
-
-
-            .btn-derivar {
-
-                width: 100%;
+                font-size: 18px;
 
             }
 
@@ -483,7 +427,7 @@
 
     <div
         id="cargando"
-        class="cargando">
+        class="card">
 
         Cargando información...
 
@@ -531,112 +475,6 @@
             </div>
 
 
-            <!-- =================================
-                 DERIVACIÓN
-            ================================== -->
-
-            <div
-                id="contenedorDerivacion"
-                class="derivacion"
-                style="display:none;">
-
-
-                <div class="derivacion-titulo">
-
-                    🔄 Derivar pregunta a otra área
-
-                </div>
-
-
-                <div
-                    style="
-                        font-size:13px;
-                        color:#666;
-                        margin-bottom:12px;
-                    ">
-
-                    Seleccione el área a la que desea
-                    derivar la pregunta.
-
-                </div>
-
-
-                <div class="derivacion-contenedor">
-
-
-                    <select
-                        id="selectAreaDerivacion">
-
-
-                        <option
-                            value="">
-
-                            Seleccione un área
-
-                        </option>
-
-
-                        <option
-                            value="METODOLOGÍA">
-
-                            METODOLOGÍA
-
-                        </option>
-
-
-                        <option
-                            value="CAPACITACIÓN">
-
-                            CAPACITACIÓN
-
-                        </option>
-
-
-                        <option
-                            value="ADMIN Y RRHH">
-
-                            ADMIN Y RRHH
-
-                        </option>
-
-
-                        <option
-                            value="SISTEMAS">
-
-                            SISTEMAS
-
-                        </option>
-
-
-                    </select>
-
-
-                    <button
-                        type="button"
-                        id="btnDerivar"
-                        class="btn-derivar">
-
-                        🔄 DERIVAR PREGUNTA
-
-                    </button>
-
-
-                </div>
-
-
-                <div
-                    id="mensajeDerivacion"
-                    class="mensaje-derivacion">
-                </div>
-
-
-            </div>
-
-
-            <!-- =================================
-                 ESTADO
-            ================================== -->
-
             <div class="titulo">
                 Estado
             </div>
@@ -648,10 +486,6 @@
             </span>
 
 
-            <!-- =================================
-                 USUARIO
-            ================================== -->
-
             <div class="titulo">
                 Usuario
             </div>
@@ -660,10 +494,6 @@
             <div id="usuario">
             </div>
 
-
-            <!-- =================================
-                 FECHA
-            ================================== -->
 
             <div class="titulo">
                 Fecha
@@ -682,15 +512,118 @@
                 id="contenedorArchivo"
                 style="display:none;">
 
-
                 <div class="titulo">
                     Archivo adjunto
                 </div>
 
-
                 <div id="archivo">
                 </div>
 
+            </div>
+
+
+            <!-- =================================
+                 DERIVACIÓN
+            ================================== -->
+
+            <div
+                id="contenedorDerivacion"
+                class="bloque-derivacion"
+                style="display:none;">
+
+                <h3>
+                    Derivar pregunta
+                </h3>
+
+
+                <div>
+
+                    Esta pregunta no corresponde
+                    al área actual. Seleccione el
+                    área a la que desea derivarla.
+
+                </div>
+
+
+                <br>
+
+
+                <label
+                    for="nuevaArea">
+
+                    <strong>
+                        Área de destino
+                    </strong>
+
+                </label>
+
+
+                <select
+                    id="nuevaArea">
+
+                    <option value="">
+                        Seleccione un área
+                    </option>
+
+                    <option value="METODOLOGÍA">
+                        METODOLOGÍA
+                    </option>
+
+                    <option value="CAPACITACIÓN">
+                        CAPACITACIÓN
+                    </option>
+
+                    <option value="ADMIN Y RRHH">
+                        ADMIN Y RRHH
+                    </option>
+
+                    <option value="SISTEMAS">
+                        SISTEMAS
+                    </option>
+
+                </select>
+
+
+                <div class="ayuda">
+
+                    La pregunta permanecerá en estado
+                    PENDIENTE después de la derivación.
+
+                </div>
+
+
+                <button
+                    id="btnDerivar"
+                    type="button"
+                    class="btn-derivar">
+
+                    DERIVAR PREGUNTA
+
+                </button>
+
+
+                <button
+                    id="btnCancelarDerivacion"
+                    type="button"
+                    class="btn-cancelar">
+
+                    CANCELAR
+
+                </button>
+
+
+                <div
+                    id="mensajeExito"
+                    class="mensaje-exito">
+
+                </div>
+
+
+                <div
+                    id="mensajeError"
+                    class="mensaje-error">
+
+                </div>
 
             </div>
 
@@ -751,6 +684,7 @@
 
             <button
                 id="btnResponder"
+                type="button"
                 class="btn-responder">
 
                 REGISTRAR RESPUESTA
@@ -789,16 +723,14 @@
     import {
         initializeApp
     }
-    from
-        "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 
     import {
         getAuth,
         onAuthStateChanged
     }
-    from
-        "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
     import {
@@ -813,8 +745,7 @@
         updateDoc,
         serverTimestamp
     }
-    from
-        "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
     // =========================================
@@ -845,13 +776,11 @@
 
 
     // =========================================
-    // INICIALIZAR FIREBASE
+    // INICIALIZAR
     // =========================================
 
     const app =
-        initializeApp(
-            firebaseConfig
-        );
+        initializeApp(firebaseConfig);
 
 
     const auth =
@@ -890,9 +819,9 @@
         );
 
 
-    const selectAreaDerivacion =
+    const nuevaArea =
         document.getElementById(
-            "selectAreaDerivacion"
+            "nuevaArea"
         );
 
 
@@ -902,9 +831,21 @@
         );
 
 
-    const mensajeDerivacion =
+    const btnCancelarDerivacion =
         document.getElementById(
-            "mensajeDerivacion"
+            "btnCancelarDerivacion"
+        );
+
+
+    const mensajeExito =
+        document.getElementById(
+            "mensajeExito"
+        );
+
+
+    const mensajeError =
+        document.getElementById(
+            "mensajeError"
         );
 
 
@@ -912,35 +853,16 @@
     // VARIABLES
     // =========================================
 
-    let usuarioActual = null;
-
     let preguntaActual = null;
 
-
-    // =========================================
-    // ÁREAS DISPONIBLES
-    // =========================================
-
-    const areasDisponibles = [
-
-        "METODOLOGÍA",
-
-        "CAPACITACIÓN",
-
-        "ADMIN Y RRHH",
-
-        "SISTEMAS"
-
-    ];
+    let usuarioActual = null;
 
 
     // =========================================
     // MOSTRAR ERROR
     // =========================================
 
-    function mostrarError(
-        mensaje
-    ) {
+    function mostrarError(mensaje) {
 
         cargando.style.display =
             "none";
@@ -1023,7 +945,7 @@
 
 
                 // =================================
-                // PERFIL DEL USUARIO
+                // PERFIL
                 // =================================
 
                 const usuarioRef =
@@ -1108,11 +1030,88 @@
                 // MOSTRAR DATOS
                 // =================================
 
-                mostrarDatosPregunta();
+                document.getElementById(
+                    "pregunta"
+                ).textContent =
+                    preguntaActual.pregunta
+                    || "";
+
+
+                document.getElementById(
+                    "area"
+                ).textContent =
+                    preguntaActual.area
+                    || "";
+
+
+                document.getElementById(
+                    "usuario"
+                ).textContent =
+                    preguntaActual.usuarioCorreo
+                    || "";
+
+
+                const estado =
+                    preguntaActual.estado
+                    || "PENDIENTE";
+
+
+                const estadoElemento =
+                    document.getElementById(
+                        "estado"
+                    );
+
+
+                estadoElemento.textContent =
+                    estado;
+
+
+                estadoElemento.className =
+                    "estado " +
+                    (
+                        estado === "RESPONDIDA"
+                            ? "respondida"
+                            : "pendiente"
+                    );
 
 
                 // =================================
-                // RESPUESTA
+                // FECHA
+                // =================================
+
+                if (
+                    preguntaActual.fecha
+                ) {
+
+                    document.getElementById(
+                        "fecha"
+                    ).textContent =
+
+                        preguntaActual.fecha
+                            .toDate()
+                            .toLocaleString(
+                                "es-PE"
+                            );
+
+                } else {
+
+                    document.getElementById(
+                        "fecha"
+                    ).textContent =
+                        "-";
+
+                }
+
+
+                // =================================
+                // ARCHIVO ADJUNTO
+                // =================================
+
+                mostrarArchivo();
+
+
+                // =================================
+                // CARGAR RESPUESTA
                 // =================================
 
                 await cargarRespuesta(
@@ -1121,17 +1120,12 @@
 
 
                 // =================================
-                // FORMULARIO RESPUESTA
+                // MOSTRAR OPCIONES SEGÚN ROL
                 // =================================
 
-                mostrarFormularioRespuesta();
-
-
-                // =================================
-                // OPCIÓN DERIVAR
-                // =================================
-
-                mostrarOpcionDerivacion();
+                configurarPermisos(
+                    estado
+                );
 
 
                 // =================================
@@ -1150,7 +1144,6 @@
 
                 console.error(e);
 
-
                 mostrarError(
                     "Error: " +
                     e.message
@@ -1164,106 +1157,7 @@
 
 
     // =========================================
-    // MOSTRAR DATOS DE LA PREGUNTA
-    // =========================================
-
-    function mostrarDatosPregunta() {
-
-
-        document.getElementById(
-            "pregunta"
-        ).textContent =
-            preguntaActual.pregunta
-            || "";
-
-
-        document.getElementById(
-            "area"
-        ).textContent =
-            preguntaActual.area
-            || "";
-
-
-        document.getElementById(
-            "usuario"
-        ).textContent =
-            preguntaActual.usuarioCorreo
-            || "";
-
-
-        const estado =
-            preguntaActual.estado
-            || "PENDIENTE";
-
-
-        const estadoElemento =
-            document.getElementById(
-                "estado"
-            );
-
-
-        estadoElemento.textContent =
-            estado;
-
-
-        estadoElemento.className =
-            "estado " +
-            (
-                estado === "RESPONDIDA"
-                    ? "respondida"
-                    : "pendiente"
-            );
-
-
-        // =====================================
-        // FECHA
-        // =====================================
-
-        if (
-            preguntaActual.fecha
-        ) {
-
-            try {
-
-                document.getElementById(
-                    "fecha"
-                ).textContent =
-                    preguntaActual.fecha
-                        .toDate()
-                        .toLocaleString(
-                            "es-PE"
-                        );
-
-            } catch {
-
-                document.getElementById(
-                    "fecha"
-                ).textContent =
-                    "-";
-
-            }
-
-        } else {
-
-            document.getElementById(
-                "fecha"
-            ).textContent =
-                "-";
-
-        }
-
-
-        // =====================================
-        // ARCHIVO
-        // =====================================
-
-        mostrarArchivo();
-
-    }
-
-
-    // =========================================
-    // MOSTRAR ARCHIVO
+    // ARCHIVO
     // =========================================
 
     function mostrarArchivo() {
@@ -1282,97 +1176,108 @@
 
 
         if (
-            preguntaActual.archivoUrl
+            !preguntaActual.archivoUrl
         ) {
 
-
             contenedorArchivo.style.display =
-                "block";
+                "none";
+
+            return;
+
+        }
 
 
-            const nombreArchivo =
-                preguntaActual.archivoNombre
-                ||
-                "Archivo adjunto";
+        contenedorArchivo.style.display =
+            "block";
 
 
-            const tipoArchivo =
-                preguntaActual.archivoTipo
-                ||
-                "";
+        const nombreArchivo =
+            preguntaActual.archivoNombre
+            ||
+            "Archivo adjunto";
 
 
-            // =================================
-            // IMAGEN
-            // =================================
-
-            if (
-
-                tipoArchivo === "image"
-
-                ||
-
-                /\.(jpg|jpeg|png|gif|webp)$/i.test(
-                    nombreArchivo
-                )
-
-            ) {
+        const tipoArchivo =
+            preguntaActual.archivoTipo
+            ||
+            "";
 
 
-                archivoElemento.innerHTML = `
+        // =====================================
+        // IMAGEN
+        // =====================================
 
-                    <img
-                        src="${preguntaActual.archivoUrl}"
-                        alt="${escapeHTML(nombreArchivo)}"
-                        class="archivo-imagen">
+        if (
 
-                    <br>
+            tipoArchivo === "image"
 
-                    <a
-                        href="${preguntaActual.archivoUrl}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="btn-archivo">
+            ||
 
-                        📎 Abrir imagen
+            /\.(jpg|jpeg|png|gif|webp)$/i.test(
+                nombreArchivo
+            )
 
-                    </a>
+        ) {
 
-                `;
+            archivoElemento.innerHTML = `
 
-            }
+                <img
+                    src="${escapeHTML(
+                        preguntaActual.archivoUrl
+                    )}"
+                    alt="${escapeHTML(
+                        nombreArchivo
+                    )}"
+                    class="archivo-imagen">
+
+                <br>
+
+                <a
+                    href="${escapeHTML(
+                        preguntaActual.archivoUrl
+                    )}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-archivo">
+
+                    📎 Abrir imagen
+
+                </a>
+
+            `;
+
+        }
 
 
-            // =================================
-            // PDF / OTRO
-            // =================================
+        // =====================================
+        // OTROS ARCHIVOS / PDF
+        // =====================================
 
-            else {
+        else {
 
+            archivoElemento.innerHTML = `
 
-                archivoElemento.innerHTML = `
+                <a
+                    href="${escapeHTML(
+                        preguntaActual.archivoUrl
+                    )}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-archivo">
 
-                    <a
-                        href="${preguntaActual.archivoUrl}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="btn-archivo">
+                    📎 Ver archivo
 
-                        📎 Ver archivo
+                </a>
 
-                    </a>
+                <span style="margin-left:8px;">
 
-                    <span style="margin-left:8px;">
+                    ${escapeHTML(
+                        nombreArchivo
+                    )}
 
-                        ${escapeHTML(
-                            nombreArchivo
-                        )}
+                </span>
 
-                    </span>
-
-                `;
-
-            }
+            `;
 
         }
 
@@ -1380,433 +1285,105 @@
 
 
     // =========================================
-    // MOSTRAR FORMULARIO RESPUESTA
+    // CONFIGURAR PERMISOS
     // =========================================
 
-    function mostrarFormularioRespuesta() {
+    function configurarPermisos(
+        estado
+    ) {
 
 
-        const formulario =
-            document.getElementById(
-                "formularioRespuesta"
-            );
+        const rol =
+            usuarioActual.rol;
 
 
-        const estado =
-            preguntaActual.estado
-            || "PENDIENTE";
+        // =====================================
+        // IMPORTANTE:
+        // SOLO PENDIENTES PUEDEN DERIVARSE
+        // =====================================
 
-
-        if (
+        const puedeDerivar =
 
             (
 
-                usuarioActual.rol ===
+                rol ===
+                "ADMINISTRADOR"
+
+                ||
+
+                rol ===
+                "RESPONDEDOR"
+
+            )
+
+            &&
+
+            estado ===
+            "PENDIENTE";
+
+
+        if (
+            puedeDerivar
+        ) {
+
+            contenedorDerivacion.style.display =
+                "block";
+
+
+            nuevaArea.value =
+                preguntaActual.area
+                ||
+                "";
+
+        } else {
+
+            contenedorDerivacion.style.display =
+                "none";
+
+        }
+
+
+        // =====================================
+        // RESPONDER
+        // =====================================
+
+        const puedeResponder =
+
+            (
+
+                rol ===
                 "RESPONDEDOR"
 
                 ||
 
-                usuarioActual.rol ===
+                rol ===
                 "ADMINISTRADOR"
 
             )
 
             &&
 
-            estado === "PENDIENTE"
-
-        ) {
-
-            formulario.style.display =
-                "block";
-
-        } else {
-
-            formulario.style.display =
-                "none";
-
-        }
-
-    }
-
-
-    // =========================================
-    // MOSTRAR OPCIÓN DERIVACIÓN
-    // =========================================
-
-    function mostrarOpcionDerivacion() {
+            estado ===
+            "PENDIENTE";
 
 
         if (
-
-            usuarioActual.rol ===
-            "RESPONDEDOR"
-
-            ||
-
-            usuarioActual.rol ===
-            "ADMINISTRADOR"
-
+            puedeResponder
         ) {
 
-            contenedorDerivacion.style.display =
+            document.getElementById(
+                "formularioRespuesta"
+            ).style.display =
                 "block";
-
-
-            // =================================
-            // SELECCIONAR ÁREA ACTUAL
-            // =================================
-
-            const areaActual =
-                preguntaActual.area
-                || "";
-
-
-            selectAreaDerivacion.value =
-                areaActual;
-
 
         } else {
 
-            contenedorDerivacion.style.display =
+            document.getElementById(
+                "formularioRespuesta"
+            ).style.display =
                 "none";
 
         }
-
-    }
-
-
-    // =========================================
-    // DERIVAR PREGUNTA
-    // =========================================
-
-    btnDerivar.addEventListener(
-
-        "click",
-
-        async function() {
-
-
-            // =================================
-            // VALIDAR SESIÓN
-            // =================================
-
-            const user =
-                auth.currentUser;
-
-
-            if (!user) {
-
-                mostrarMensajeDerivacion(
-
-                    "La sesión no es válida.",
-
-                    false
-
-                );
-
-                return;
-
-            }
-
-
-            // =================================
-            // VALIDAR ROL
-            // =================================
-
-            if (
-
-                usuarioActual.rol !==
-                "RESPONDEDOR"
-
-                &&
-
-                usuarioActual.rol !==
-                "ADMINISTRADOR"
-
-            ) {
-
-                mostrarMensajeDerivacion(
-
-                    "No tiene permisos para derivar preguntas.",
-
-                    false
-
-                );
-
-                return;
-
-            }
-
-
-            // =================================
-            // OBTENER ÁREA
-            // =================================
-
-            const nuevaArea =
-                selectAreaDerivacion.value;
-
-
-            const areaActual =
-                preguntaActual.area
-                || "";
-
-
-            // =================================
-            // VALIDAR ÁREA
-            // =================================
-
-            if (!nuevaArea) {
-
-                mostrarMensajeDerivacion(
-
-                    "Seleccione el área a la que desea derivar la pregunta.",
-
-                    false
-
-                );
-
-                return;
-
-            }
-
-
-            // =================================
-            // VALIDAR MISMA ÁREA
-            // =================================
-
-            if (
-                nuevaArea === areaActual
-            ) {
-
-                mostrarMensajeDerivacion(
-
-                    "La pregunta ya pertenece al área seleccionada.",
-
-                    false
-
-                );
-
-                return;
-
-            }
-
-
-            // =================================
-            // CONFIRMACIÓN
-            // =================================
-
-            const confirmar =
-                confirm(
-
-                    "¿Está seguro de derivar esta pregunta?\n\n"
-
-                    +
-
-                    "Área actual: "
-                    +
-                    (
-                        areaActual
-                        ||
-                        "Sin área"
-                    )
-
-                    +
-
-                    "\nNueva área: "
-                    +
-                    nuevaArea
-
-                    +
-
-                    "\n\nLa pregunta permanecerá en estado PENDIENTE."
-
-                );
-
-
-            if (!confirmar) {
-
-                return;
-
-            }
-
-
-            try {
-
-
-                // =================================
-                // DESHABILITAR BOTÓN
-                // =================================
-
-                btnDerivar.disabled =
-                    true;
-
-
-                btnDerivar.textContent =
-                    "DERIVANDO...";
-
-
-                // =================================
-                // REFERENCIA
-                // =================================
-
-                const preguntaRef =
-                    doc(
-                        db,
-                        "preguntas",
-                        preguntaId
-                    );
-
-
-                // =================================
-                // ACTUALIZAR ÁREA
-                // =================================
-
-                await updateDoc(
-
-                    preguntaRef,
-
-                    {
-
-                        area:
-                            nuevaArea
-
-                    }
-
-                );
-
-
-                // =================================
-                // ACTUALIZAR VARIABLE LOCAL
-                // =================================
-
-                preguntaActual.area =
-                    nuevaArea;
-
-
-                // =================================
-                // ACTUALIZAR INTERFAZ
-                // =================================
-
-                document.getElementById(
-                    "area"
-                ).textContent =
-                    nuevaArea;
-
-
-                selectAreaDerivacion.value =
-                    nuevaArea;
-
-
-                // =================================
-                // MENSAJE
-                // =================================
-
-                mostrarMensajeDerivacion(
-
-                    "Pregunta derivada correctamente al área: "
-                    +
-                    nuevaArea,
-
-                    true
-
-                );
-
-
-                console.log(
-                    "Pregunta derivada:",
-                    preguntaId,
-                    "Área:",
-                    nuevaArea
-                );
-
-
-            } catch (e) {
-
-
-                console.error(
-                    "Error derivando pregunta:",
-                    e
-                );
-
-
-                let mensaje =
-                    "No se pudo derivar la pregunta.";
-
-
-                if (
-                    e.code ===
-                    "permission-denied"
-                ) {
-
-                    mensaje +=
-
-                        " Firestore rechazó la operación por permisos. Verifique las reglas de seguridad.";
-
-                } else {
-
-                    mensaje +=
-                        " " +
-                        e.message;
-
-                }
-
-
-                mostrarMensajeDerivacion(
-
-                    mensaje,
-
-                    false
-
-                );
-
-
-            } finally {
-
-
-                btnDerivar.disabled =
-                    false;
-
-
-                btnDerivar.textContent =
-                    "🔄 DERIVAR PREGUNTA";
-
-            }
-
-        }
-
-    );
-
-
-    // =========================================
-    // MENSAJE DERIVACIÓN
-    // =========================================
-
-    function mostrarMensajeDerivacion(
-
-        mensaje,
-
-        exito
-
-    ) {
-
-
-        mensajeDerivacion.textContent =
-            mensaje;
-
-
-        mensajeDerivacion.className =
-            "mensaje-derivacion " +
-
-            (
-
-                exito
-
-                    ? "mensaje-exito"
-
-                    : "mensaje-error"
-
-            );
 
     }
 
@@ -1867,7 +1444,8 @@
 
         let texto =
             datos.respuesta
-            || "";
+            ||
+            "";
 
 
         if (
@@ -1889,27 +1467,25 @@
             datos.fecha
         ) {
 
-            try {
+            texto +=
 
-                texto +=
+                "\nFecha: "
 
-                    "\nFecha: "
+                +
 
-                    +
-
-                    datos.fecha
-                        .toDate()
-                        .toLocaleString(
-                            "es-PE"
-                        );
-
-            } catch {
-
-                // No hacer nada
-
-            }
+                datos.fecha
+                    .toDate()
+                    .toLocaleString(
+                        "es-PE"
+                    );
 
         }
+
+
+        document.getElementById(
+            "respuesta"
+        ).style.whiteSpace =
+            "pre-line";
 
 
         document.getElementById(
@@ -1918,6 +1494,317 @@
             texto;
 
     }
+
+
+    // =========================================
+    // DERIVAR PREGUNTA
+    // =========================================
+
+    btnDerivar.addEventListener(
+
+        "click",
+
+        async function() {
+
+
+            // =================================
+            // VALIDAR SESIÓN
+            // =================================
+
+            const user =
+                auth.currentUser;
+
+
+            if (!user) {
+
+                alert(
+                    "Sesión no válida."
+                );
+
+                return;
+
+            }
+
+
+            // =================================
+            // VALIDAR ROL
+            // =================================
+
+            if (
+
+                usuarioActual.rol !==
+                "ADMINISTRADOR"
+
+                &&
+
+                usuarioActual.rol !==
+                "RESPONDEDOR"
+
+            ) {
+
+                alert(
+                    "No tiene permisos para derivar preguntas."
+                );
+
+                return;
+
+            }
+
+
+            // =================================
+            // VALIDAR ESTADO
+            // =================================
+
+            if (
+                preguntaActual.estado !==
+                "PENDIENTE"
+            ) {
+
+                alert(
+                    "La pregunta ya fue respondida y no puede ser derivada."
+                );
+
+                return;
+
+            }
+
+
+            // =================================
+            // OBTENER ÁREA
+            // =================================
+
+            const areaNueva =
+                nuevaArea.value;
+
+
+            if (!areaNueva) {
+
+                alert(
+                    "Seleccione un área de destino."
+                );
+
+                return;
+
+            }
+
+
+            // =================================
+            // VALIDAR QUE SEA DIFERENTE
+            // =================================
+
+            const areaActual =
+                preguntaActual.area
+                ||
+                "";
+
+
+            if (
+                areaNueva ===
+                areaActual
+            ) {
+
+                alert(
+                    "Seleccione un área diferente al área actual."
+                );
+
+                return;
+
+            }
+
+
+            // =================================
+            // CONFIRMACIÓN
+            // =================================
+
+            const confirmar =
+                confirm(
+
+                    "¿Está seguro de derivar esta pregunta?\n\n"
+
+                    +
+
+                    "Área actual: "
+                    +
+                    (
+                        areaActual
+                        ||
+                        "Sin área"
+                    )
+
+                    +
+
+                    "\nÁrea de destino: "
+                    +
+                    areaNueva
+
+                );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            // =================================
+            // DESHABILITAR BOTÓN
+            // =================================
+
+            btnDerivar.disabled =
+                true;
+
+
+            btnDerivar.textContent =
+                "DERIVANDO...";
+
+
+            mensajeExito.style.display =
+                "none";
+
+
+            mensajeError.style.display =
+                "none";
+
+
+            try {
+
+
+                // =================================
+                // ACTUALIZAR ÁREA
+                // =================================
+
+                await updateDoc(
+
+                    doc(
+                        db,
+                        "preguntas",
+                        preguntaId
+                    ),
+
+                    {
+
+                        area:
+                            areaNueva
+
+                    }
+
+                );
+
+
+                // =================================
+                // ACTUALIZAR INFORMACIÓN LOCAL
+                // =================================
+
+                preguntaActual.area =
+                    areaNueva;
+
+
+                document.getElementById(
+                    "area"
+                ).textContent =
+                    areaNueva;
+
+
+                nuevaArea.value =
+                    areaNueva;
+
+
+                // =================================
+                // MENSAJE
+                // =================================
+
+                mensajeExito.textContent =
+
+                    "Pregunta derivada correctamente al área: "
+
+                    +
+
+                    areaNueva;
+
+
+                mensajeExito.style.display =
+                    "block";
+
+
+                alert(
+                    "Pregunta derivada correctamente."
+                );
+
+
+            } catch (e) {
+
+                console.error(
+                    "Error derivando pregunta:",
+                    e
+                );
+
+
+                mensajeError.textContent =
+
+                    "No se pudo derivar la pregunta: "
+
+                    +
+
+                    e.message;
+
+
+                mensajeError.style.display =
+                    "block";
+
+
+                alert(
+
+                    "No se pudo derivar la pregunta.\n\n"
+
+                    +
+
+                    e.message
+
+                );
+
+            }
+
+
+            btnDerivar.disabled =
+                false;
+
+
+            btnDerivar.textContent =
+                "DERIVAR PREGUNTA";
+
+        }
+
+    );
+
+
+    // =========================================
+    // CANCELAR DERIVACIÓN
+    // =========================================
+
+    btnCancelarDerivacion.addEventListener(
+
+        "click",
+
+        function() {
+
+
+            nuevaArea.value =
+                preguntaActual.area
+                ||
+                "";
+
+
+            mensajeExito.style.display =
+                "none";
+
+
+            mensajeError.style.display =
+                "none";
+
+        }
+
+    );
 
 
     // =========================================
@@ -1970,6 +1857,10 @@
                 }
 
 
+                // =================================
+                // VALIDAR ROL
+                // =================================
+
                 if (
 
                     usuarioActual.rol !==
@@ -1983,7 +1874,25 @@
                 ) {
 
                     alert(
-                        "No tiene permisos para registrar respuestas."
+                        "No tiene permisos para responder."
+                    );
+
+                    return;
+
+                }
+
+
+                // =================================
+                // VALIDAR ESTADO
+                // =================================
+
+                if (
+                    preguntaActual.estado !==
+                    "PENDIENTE"
+                ) {
+
+                    alert(
+                        "La pregunta ya fue respondida."
                     );
 
                     return;
@@ -1992,24 +1901,6 @@
 
 
                 try {
-
-
-                    // =================================
-                    // DESHABILITAR BOTÓN
-                    // =================================
-
-                    const boton =
-                        document.getElementById(
-                            "btnResponder"
-                        );
-
-
-                    boton.disabled =
-                        true;
-
-
-                    boton.textContent =
-                        "REGISTRANDO...";
 
 
                     // =================================
@@ -2077,33 +1968,18 @@
 
                 } catch (e) {
 
-
                     console.error(e);
 
 
                     alert(
 
-                        "Error al registrar la respuesta: "
+                        "Error al registrar respuesta: "
 
                         +
 
                         e.message
 
                     );
-
-
-                    const boton =
-                        document.getElementById(
-                            "btnResponder"
-                        );
-
-
-                    boton.disabled =
-                        false;
-
-
-                    boton.textContent =
-                        "REGISTRAR RESPUESTA";
 
                 }
 
@@ -2134,6 +2010,7 @@
         return div.innerHTML;
 
     }
+
 
 </script>
 
