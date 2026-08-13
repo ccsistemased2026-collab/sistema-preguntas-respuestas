@@ -305,7 +305,23 @@
 
             </div>
 
+            <div class="form-group">
 
+                <label for="archivo">
+                    Archivo adjunto (opcional)
+                </label>
+            
+                <input
+                    type="file"
+                    id="archivo"
+                    accept=".jpg,.jpeg,.pdf">
+            
+                <small>
+                    Formatos permitidos: JPG, JPEG y PDF.
+                    Tamaño máximo: 10 MB.
+                </small>
+            
+            </div>
             <!-- =========================================
                  BOTONES
             ========================================== -->
@@ -485,27 +501,17 @@
             // OBTENER DATOS
             // =============================================
 
-            const area =
-                document
-                    .getElementById("area")
-                    .value;
-
-
-            const pregunta =
-                document
-                    .getElementById("pregunta")
-                    .value
-                    .trim();
-
-
-            const boton =
-                document
-                    .getElementById("btnRegistrar");
-
-
-            const mensaje =
-                document
-                    .getElementById("mensaje");
+        const area =
+            document.getElementById("area").value;
+        
+        const pregunta =
+            document.getElementById("pregunta").value.trim();
+        
+        const archivoInput =
+            document.getElementById("archivo");
+        
+        const archivo =
+            archivoInput.files[0];
 
 
             // =============================================
@@ -575,41 +581,41 @@
                 // =========================================
                 // GUARDAR EN FIRESTORE
                 // =========================================
-
-                await addDoc(
-
-                    collection(
-                        db,
-                        "preguntas"
-                    ),
-
+                let archivoUrl = "";
+                let archivoNombre = "";
+                let archivoTipo = "";
+                 await addDoc(
+                    collection(db, "preguntas"),
                     {
-
+                
                         usuarioId:
                             usuarioActual.uid,
-
-
+                
                         usuarioCorreo:
                             usuarioActual.email,
-
-
+                
                         area:
                             area,
-
-
+                
                         pregunta:
                             pregunta,
-
-
+                
+                        archivoUrl:
+                            archivoUrl,
+                
+                        archivoNombre:
+                            archivoNombre,
+                
+                        archivoTipo:
+                            archivoTipo,
+                
                         fecha:
                             serverTimestamp(),
-
-
+                
                         estado:
                             "PENDIENTE"
-
+                
                     }
-
                 );
 
 
@@ -656,7 +662,118 @@
         }
 
     );
+if (archivo) {
 
+    const extensionesPermitidas = [
+        ".jpg",
+        ".jpeg",
+        ".pdf"
+    ];
+
+    const nombreArchivo =
+        archivo.name.toLowerCase();
+
+    const extensionValida =
+        extensionesPermitidas.some(
+            extension =>
+                nombreArchivo.endsWith(extension)
+        );
+
+    if (!extensionValida) {
+
+        alert(
+            "Solo se permiten archivos JPG, JPEG o PDF."
+        );
+
+        return;
+    }
+
+
+    const maximo =
+        10 * 1024 * 1024;
+
+
+    if (archivo.size > maximo) {
+
+        alert(
+            "El archivo no puede superar los 10 MB."
+        );
+
+        return;
+    }
+
+
+    const formData =
+        new FormData();
+
+
+    formData.append(
+        "file",
+        archivo
+    );
+
+
+    formData.append(
+        "upload_preset",
+        "preguntas_adjuntos"
+    );
+
+
+    const url =
+        "https://api.cloudinary.com/v1_1/aiq51pxu/auto/upload";
+
+
+    try {
+
+        const respuesta =
+            await fetch(
+                url,
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+        const datos =
+            await respuesta.json();
+
+
+        if (!respuesta.ok) {
+
+            console.error(datos);
+
+            throw new Error(
+                datos.error?.message ||
+                "No se pudo subir el archivo."
+            );
+
+        }
+
+
+        archivoUrl =
+            datos.secure_url;
+
+        archivoNombre =
+            archivo.name;
+
+        archivoTipo =
+            datos.resource_type;
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "No se pudo cargar el archivo adjunto."
+        );
+
+        return;
+
+    }
+
+}
 
 </script>
 
