@@ -353,6 +353,14 @@
 
         </a>
 
+        <a
+            href="usuarios.html"
+            id="btnUsuarios"
+            class="button"
+            style="display:none;">
+            Usuarios
+        </a>
+
 
         <a
             href="nueva-pregunta.html"
@@ -510,6 +518,16 @@
 
                 const datos =
                     userSnapshot.data();
+
+                const btnUsuarios =
+                    document.getElementById("btnUsuarios");
+                
+                if (datos.rol === "ADMINISTRADOR") {
+                
+                    btnUsuarios.style.display =
+                        "inline-block";
+                
+                }
 
 
                 // =========================================
