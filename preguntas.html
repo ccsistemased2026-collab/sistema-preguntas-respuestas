@@ -12,7 +12,11 @@
     <title>Preguntas y Respuestas</title>
 
 
-    <!-- SheetJS para exportar Excel -->
+    <!-- =====================================================
+         XLSX-JS-STYLE
+         Permite exportar Excel con estilos
+    ====================================================== -->
+
     <script
         src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js">
     </script>
@@ -91,40 +95,46 @@
 
         button,
         .boton {
+
             display: inline-flex;
+
             align-items: center;
+
             justify-content: center;
-        
+
             padding: 6px 10px;
-        
+
             margin: 2px;
-        
+
             border-radius: 5px;
-        
+
             text-decoration: none;
-        
+
             color: white;
-        
+
             font-size: 12px;
-        
+
             line-height: 1.2;
-        
+
             white-space: nowrap;
-        
+
             cursor: pointer;
-        
+
             border: none;
+
         }
-            td:last-child {
+
+
+        td:last-child {
+
             white-space: nowrap;
+
         }
 
 
         .btn-dashboard {
 
             background: #6c757d;
-
-            color: white;
 
             margin-bottom: 20px;
 
@@ -142,8 +152,6 @@
 
             background: #198754;
 
-            color: white;
-
         }
 
 
@@ -158,8 +166,6 @@
 
             background: #217346;
 
-            color: white;
-
         }
 
 
@@ -171,18 +177,36 @@
 
 
         .btn-ver {
+
             background: #1f4e78;
+
         }
 
 
         .btn-eliminar {
+
             background: #b42318;
+
         }
 
 
         .btn-eliminar:hover {
 
             background: #bb2d3b;
+
+        }
+
+
+        .btn-archivo {
+
+            background: #6f42c1;
+
+        }
+
+
+        .btn-archivo:hover {
+
+            background: #59339d;
 
         }
 
@@ -269,7 +293,7 @@
 
             border-collapse: collapse;
 
-            min-width: 850px;
+            min-width: 1100px;
 
         }
 
@@ -418,9 +442,9 @@
 <div class="contenedor">
 
 
-    <!-- =====================================
+    <!-- =====================================================
          ENCABEZADO
-    ====================================== -->
+    ====================================================== -->
 
     <div class="encabezado">
 
@@ -454,13 +478,12 @@
 
         </div>
 
-
     </div>
 
 
-    <!-- =====================================
+    <!-- =====================================================
          VOLVER AL DASHBOARD
-    ====================================== -->
+    ====================================================== -->
 
     <a
         href="dashboard.html"
@@ -471,9 +494,9 @@
     </a>
 
 
-    <!-- =====================================
+    <!-- =====================================================
          NOTIFICACIÓN
-    ====================================== -->
+    ====================================================== -->
 
     <div
         id="notificacionPendientes"
@@ -489,283 +512,85 @@
     </div>
 
 
-    <!-- =====================================
+    <!-- =====================================================
          FILTROS
-    ====================================== -->
+    ====================================================== -->
 
     <div class="filtros">
-    
+
+
         <!-- BUSCADOR -->
-    
+
         <input
             type="text"
             id="buscador"
             class="buscador"
-            placeholder="🔎 Buscar pregunta o usuario...">
-    
-    
+            placeholder="🔎 Buscar pregunta, usuario, cargo o sede...">
+
+
         <!-- ÁREA -->
-    
+
         <select id="filtroArea">
-    
+
             <option value="TODOS">
                 Todas las áreas
             </option>
-    
+
             <option value="METODOLOGÍA">
                 METODOLOGÍA
             </option>
-    
+
             <option value="CAPACITACIÓN">
                 CAPACITACIÓN
             </option>
-    
+
             <option value="ADMIN Y RRHH">
                 ADMIN Y RRHH
             </option>
-    
+
             <option value="SISTEMAS">
                 SISTEMAS
             </option>
-    
+
         </select>
-    
-    
-        <!-- SEDE OPERATIVA -->
-    
+
+
+        <!-- SEDE -->
+
         <select id="filtroSede">
-    
+
             <option value="TODOS">
                 Todas las sedes
             </option>
-    
-            <option value="AMAZONAS-BAGUA GRANDE">
-                AMAZONAS-BAGUA GRANDE
-            </option>
-    
-            <option value="AMAZONAS-CHACHAPOYAS">
-                AMAZONAS-CHACHAPOYAS
-            </option>
-    
-            <option value="ÁNCASH-CHIMBOTE">
-                ÁNCASH-CHIMBOTE
-            </option>
-    
-            <option value="ÁNCASH-HUARAZ">
-                ÁNCASH-HUARAZ
-            </option>
-    
-            <option value="ÁNCASH-POMABAMBA">
-                ÁNCASH-POMABAMBA
-            </option>
-    
-            <option value="APURÍMAC-ABANCAY">
-                APURÍMAC-ABANCAY
-            </option>
-    
-            <option value="APURÍMAC-ANDAHUAYLAS">
-                APURÍMAC-ANDAHUAYLAS
-            </option>
-    
-            <option value="AREQUIPA-AREQUIPA">
-                AREQUIPA-AREQUIPA
-            </option>
-    
-            <option value="AREQUIPA-CAMANÁ">
-                AREQUIPA-CAMANÁ
-            </option>
-    
-            <option value="AYACUCHO-HUAMANGA">
-                AYACUCHO-HUAMANGA
-            </option>
-    
-            <option value="AYACUCHO-PUQUIO">
-                AYACUCHO-PUQUIO
-            </option>
-    
-            <option value="CAJAMARCA-CAJAMARCA">
-                CAJAMARCA-CAJAMARCA
-            </option>
-    
-            <option value="CAJAMARCA-CHOTA">
-                CAJAMARCA-CHOTA
-            </option>
-    
-            <option value="CAJAMARCA-JAÉN">
-                CAJAMARCA-JAÉN
-            </option>
-    
-            <option value="CALLAO">
-                CALLAO
-            </option>
-    
-            <option value="CUSCO-SICUANI">
-                CUSCO-SICUANI
-            </option>
-    
-            <option value="CUSCO-CUSCO">
-                CUSCO-CUSCO
-            </option>
-    
-            <option value="CUSCO-LA CONVENCIÓN">
-                CUSCO-LA CONVENCIÓN
-            </option>
-    
-            <option value="HUANCAVELICA-HUANCAVELICA">
-                HUANCAVELICA-HUANCAVELICA
-            </option>
-    
-            <option value="HUANCAVELICA-PAMPAS">
-                HUANCAVELICA-PAMPAS
-            </option>
-    
-            <option value="HUÁNUCO-HUÁNUCO">
-                HUÁNUCO-HUÁNUCO
-            </option>
-    
-            <option value="HUÁNUCO-TINGO MARÍA">
-                HUÁNUCO-TINGO MARÍA
-            </option>
-    
-            <option value="ICA-CHINCHA">
-                ICA-CHINCHA
-            </option>
-    
-            <option value="ICA-ICA">
-                ICA-ICA
-            </option>
-    
-            <option value="JUNÍN-HUANCAYO">
-                JUNÍN-HUANCAYO
-            </option>
-    
-            <option value="JUNÍN-TARMA">
-                JUNÍN-TARMA
-            </option>
-    
-            <option value="LA LIBERTAD-HUAMACHUCO">
-                LA LIBERTAD-HUAMACHUCO
-            </option>
-    
-            <option value="LA LIBERTAD-TRUJILLO">
-                LA LIBERTAD-TRUJILLO
-            </option>
-    
-            <option value="LAMBAYEQUE-CHICLAYO">
-                LAMBAYEQUE-CHICLAYO
-            </option>
-    
-            <option value="LIMA METROPOLITANA-CENTRO">
-                LIMA METROPOLITANA-CENTRO
-            </option>
-    
-            <option value="LIMA METROPOLITANA-NORTE">
-                LIMA METROPOLITANA-NORTE
-            </option>
-    
-            <option value="LIMA METROPOLITANA-SUR">
-                LIMA METROPOLITANA-SUR
-            </option>
-    
-            <option value="LIMA METROPOLITANA-ESTE">
-                LIMA METROPOLITANA-ESTE
-            </option>
-    
-            <option value="LIMA PROVINCIAS-CAÑETE">
-                LIMA PROVINCIAS-CAÑETE
-            </option>
-    
-            <option value="LIMA PROVINCIAS-HUACHO">
-                LIMA PROVINCIAS-HUACHO
-            </option>
-    
-            <option value="LORETO-IQUITOS">
-                LORETO-IQUITOS
-            </option>
-    
-            <option value="LORETO-YURIMAGUAS">
-                LORETO-YURIMAGUAS
-            </option>
-    
-            <option value="MADRE DE DIOS">
-                MADRE DE DIOS
-            </option>
-    
-            <option value="MOQUEGUA">
-                MOQUEGUA
-            </option>
-    
-            <option value="PASCO">
-                PASCO
-            </option>
-    
-            <option value="PIURA-PIURA">
-                PIURA-PIURA
-            </option>
-    
-            <option value="PIURA-SULLANA">
-                PIURA-SULLANA
-            </option>
-    
-            <option value="PUNO-AZÁNGARO">
-                PUNO-AZÁNGARO
-            </option>
-    
-            <option value="PUNO-JULIACA">
-                PUNO-JULIACA
-            </option>
-    
-            <option value="PUNO-PUNO">
-                PUNO-PUNO
-            </option>
-    
-            <option value="SAN MARTÍN-MOYOBAMBA">
-                SAN MARTÍN-MOYOBAMBA
-            </option>
-    
-            <option value="SAN MARTÍN-TARAPOTO">
-                SAN MARTÍN-TARAPOTO
-            </option>
-    
-            <option value="TACNA">
-                TACNA
-            </option>
-    
-            <option value="TUMBES">
-                TUMBES
-            </option>
-    
-            <option value="UCAYALI-PUCALLPA">
-                UCAYALI-PUCALLPA
-            </option>
-    
+
         </select>
-    
-    
+
+
         <!-- ESTADO -->
-    
+
         <select id="filtroEstado">
-    
+
             <option value="TODOS">
                 Todos los estados
             </option>
-    
+
             <option value="PENDIENTE">
                 Pendiente
             </option>
-    
+
             <option value="RESPONDIDA">
                 Respondida
             </option>
-    
+
         </select>
-    
+
+
     </div>
 
 
-    <!-- =====================================
+    <!-- =====================================================
          TABLA
-    ====================================== -->
+    ====================================================== -->
 
     <div class="tabla-contenedor">
 
@@ -775,65 +600,36 @@
 
             <thead>
 
-
                 <tr>
 
+                    <th>N°</th>
 
-                    <th>
-                        N°
-                    </th>
+                    <th>PREGUNTA</th>
 
+                    <th>ÁREA</th>
 
-                    <th>
-                        PREGUNTA
-                    </th>
+                    <th>USUARIO</th>
 
+                    <th>CARGO</th>
 
-                    <th>
-                        ÁREA
-                    </th>
+                    <th>SEDE OPERATIVA</th>
 
+                    <th>FECHA</th>
 
-                    <th>
-                        USUARIO
-                    </th>
-                    
-                    <th>
-                        CARGO
-                    </th>
-                    
-                    <th>
-                        SEDE OPERATIVA
-                    </th>
-                    
-                    <th>
-                        FECHA
-                    </th>
+                    <th>ESTADO</th>
 
-                    <th>
-                        ESTADO
-                    </th>
-                    
-                    <th>
-                        ARCHIVO
-                    </th>
-                    
-                    <th>
-                        ACCIONES
-                    </th>
+                    <th>ARCHIVO</th>
 
+                    <th>ACCIONES</th>
 
                 </tr>
-
 
             </thead>
 
 
             <tbody id="tablaPreguntas">
 
-
                 <tr>
-
 
                     <td
                         colspan="10"
@@ -843,9 +639,7 @@
 
                     </td>
 
-
                 </tr>
-
 
             </tbody>
 
@@ -920,13 +714,11 @@
 
 
     // =====================================================
-    // INICIALIZAR FIREBASE
+    // INICIALIZAR
     // =====================================================
 
     const app =
-        initializeApp(
-            firebaseConfig
-        );
+        initializeApp(firebaseConfig);
 
 
     const auth =
@@ -941,68 +733,173 @@
     // VARIABLES
     // =====================================================
 
-        let todasLasPreguntas = [];
-        
-        let usuarios = {};
-        
-        let usuarioActualRol = "";
+    let todasLasPreguntas = [];
+
+    let usuarios = {};
+
+    let usuarioActualRol = "";
 
 
     // =====================================================
-    // OBTENER ROL DEL USUARIO
+    // SEDES OPERATIVAS
+    // =====================================================
+
+    const sedesOperativas = [
+
+        "AMAZONAS-BAGUA GRANDE",
+        "AMAZONAS-CHACHAPOYAS",
+
+        "ÁNCASH-CHIMBOTE",
+        "ÁNCASH-HUARAZ",
+        "ÁNCASH-POMABAMBA",
+
+        "APURÍMAC-ABANCAY",
+        "APURÍMAC-ANDAHUAYLAS",
+
+        "AREQUIPA-AREQUIPA",
+        "AREQUIPA-CAMANÁ",
+
+        "AYACUCHO-HUAMANGA",
+        "AYACUCHO-PUQUIO",
+
+        "CAJAMARCA-CAJAMARCA",
+        "CAJAMARCA-CHOTA",
+        "CAJAMARCA-JAÉN",
+
+        "CALLAO",
+
+        "CUSCO-SICUANI",
+        "CUSCO-CUSCO",
+        "CUSCO-LA CONVENCIÓN",
+
+        "HUANCAVELICA-HUANCAVELICA",
+        "HUANCAVELICA-PAMPAS",
+
+        "HUÁNUCO-HUÁNUCO",
+        "HUÁNUCO-TINGO MARÍA",
+
+        "ICA-CHINCHA",
+        "ICA-ICA",
+
+        "JUNÍN-HUANCAYO",
+        "JUNÍN-TARMA",
+
+        "LA LIBERTAD-HUAMACHUCO",
+        "LA LIBERTAD-TRUJILLO",
+
+        "LAMBAYEQUE-CHICLAYO",
+
+        "LIMA METROPOLITANA-CENTRO",
+        "LIMA METROPOLITANA-NORTE",
+        "LIMA METROPOLITANA-SUR",
+        "LIMA METROPOLITANA-ESTE",
+
+        "LIMA PROVINCIAS-CAÑETE",
+        "LIMA PROVINCIAS-HUACHO",
+
+        "LORETO-IQUITOS",
+        "LORETO-YURIMAGUAS",
+
+        "MADRE DE DIOS",
+
+        "MOQUEGUA",
+
+        "PASCO",
+
+        "PIURA-PIURA",
+        "PIURA-SULLANA",
+
+        "PUNO-AZÁNGARO",
+        "PUNO-JULIACA",
+        "PUNO-PUNO",
+
+        "SAN MARTÍN-MOYOBAMBA",
+        "SAN MARTÍN-TARAPOTO",
+
+        "TACNA",
+
+        "TUMBES",
+
+        "UCAYALI-PUCALLPA"
+
+    ];
+
+
+    // =====================================================
+    // CARGAR SEDES EN EL SELECT
+    // =====================================================
+
+    function cargarSedesFiltro() {
+
+        const filtroSede =
+            document.getElementById(
+                "filtroSede"
+            );
+
+
+        sedesOperativas.forEach(
+            (sede) => {
+
+                const opcion =
+                    document.createElement(
+                        "option"
+                    );
+
+
+                opcion.value =
+                    sede;
+
+
+                opcion.textContent =
+                    sede;
+
+
+                filtroSede.appendChild(
+                    opcion
+                );
+
+            }
+        );
+
+    }
+
+
+    // =====================================================
+    // OBTENER ROL
     // =====================================================
 
     async function obtenerRolUsuario(user) {
 
-        try {
-
-            const usuarioRef =
-                doc(
-                    db,
-                    "usuarios",
-                    user.uid
-                );
-
-
-            const usuarioSnapshot =
-                await getDoc(
-                    usuarioRef
-                );
-
-
-            if (
-                !usuarioSnapshot.exists()
-            ) {
-
-                console.error(
-                    "No existe el perfil del usuario."
-                );
-
-                return "";
-
-            }
-
-
-            const datosUsuario =
-                usuarioSnapshot.data();
-
-
-            return (
-                datosUsuario.rol
-                || ""
+        const usuarioRef =
+            doc(
+                db,
+                "usuarios",
+                user.uid
             );
 
 
-        } catch (error) {
-
-            console.error(
-                "Error obteniendo rol:",
-                error
+        const usuarioSnapshot =
+            await getDoc(
+                usuarioRef
             );
+
+
+        if (
+            !usuarioSnapshot.exists()
+        ) {
 
             return "";
 
         }
+
+
+        const datosUsuario =
+            usuarioSnapshot.data();
+
+
+        return (
+            datosUsuario.rol || ""
+        );
 
     }
 
@@ -1010,97 +907,109 @@
     // =====================================================
     // OBTENER ÁREA
     // =====================================================
-    //
-    // Preguntas nuevas:
-    //     datos.area
-    //
-    // Preguntas antiguas:
-    //     datos.categoria
-    //
-    // De esta manera no perdemos los registros anteriores.
-    // =====================================================
 
     function obtenerArea(datos) {
 
         return (
+
             datos.area
+
             ||
+
             datos.categoria
+
             ||
+
             ""
+
         );
 
     }
 
+
     // =====================================================
     // CARGAR USUARIOS
     // =====================================================
-    
-            async function cargarUsuarios() {
-            
-                try {
-            
-                    const resultado =
-                        await getDocs(
-                            collection(
-                                db,
-                                "usuarios"
-                            )
-                        );
-            
-                    usuarios = {};
-            
-                    resultado.forEach(
-                        (documento) => {
-            
-                            const datos =
-                                documento.data();
-            
-                            usuarios[documento.id] = {
-            
-                                nombre:
-                                    datos.nombre || "",
-            
-                                correo:
-                                    datos.correo ||
-                                    datos.email ||
-                                    "",
-            
-                                cargo:
-                                    datos.cargo || "",
-            
-                                sedeOperativa:
-                                    datos.sedeOperativa || ""
-            
-                            };
-            
-                        }
-                    );
-            
-                    console.log(
-                        "Índice de usuarios:",
-                        usuarios
-                    );
-            
-                } catch (error) {
-            
-                    console.error(
-                        "Error cargando usuarios:",
-                        error
-                    );
-            
-                    throw error;
-            
+
+    async function cargarUsuarios() {
+
+        try {
+
+            const resultado =
+                await getDocs(
+                    collection(
+                        db,
+                        "usuarios"
+                    )
+                );
+
+
+            usuarios = {};
+
+
+            resultado.forEach(
+                (documento) => {
+
+                    const datos =
+                        documento.data();
+
+
+                    usuarios[
+                        documento.id
+                    ] = {
+
+                        nombre:
+                            datos.nombre || "",
+
+                        correo:
+                            datos.correo
+                            ||
+                            datos.email
+                            ||
+                            "",
+
+                        cargo:
+                            datos.cargo || "",
+
+                        sedeOperativa:
+                            datos.sedeOperativa
+                            ||
+                            ""
+
+                    };
+
                 }
-            
-            }
+            );
+
+
+        } catch (error) {
+
+            /*
+             * No detenemos toda la página.
+             * Si las reglas no permiten consultar
+             * todos los usuarios, continuamos
+             * usando la información guardada
+             * directamente en la pregunta.
+             */
+
+            console.warn(
+                "No se pudo cargar el listado completo de usuarios:",
+                error
+            );
+
+
+            usuarios = {};
+
+        }
+
+    }
+
 
     // =====================================================
     // CARGAR PREGUNTAS
     // =====================================================
 
     async function cargarPreguntas() {
-
 
         const tabla =
             document.getElementById(
@@ -1113,7 +1022,7 @@
             <tr>
 
                 <td
-                    colspan="7"
+                    colspan="10"
                     class="mensaje cargando">
 
                     Cargando información...
@@ -1126,7 +1035,6 @@
 
 
         try {
-
 
             const consulta =
                 query(
@@ -1153,78 +1061,108 @@
             todasLasPreguntas = [];
 
 
-                resultado.forEach(
-                    (documento) => {
-                
-                        const datos =
-                            documento.data();
-                
-                
-                        const usuario =
-                            usuarios[datos.usuarioId] || {};
-                
-                
-                        console.log(
-                            "RELACIÓN PREGUNTA → USUARIO",
-                            {
-                                preguntaId: documento.id,
-                                usuarioId: datos.usuarioId,
-                                usuarioEncontrado: usuario
-                            }
-                        );
-                    
-                    console.log(
-                        "Pregunta:",
-                        documento.id,
-                        "usuarioId:",
-                        datos.usuarioId,
-                        "usuario encontrado:",
-                        usuario
-                    );
-                    
+            resultado.forEach(
+                (documento) => {
+
+
+                    const datos =
+                        documento.data();
+
+
+                    const usuario =
+                        usuarios[
+                            datos.usuarioId
+                        ]
+                        ||
+                        {};
+
+
                     todasLasPreguntas.push({
-                    
+
                         id:
                             documento.id,
-                    
+
+
                         pregunta:
-                            datos.pregunta || "",
-                    
+                            datos.pregunta
+                            || "",
+
+
                         area:
-                            obtenerArea(datos),
-                    
+                            obtenerArea(
+                                datos
+                            ),
+
+
                         usuarioCorreo:
-                            datos.usuarioCorreo || "",
+                            datos.usuarioCorreo
+                            ||
+                            usuario.correo
+                            ||
+                            "",
+
 
                         usuarioId:
-                        datos.usuarioId || "",
-                    
+                            datos.usuarioId
+                            ||
+                            "",
+
+
                         usuarioNombre:
-                            usuario.nombre || "",
-                    
+                            datos.nombreConsultador
+                            ||
+                            datos.usuarioNombre
+                            ||
+                            usuario.nombre
+                            ||
+                            "",
+
+
                         cargo:
-                            usuario.cargo || "No registrado",
-                    
+                            datos.cargo
+                            ||
+                            usuario.cargo
+                            ||
+                            "No registrado",
+
+
                         sedeOperativa:
-                            usuario.sedeOperativa || "No registrada",
-                    
+                            datos.sedeOperativa
+                            ||
+                            usuario.sedeOperativa
+                            ||
+                            "No registrada",
+
+
                         estado:
-                            datos.estado || "PENDIENTE",
-                    
+                            datos.estado
+                            ||
+                            "PENDIENTE",
+
+
                         fecha:
-                            datos.fecha || null,
-                    
+                            datos.fecha
+                            ||
+                            null,
+
+
                         archivoUrl:
-                            datos.archivoUrl || "",
-                    
+                            datos.archivoUrl
+                            ||
+                            "",
+
+
                         archivoNombre:
-                            datos.archivoNombre || "",
-                    
+                            datos.archivoNombre
+                            ||
+                            "",
+
+
                         archivoTipo:
-                            datos.archivoTipo || ""
+                            datos.archivoTipo
+                            ||
+                            ""
 
-
-                    
                     });
 
 
@@ -1242,7 +1180,6 @@
 
         } catch (error) {
 
-
             console.error(
                 "Error cargando preguntas:",
                 error
@@ -1254,7 +1191,7 @@
                 <tr>
 
                     <td
-                        colspan="7"
+                        colspan="10"
                         class="mensaje error">
 
                         <strong>
@@ -1286,7 +1223,6 @@
         preguntas
     ) {
 
-
         const tabla =
             document.getElementById(
                 "tablaPreguntas"
@@ -1297,13 +1233,12 @@
             preguntas.length === 0
         ) {
 
-
             tabla.innerHTML = `
 
                 <tr>
 
                     <td
-                        colspan="7"
+                        colspan="10"
                         class="mensaje">
 
                         No existen preguntas.
@@ -1327,15 +1262,18 @@
             (pregunta, indice) => {
 
 
-                let fecha =
-                    "";
+                let fecha = "";
 
 
                 if (
+
                     pregunta.fecha
+
                     &&
+
                     typeof pregunta.fecha.toDate ===
-                        "function"
+                    "function"
+
                 ) {
 
                     fecha =
@@ -1363,20 +1301,17 @@
                 }
 
 
-                // =========================================
-                // BOTÓN ELIMINAR
-                // SOLO ADMINISTRADOR
-                // =========================================
+                // =================================================
+                // ELIMINAR
+                // =================================================
 
-                let botonEliminar =
-                    "";
+                let botonEliminar = "";
 
 
                 if (
                     usuarioActualRol ===
                     "ADMINISTRADOR"
                 ) {
-
 
                     botonEliminar = `
 
@@ -1394,27 +1329,41 @@
                     `;
 
                 }
-                let botonArchivo = "";
 
-                    if (pregunta.archivoUrl) {
-                    
-                        botonArchivo = `
-                            <a
-                                href="${escapeHTML(pregunta.archivoUrl)}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="boton btn-archivo">
-                    
-                                📎 Ver archivo
-                    
-                            </a>
-                        `;
-                    
-                    } else {
-                    
-                        botonArchivo = "—";
-                    
-                    }
+
+                // =================================================
+                // ARCHIVO
+                // =================================================
+
+                let botonArchivo = "—";
+
+
+                if (
+                    pregunta.archivoUrl
+                ) {
+
+                    botonArchivo = `
+
+                        <a
+                            href="${escapeHTML(
+                                pregunta.archivoUrl
+                            )}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="boton btn-archivo">
+
+                            📎 Ver archivo
+
+                        </a>
+
+                    `;
+
+                }
+
+
+                // =================================================
+                // FILA
+                // =================================================
 
                 const fila =
                     document.createElement(
@@ -1430,37 +1379,33 @@
 
 
                     <td>
-
                         ${escapeHTML(
                             pregunta.pregunta
                         )}
-
                     </td>
 
 
                     <td>
-
                         ${escapeHTML(
                             pregunta.area
                         )}
-
                     </td>
 
 
                     <td>
-
                         ${escapeHTML(
                             pregunta.usuarioCorreo
                         )}
-
                     </td>
+
 
                     <td>
                         ${escapeHTML(
                             pregunta.cargo
                         )}
                     </td>
-                    
+
+
                     <td>
                         ${escapeHTML(
                             pregunta.sedeOperativa
@@ -1469,49 +1414,45 @@
 
 
                     <td>
-
                         ${escapeHTML(
                             fecha
                         )}
-
                     </td>
 
 
                     <td>
-                    
+
                         <span
                             class="estado ${claseEstado}">
-                    
+
                             ${escapeHTML(
                                 pregunta.estado
                             )}
-                    
+
                         </span>
-                    
+
                     </td>
-                    
-                    
+
+
                     <td>
-                    
                         ${botonArchivo}
-                    
                     </td>
-                    
-                    
+
+
                     <td>
-                    
+
                         <a
                             href="detalle-pregunta.html?id=${encodeURIComponent(
                                 pregunta.id
                             )}"
                             class="boton btn-ver">
-                    
+
                             Ver
-                    
+
                         </a>
-                    
+
                         ${botonEliminar}
-                    
+
                     </td>
 
                 `;
@@ -1525,9 +1466,9 @@
         );
 
 
-        // ================================================
-        // EVENTOS DE ELIMINACIÓN
-        // ================================================
+        // =====================================================
+        // EVENTOS ELIMINAR
+        // =====================================================
 
         document
             .querySelectorAll(
@@ -1535,7 +1476,6 @@
             )
             .forEach(
                 (boton) => {
-
 
                     boton.addEventListener(
                         "click",
@@ -1547,7 +1487,6 @@
 
                         }
                     );
-
 
                 }
             );
@@ -1563,7 +1502,6 @@
         texto
     ) {
 
-
         const div =
             document.createElement(
                 "div"
@@ -1571,8 +1509,7 @@
 
 
         div.textContent =
-            texto
-            ?? "";
+            texto ?? "";
 
 
         return div.innerHTML;
@@ -1581,151 +1518,152 @@
 
 
     // =====================================================
-    // BUSCAR Y FILTRAR
+    // FILTROS
     // =====================================================
 
-            function aplicarFiltros() {
-        
-            const texto =
-                document
-                    .getElementById("buscador")
-                    .value
-                    .toLowerCase()
-                    .trim();
-        
-        
-            const area =
-                document
-                    .getElementById("filtroArea")
-                    .value;
-        
-        
-            const sede =
-                document
-                    .getElementById("filtroSede")
-                    .value;
-        
-        
-            const estado =
-                document
-                    .getElementById("filtroEstado")
-                    .value;
-        
-        
-            const filtradas =
-                todasLasPreguntas.filter(
-                    (pregunta) => {
-        
-        
-                        // =========================================
-                        // BUSCADOR
-                        // =========================================
-        
-                        const coincideTexto =
-        
-                            pregunta.pregunta
-                                .toLowerCase()
-                                .includes(texto)
-        
-                            ||
-        
-                            pregunta.area
-                                .toLowerCase()
-                                .includes(texto)
-        
-                            ||
-        
-                            pregunta.usuarioCorreo
-                                .toLowerCase()
-                                .includes(texto)
-        
-                            ||
-        
-                            pregunta.cargo
-                                .toLowerCase()
-                                .includes(texto)
-        
-                            ||
-        
-                            pregunta.sedeOperativa
-                                .toLowerCase()
-                                .includes(texto);
-        
-        
-                        // =========================================
-                        // ÁREA
-                        // =========================================
-        
-                        const coincideArea =
-        
-                            area === "TODOS"
-        
-                            ||
-        
-                            pregunta.area === area;
-        
-        
-                        // =========================================
-                        // SEDE
-                        // =========================================
-        
-                        const coincideSede =
-        
-                            sede === "TODOS"
-        
-                            ||
-        
-                            pregunta.sedeOperativa === sede;
-        
-        
-                        // =========================================
-                        // ESTADO
-                        // =========================================
-        
-                        const coincideEstado =
-        
-                            estado === "TODOS"
-        
-                            ||
-        
-                            pregunta.estado === estado;
-        
-        
-                        // =========================================
-                        // RESULTADO
-                        // =========================================
-        
-                        return (
-        
-                            coincideTexto
-        
-                            &&
-        
-                            coincideArea
-        
-                            &&
-        
-                            coincideSede
-        
-                            &&
-        
-                            coincideEstado
-        
-                        );
-        
-                    }
-                );
-        
-        
-            mostrarPreguntas(
-                filtradas
+    function aplicarFiltros() {
+
+
+        const texto =
+            document
+                .getElementById(
+                    "buscador"
+                )
+                .value
+                .toLowerCase()
+                .trim();
+
+
+        const area =
+            document
+                .getElementById(
+                    "filtroArea"
+                )
+                .value;
+
+
+        const sede =
+            document
+                .getElementById(
+                    "filtroSede"
+                )
+                .value;
+
+
+        const estado =
+            document
+                .getElementById(
+                    "filtroEstado"
+                )
+                .value;
+
+
+        const filtradas =
+            todasLasPreguntas.filter(
+                (pregunta) => {
+
+
+                    const coincideTexto =
+
+                        pregunta.pregunta
+                            .toLowerCase()
+                            .includes(texto)
+
+                        ||
+
+                        pregunta.area
+                            .toLowerCase()
+                            .includes(texto)
+
+                        ||
+
+                        pregunta.usuarioCorreo
+                            .toLowerCase()
+                            .includes(texto)
+
+                        ||
+
+                        pregunta.usuarioNombre
+                            .toLowerCase()
+                            .includes(texto)
+
+                        ||
+
+                        pregunta.cargo
+                            .toLowerCase()
+                            .includes(texto)
+
+                        ||
+
+                        pregunta.sedeOperativa
+                            .toLowerCase()
+                            .includes(texto);
+
+
+                    const coincideArea =
+
+                        area ===
+                        "TODOS"
+
+                        ||
+
+                        pregunta.area ===
+                        area;
+
+
+                    const coincideSede =
+
+                        sede ===
+                        "TODOS"
+
+                        ||
+
+                        pregunta.sedeOperativa ===
+                        sede;
+
+
+                    const coincideEstado =
+
+                        estado ===
+                        "TODOS"
+
+                        ||
+
+                        pregunta.estado ===
+                        estado;
+
+
+                    return (
+
+                        coincideTexto
+
+                        &&
+
+                        coincideArea
+
+                        &&
+
+                        coincideSede
+
+                        &&
+
+                        coincideEstado
+
+                    );
+
+                }
             );
-        
-        }
+
+
+        mostrarPreguntas(
+            filtradas
+        );
+
+    }
 
 
     // =====================================================
-    // CONTADOR DE PENDIENTES
+    // CONTADOR
     // =====================================================
 
     function actualizarContadorPendientes() {
@@ -1763,7 +1701,6 @@
 
         ) {
 
-
             contador.textContent =
                 cantidad;
 
@@ -1771,9 +1708,7 @@
             contenedor.style.display =
                 "block";
 
-
         } else {
-
 
             contenedor.style.display =
                 "none";
@@ -1792,18 +1727,14 @@
     ) {
 
 
-        // Verificación adicional
-
         if (
             usuarioActualRol !==
             "ADMINISTRADOR"
         ) {
 
-
             alert(
                 "No tiene permisos para eliminar preguntas."
             );
-
 
             return;
 
@@ -1814,7 +1745,9 @@
             confirm(
 
                 "¿Está seguro de eliminar esta pregunta?\n\n"
+
                 +
+
                 "Esta acción no se puede deshacer."
 
             );
@@ -1861,7 +1794,9 @@
             alert(
 
                 "No se pudo eliminar la pregunta.\n\n"
+
                 +
+
                 error.message
 
             );
@@ -1870,880 +1805,1305 @@
 
     }
 
+
     // =====================================================
-// EXPORTAR EXCEL
-// =====================================================
+    // ESTILOS EXCEL
     // =====================================================
-    // EXPORTAR EXCEL - MÓDULO DE DERIVACIÓN DE CONSULTAS
-    // =====================================================
-    
-    async function exportarExcel() {
-    
-        try {
-    
-            if (todasLasPreguntas.length === 0) {
-    
-                alert("No existen preguntas para exportar.");
-                return;
-    
-            }
-    
-            // =================================================
-            // FILTROS ACTUALES
-            // =================================================
-    
-            const texto =
-                document
-                    .getElementById("buscador")
-                    .value
-                    .toLowerCase()
-                    .trim();
-    
-            const estadoSeleccionado =
-                document
-                    .getElementById("filtroEstado")
-                    .value;
-    
-    
-            // =================================================
-            // APLICAR FILTROS
-            // =================================================
-    
-            const preguntasFiltradas =
-                todasLasPreguntas.filter((pregunta) => {
-    
-                    const coincideTexto =
-    
-                        pregunta.pregunta
-                            .toLowerCase()
-                            .includes(texto)
-    
-                        ||
-    
-                        pregunta.area
-                            .toLowerCase()
-                            .includes(texto)
-    
-                        ||
-    
-                        pregunta.usuarioCorreo
-                            .toLowerCase()
-                            .includes(texto);
-    
-    
-                    const coincideEstado =
-    
-                        estadoSeleccionado === "TODOS"
-    
-                        ||
-    
-                        pregunta.estado === estadoSeleccionado;
-    
-    
-                    return (
-                        coincideTexto &&
-                        coincideEstado
-                    );
-    
-                });
-    
-    
-            if (preguntasFiltradas.length === 0) {
-    
-                alert(
-                    "No existen registros para exportar."
-                );
-    
-                return;
-    
-            }
-    
-    
-            // =================================================
-            // OBTENER RESPUESTAS
-            // =================================================
-    
-            const respuestasSnapshot =
-                await getDocs(
-                    collection(
-                        db,
-                        "respuestas"
-                    )
-                );
-    
-    
-            const respuestas = {};
-    
-    
-            respuestasSnapshot.forEach(
-                (documento) => {
-    
-                    const datos =
-                        documento.data();
-    
-    
-                    if (datos.preguntaId) {
-    
-                        respuestas[
-                            datos.preguntaId
-                        ] = datos;
-    
-                    }
-    
-                }
-            );
-    
-    
-            // =================================================
-            // FECHA DE GENERACIÓN
-            // =================================================
-    
-            const ahora =
-                new Date();
-    
-    
-            const fechaGeneracion =
-                ahora.toLocaleString(
-                    "es-PE"
-                );
-    
-    
-            // =================================================
-            // CREAR ESTRUCTURA
-            // =================================================
-    
-            const datosExcel = [
-    
-                // FILA 1
-                [
-                    "APLICACIÓN DE LA PRUEBA NACIONAL DE LOS CONCURSOS PÚBLICOS PARA EL ASCENSO DE ESCALA DE LOS PROFESORES DE EDUCACIÓN BÁSICA Y DE LOS QUE LABORAN EN INSTITUCIONES EDUCATIVAS ADMINISTRADAS POR EL MINISTERIO DE DEFENSA Y EL MINISTERIO DEL INTERIOR, EN LA CARRERA PÚBLICA MAGISTERIAL, PARA EL AÑO 2026"
-                ],
-    
-    
-                // FILA 2
-                [
-                    "MÓDULO DE DERIVACIÓN DE CONSULTAS DE CAMPO"
-                ],
-    
-    
-                // FILA 3
-                [
-                    "REGISTRO",
-                    "",
-                    "",
-                    "",
-                    "",
-                    "ATENCIÓN DE LA CONSULTA",
-                    "",
-                    "",
-                    ""
-                ],
-    
-    
-                // FILA 4
-                [
-                    "FECHA",
-                    "SEDE OPERATIVA",
-                    "CONSULTA",
-                    "EVIDENCIA",
-                    "NOMBRE",
-                    "FECHA",
-                    "RESPUESTA",
-                    "CARGO",
-                    "NOMBRE"
-                ]
-    
-            ];
-    
-    
-            // =================================================
-            // REGISTROS
-            // =================================================
-    
-            preguntasFiltradas.forEach(
-                (pregunta) => {
-    
-    
-                    // -----------------------------------------
-                    // FECHA DE LA CONSULTA
-                    // -----------------------------------------
-    
-                    let fechaPregunta = "";
-    
-    
-                    if (
-                        pregunta.fecha &&
-                        typeof pregunta.fecha.toDate ===
-                        "function"
-                    ) {
-    
-                        fechaPregunta =
-                            pregunta.fecha
-                                .toDate()
-                                .toLocaleString(
-                                    "es-PE"
-                                );
-    
-                    }
-    
-    
-                    // -----------------------------------------
-                    // RESPUESTA
-                    // -----------------------------------------
-    
-                    const respuesta =
-                        respuestas[
-                            pregunta.id
-                        ];
-    
-    
-                    let fechaRespuesta = "";
-    
-                    let textoRespuesta = "";
-    
-                    let cargoRespondedor = "";
-    
-                    let nombreRespondedor = "";
-    
-    
-                    if (respuesta) {
-    
-    
-                        textoRespuesta =
-                            respuesta.respuesta
-                            || "";
-    
-    
-                        // Fecha de respuesta
-                        if (
-                            respuesta.fecha &&
-                            typeof respuesta.fecha.toDate ===
-                            "function"
-                        ) {
-    
-                            fechaRespuesta =
-                                respuesta.fecha
-                                    .toDate()
-                                    .toLocaleString(
-                                        "es-PE"
-                                    );
-    
-                        }
-    
-    
-                        // Cargo del respondedor
-                        cargoRespondedor =
-                            respuesta.cargo
-                            || "";
-    
-    
-                        // Nombre del respondedor
-                        nombreRespondedor =
-                            respuesta.nombre
-                            || respuesta.nombreRespondedor
-                            || "";
-    
-                    }
-    
-    
-                    // -----------------------------------------
-                    // DATOS DEL CONSULTADOR
-                    // -----------------------------------------
-    
-                    const sedeOperativa =
-                        pregunta.sedeOperativa
-                        || "";
-    
-    
-                    const nombreConsultador =
-                        pregunta.nombreConsultador
-                        || pregunta.usuarioNombre
-                        || "";
-    
-    
-                    // -----------------------------------------
-                    // EVIDENCIA
-                    // -----------------------------------------
-    
-                    let evidencia = "";
-    
-    
-                    if (
-                        pregunta.archivoUrl
-                    ) {
-    
-                        evidencia =
-                            pregunta.archivoNombre
-                            || "Ver archivo";
-    
-                    }
-    
-    
-                    // -----------------------------------------
-                    // AGREGAR FILA
-                    // -----------------------------------------
-    
-                    datosExcel.push([
-    
-                        fechaPregunta,
-    
-                        sedeOperativa,
-    
-                        pregunta.pregunta
-                        || "",
-    
-                        evidencia,
-    
-                        nombreConsultador,
-    
-                        fechaRespuesta,
-    
-                        textoRespuesta,
-    
-                        cargoRespondedor,
-    
-                        nombreRespondedor
-    
-                    ]);
-    
-                }
-            );
-    
-    
-            // =================================================
-            // INFORMACIÓN DE IMPORTACIÓN
-            // =================================================
-    
-            const filaInformacion =
-                datosExcel.length + 2;
-    
-    
-            datosExcel.push([]);
-    
-    
-            datosExcel.push([
-                "INFORMACIÓN DE IMPORTACIÓN"
-            ]);
-    
-    
-            datosExcel.push([
-                "Fecha de generación",
-                fechaGeneracion
-            ]);
-    
-    
-            datosExcel.push([
-                "Estado filtrado",
-                estadoSeleccionado
-            ]);
-    
-    
-            datosExcel.push([
-                "Texto buscado",
-                texto || "-"
-            ]);
-    
-    
-            datosExcel.push([
-                "Total de registros",
-                preguntasFiltradas.length
-            ]);
-    
-    
-            // =================================================
-            // CREAR HOJA
-            // =================================================
-    
-            const hoja =
-                XLSX.utils.aoa_to_sheet(
-                    datosExcel
-                );
-    
-    
-            // =================================================
-            // ANCHOS DE COLUMNAS
-            // =================================================
-    
-            hoja["!cols"] = [
-    
-                { wch: 20 }, // FECHA
-                { wch: 30 }, // SEDE OPERATIVA
-                { wch: 60 }, // CONSULTA
-                { wch: 25 }, // EVIDENCIA
-                { wch: 30 }, // NOMBRE CONSULTADOR
-                { wch: 20 }, // FECHA RESPUESTA
-                { wch: 65 }, // RESPUESTA
-                { wch: 35 }, // CARGO
-                { wch: 30 }  // NOMBRE RESPONDEDOR
-    
-            ];
-    
-    
-            // =================================================
-            // COMBINAR CELDAS
-            // =================================================
-    
-            hoja["!merges"] = [
-    
-                // TÍTULO PRINCIPAL
-                {
-                    s: { r: 0, c: 0 },
-                    e: { r: 0, c: 8 }
-                },
-    
-                // SUBTÍTULO
-                {
-                    s: { r: 1, c: 0 },
-                    e: { r: 1, c: 8 }
-                },
-    
-                // CONSULTADOR
-                {
-                    s: { r: 2, c: 0 },
-                    e: { r: 2, c: 4 }
-                },
-    
-                // RESPONDEDOR
-                {
-                    s: { r: 2, c: 5 },
-                    e: { r: 2, c: 8 }
-                },
-    
-                // INFORMACIÓN DE IMPORTACIÓN
-                {
-                    s: { r: filaInformacion, c: 0 },
-                    e: { r: filaInformacion, c: 8 }
-                }
-    
-            ];
-    
-    
-            // =================================================
-            // ESTILOS
-            // =================================================
-    
-            // =====================================================
-// ESTILOS DEL EXCEL
-// =====================================================
 
-const AZUL = "002060";
-const BLANCO = "FFFFFF";
-const NEGRO = "000000";
-const GRIS_BORDE = "B7B7B7";
-
-
-// =====================================================
-// FUNCIÓN PARA BORDE COMPLETO
-// =====================================================
-
-function bordeCompleto(color = GRIS_BORDE) {
-
-    return {
+    const bordeGris = {
 
         top: {
             style: "thin",
             color: {
-                rgb: color
+                rgb: "B7B7B7"
             }
         },
 
         bottom: {
             style: "thin",
             color: {
-                rgb: color
+                rgb: "B7B7B7"
             }
         },
 
         left: {
             style: "thin",
             color: {
-                rgb: color
+                rgb: "B7B7B7"
             }
         },
 
         right: {
             style: "thin",
             color: {
-                rgb: color
+                rgb: "B7B7B7"
             }
         }
 
     };
 
-}
 
+    const bordeBlanco = {
 
-// =====================================================
-// ESTILO CABECERA AZUL
-// =====================================================
-
-const estiloCabecera = {
-
-    fill: {
-        patternType: "solid",
-        fgColor: {
-            rgb: AZUL
-        }
-    },
-
-    font: {
-        bold: true,
-        color: {
-            rgb: BLANCO
+        top: {
+            style: "thin",
+            color: {
+                rgb: "FFFFFF"
+            }
         },
-        name: "Arial",
-        sz: 10
-    },
 
-    alignment: {
-        horizontal: "center",
-        vertical: "center",
-        wrapText: true
-    },
+        bottom: {
+            style: "thin",
+            color: {
+                rgb: "FFFFFF"
+            }
+        },
 
-    border:
-        bordeCompleto(BLANCO)
+        left: {
+            style: "thin",
+            color: {
+                rgb: "FFFFFF"
+            }
+        },
 
-};
-
-
-// =====================================================
-// ESTILO DATOS
-// =====================================================
-
-const estiloDatos = {
-
-    font: {
-        name: "Arial",
-        sz: 10,
-        color: {
-            rgb: NEGRO
-        }
-    },
-
-    alignment: {
-        vertical: "top",
-        horizontal: "left",
-        wrapText: true
-    },
-
-    border:
-        bordeCompleto(GRIS_BORDE)
-
-};
-
-
-// =====================================================
-// ESTILO TÍTULO
-// =====================================================
-
-const estiloTitulo = {
-
-    font: {
-        bold: true,
-        name: "Arial",
-        sz: 11,
-        color: {
-            rgb: NEGRO
-        }
-    },
-
-    alignment: {
-        horizontal: "center",
-        vertical: "center",
-        wrapText: true
-    }
-
-};
-
-
-// =====================================================
-// ESTILO SUBTÍTULO
-// =====================================================
-
-const estiloSubtitulo = {
-
-    font: {
-        bold: true,
-        name: "Arial",
-        sz: 18,
-        color: {
-            rgb: NEGRO
-        }
-    },
-
-    alignment: {
-        horizontal: "center",
-        vertical: "center"
-    }
-
-};
-
-
-// =====================================================
-// APLICAR TÍTULO
-// =====================================================
-
-hoja["A1"].s =
-    estiloTitulo;
-
-
-// =====================================================
-// APLICAR SUBTÍTULO
-// =====================================================
-
-hoja["A2"].s =
-    estiloSubtitulo;
-
-
-// =====================================================
-// CABECERA AGRUPADA
-// =====================================================
-
-for (
-    let columna = 0;
-    columna < 9;
-    columna++
-) {
-
-    const celda =
-        XLSX.utils.encode_cell({
-            r: 2,
-            c: columna
-        });
-
-
-    if (
-        hoja[celda]
-    ) {
-
-        hoja[celda].s =
-            estiloCabecera;
-
-    }
-
-}
-
-
-// =====================================================
-// CABECERA DE COLUMNAS
-// =====================================================
-
-for (
-    let columna = 0;
-    columna < 9;
-    columna++
-) {
-
-    const celda =
-        XLSX.utils.encode_cell({
-            r: 3,
-            c: columna
-        });
-
-
-    if (
-        hoja[celda]
-    ) {
-
-        hoja[celda].s =
-            estiloCabecera;
-
-    }
-
-}
-
-
-// =====================================================
-// CELDAS DE DATOS
-// =====================================================
-
-for (
-    let fila = 4;
-    fila < 4 + preguntasFiltradas.length;
-    fila++
-) {
-
-    for (
-        let columna = 0;
-        columna < 9;
-        columna++
-    ) {
-
-        const celda =
-            XLSX.utils.encode_cell({
-                r: fila,
-                c: columna
-            });
-
-
-        if (
-            hoja[celda]
-        ) {
-
-            hoja[celda].s =
-                estiloDatos;
-
+        right: {
+            style: "thin",
+            color: {
+                rgb: "FFFFFF"
+            }
         }
 
-    }
+    };
 
-}
-    
-    
+
+    // =====================================================
+    // EXPORTAR EXCEL
+    // =====================================================
+
+    async function exportarExcel() {
+
+
+        try {
+
+
+            if (
+                typeof XLSX ===
+                "undefined"
+            ) {
+
+                throw new Error(
+                    "No se pudo cargar la librería para generar Excel."
+                );
+
+            }
+
+
+            if (
+                todasLasPreguntas.length ===
+                0
+            ) {
+
+                alert(
+                    "No existen preguntas para exportar."
+                );
+
+                return;
+
+            }
+
+
+            // =================================================
+            // FILTROS
+            // =================================================
+
+            const texto =
+                document
+                    .getElementById(
+                        "buscador"
+                    )
+                    .value
+                    .toLowerCase()
+                    .trim();
+
+
+            const areaSeleccionada =
+                document
+                    .getElementById(
+                        "filtroArea"
+                    )
+                    .value;
+
+
+            const sedeSeleccionada =
+                document
+                    .getElementById(
+                        "filtroSede"
+                    )
+                    .value;
+
+
+            const estadoSeleccionado =
+                document
+                    .getElementById(
+                        "filtroEstado"
+                    )
+                    .value;
+
+
+            // =================================================
+            // APLICAR FILTROS
+            // =================================================
+
+            const preguntasFiltradas =
+                todasLasPreguntas.filter(
+                    (pregunta) => {
+
+
+                        const coincideTexto =
+
+                            pregunta.pregunta
+                                .toLowerCase()
+                                .includes(texto)
+
+                            ||
+
+                            pregunta.area
+                                .toLowerCase()
+                                .includes(texto)
+
+                            ||
+
+                            pregunta.usuarioCorreo
+                                .toLowerCase()
+                                .includes(texto)
+
+                            ||
+
+                            pregunta.usuarioNombre
+                                .toLowerCase()
+                                .includes(texto)
+
+                            ||
+
+                            pregunta.cargo
+                                .toLowerCase()
+                                .includes(texto)
+
+                            ||
+
+                            pregunta.sedeOperativa
+                                .toLowerCase()
+                                .includes(texto);
+
+
+                        const coincideArea =
+
+                            areaSeleccionada ===
+                            "TODOS"
+
+                            ||
+
+                            pregunta.area ===
+                            areaSeleccionada;
+
+
+                        const coincideSede =
+
+                            sedeSeleccionada ===
+                            "TODOS"
+
+                            ||
+
+                            pregunta.sedeOperativa ===
+                            sedeSeleccionada;
+
+
+                        const coincideEstado =
+
+                            estadoSeleccionado ===
+                            "TODOS"
+
+                            ||
+
+                            pregunta.estado ===
+                            estadoSeleccionado;
+
+
+                        return (
+
+                            coincideTexto
+
+                            &&
+
+                            coincideArea
+
+                            &&
+
+                            coincideSede
+
+                            &&
+
+                            coincideEstado
+
+                        );
+
+                    }
+                );
+
+
+            if (
+                preguntasFiltradas.length ===
+                0
+            ) {
+
+                alert(
+                    "No existen registros para exportar."
+                );
+
+                return;
+
+            }
+
+
+            // =================================================
+            // OBTENER RESPUESTAS
+            // =================================================
+
+            const respuestasSnapshot =
+                await getDocs(
+
+                    collection(
+                        db,
+                        "respuestas"
+                    )
+
+                );
+
+
+            const respuestas = {};
+
+
+            respuestasSnapshot.forEach(
+                (documento) => {
+
+
+                    const datos =
+                        documento.data();
+
+
+                    if (
+                        datos.preguntaId
+                    ) {
+
+                        respuestas[
+                            datos.preguntaId
+                        ] = datos;
+
+                    }
+
+                }
+            );
+
+
+            // =================================================
+            // FECHA
+            // =================================================
+
+            const ahora =
+                new Date();
+
+
+            const fechaGeneracion =
+                ahora.toLocaleString(
+                    "es-PE"
+                );
+
+
+            // =================================================
+            // ESTRUCTURA EXCEL
+            // =================================================
+
+            const datosExcel = [
+
+
+                // FILA 1
+
+                [
+
+                    "APLICACIÓN DE LA PRUEBA NACIONAL DE LOS CONCURSOS PÚBLICOS PARA EL ASCENSO DE ESCALA DE LOS PROFESORES DE EDUCACIÓN BÁSICA Y DE LOS QUE LABORAN EN INSTITUCIONES EDUCATIVAS ADMINISTRADAS POR EL MINISTERIO DE DEFENSA Y EL MINISTERIO DEL INTERIOR, EN LA CARRERA PÚBLICA MAGISTERIAL, PARA EL AÑO 2026"
+
+                ],
+
+
+                // FILA 2
+
+                [
+
+                    "MÓDULO DE DERIVACIÓN DE CONSULTAS DE CAMPO"
+
+                ],
+
+
+                // FILA 3
+
+                [
+
+                    "CONSULTADOR",
+                    "",
+                    "",
+                    "",
+                    "",
+
+                    "RESPONDEDOR",
+                    "",
+                    "",
+                    ""
+
+                ],
+
+
+                // FILA 4
+
+                [
+
+                    "FECHA",
+
+                    "SEDE OPERATIVA",
+
+                    "CONSULTA",
+
+                    "EVIDENCIA",
+
+                    "NOMBRE CONSULTADOR",
+
+                    "FECHA",
+
+                    "RESPUESTA",
+
+                    "CARGO",
+
+                    "NOMBRE RESPONDEDOR"
+
+                ]
+
+            ];
+
+
+            // =================================================
+            // REGISTROS
+            // =================================================
+
+            preguntasFiltradas.forEach(
+                (pregunta) => {
+
+
+                    // -----------------------------------------
+                    // FECHA PREGUNTA
+                    // -----------------------------------------
+
+                    let fechaPregunta = "";
+
+
+                    if (
+
+                        pregunta.fecha
+
+                        &&
+
+                        typeof pregunta.fecha.toDate ===
+                        "function"
+
+                    ) {
+
+                        fechaPregunta =
+                            pregunta.fecha
+                                .toDate()
+                                .toLocaleString(
+                                    "es-PE"
+                                );
+
+                    }
+
+
+                    // -----------------------------------------
+                    // RESPUESTA
+                    // -----------------------------------------
+
+                    const respuesta =
+                        respuestas[
+                            pregunta.id
+                        ];
+
+
+                    let fechaRespuesta = "";
+
+                    let textoRespuesta = "";
+
+                    let cargoRespondedor = "";
+
+                    let nombreRespondedor = "";
+
+
+                    if (
+                        respuesta
+                    ) {
+
+
+                        textoRespuesta =
+                            respuesta.respuesta
+                            || "";
+
+
+                        // FECHA
+
+                        if (
+
+                            respuesta.fecha
+
+                            &&
+
+                            typeof respuesta.fecha.toDate ===
+                            "function"
+
+                        ) {
+
+                            fechaRespuesta =
+                                respuesta.fecha
+                                    .toDate()
+                                    .toLocaleString(
+                                        "es-PE"
+                                    );
+
+                        }
+
+
+                        // USUARIO DEL RESPONDEDOR
+
+                        const usuarioRespondedor =
+                            usuarios[
+                                respuesta.usuarioId
+                            ]
+                            ||
+                            {};
+
+
+                        cargoRespondedor =
+
+                            respuesta.cargo
+
+                            ||
+
+                            usuarioRespondedor.cargo
+
+                            ||
+
+                            "";
+
+
+                        nombreRespondedor =
+
+                            respuesta.nombre
+
+                            ||
+
+                            respuesta.nombreRespondedor
+
+                            ||
+
+                            usuarioRespondedor.nombre
+
+                            ||
+
+                            respuesta.usuarioCorreo
+
+                            ||
+
+                            "";
+
+                    }
+
+
+                    // -----------------------------------------
+                    // CONSULTADOR
+                    // -----------------------------------------
+
+                    const usuarioConsultador =
+                        usuarios[
+                            pregunta.usuarioId
+                        ]
+                        ||
+                        {};
+
+
+                    const sedeOperativa =
+
+                        pregunta.sedeOperativa
+
+                        ||
+
+                        usuarioConsultador.sedeOperativa
+
+                        ||
+
+                        "";
+
+
+                    const nombreConsultador =
+
+                        pregunta.usuarioNombre
+
+                        ||
+
+                        pregunta.nombreConsultador
+
+                        ||
+
+                        usuarioConsultador.nombre
+
+                        ||
+
+                        pregunta.usuarioCorreo
+
+                        ||
+
+                        "";
+
+
+                    // -----------------------------------------
+                    // EVIDENCIA
+                    // -----------------------------------------
+
+                    let evidencia = "";
+
+
+                    if (
+                        pregunta.archivoUrl
+                    ) {
+
+                        evidencia =
+
+                            pregunta.archivoNombre
+
+                            ||
+
+                            "Ver archivo";
+
+                    }
+
+
+                    // -----------------------------------------
+                    // FILA
+                    // -----------------------------------------
+
+                    datosExcel.push([
+
+                        fechaPregunta,
+
+                        sedeOperativa,
+
+                        pregunta.pregunta
+                        || "",
+
+                        evidencia,
+
+                        nombreConsultador,
+
+                        fechaRespuesta,
+
+                        textoRespuesta,
+
+                        cargoRespondedor,
+
+                        nombreRespondedor
+
+                    ]);
+
+                }
+            );
+
+
             // =================================================
             // INFORMACIÓN DE IMPORTACIÓN
             // =================================================
-    
-            const filaInfo =
-                filaInformacion;
-    
-    
-            hoja[
-                XLSX.utils.encode_cell({
-                    r: filaInfo,
-                    c: 0
-                })
-            ].s = {
-    
-                fill: {
-                    fgColor: {
-                        rgb: azul
+
+            const filaInformacion =
+                datosExcel.length + 1;
+
+
+            datosExcel.push([]);
+
+
+            datosExcel.push([
+
+                "INFORMACIÓN DE IMPORTACIÓN"
+
+            ]);
+
+
+            datosExcel.push([
+
+                "Fecha de generación",
+
+                fechaGeneracion
+
+            ]);
+
+
+            datosExcel.push([
+
+                "Área filtrada",
+
+                areaSeleccionada
+
+            ]);
+
+
+            datosExcel.push([
+
+                "Sede filtrada",
+
+                sedeSeleccionada
+
+            ]);
+
+
+            datosExcel.push([
+
+                "Estado filtrado",
+
+                estadoSeleccionado
+
+            ]);
+
+
+            datosExcel.push([
+
+                "Texto buscado",
+
+                texto || "-"
+
+            ]);
+
+
+            datosExcel.push([
+
+                "Total de registros",
+
+                preguntasFiltradas.length
+
+            ]);
+
+
+            // =================================================
+            // CREAR HOJA
+            // =================================================
+
+            const hoja =
+                XLSX.utils.aoa_to_sheet(
+                    datosExcel
+                );
+
+
+            // =================================================
+            // ANCHOS
+            // =================================================
+
+            hoja["!cols"] = [
+
+                { wch: 20 },
+
+                { wch: 30 },
+
+                { wch: 60 },
+
+                { wch: 30 },
+
+                { wch: 30 },
+
+                { wch: 20 },
+
+                { wch: 65 },
+
+                { wch: 35 },
+
+                { wch: 30 }
+
+            ];
+
+
+            // =================================================
+            // COMBINACIONES
+            // =================================================
+
+            hoja["!merges"] = [
+
+
+                // TÍTULO
+
+                {
+
+                    s: {
+                        r: 0,
+                        c: 0
+                    },
+
+                    e: {
+                        r: 0,
+                        c: 8
                     }
+
                 },
-    
-                font: {
-                    bold: true,
-                    color: {
-                        rgb: blanco
+
+
+                // SUBTÍTULO
+
+                {
+
+                    s: {
+                        r: 1,
+                        c: 0
+                    },
+
+                    e: {
+                        r: 1,
+                        c: 8
                     }
+
                 },
-    
-                alignment: {
-                    horizontal: "left"
+
+
+                // CONSULTADOR
+
+                {
+
+                    s: {
+                        r: 2,
+                        c: 0
+                    },
+
+                    e: {
+                        r: 2,
+                        c: 4
+                    }
+
+                },
+
+
+                // RESPONDEDOR
+
+                {
+
+                    s: {
+                        r: 2,
+                        c: 5
+                    },
+
+                    e: {
+                        r: 2,
+                        c: 8
+                    }
+
+                },
+
+
+                // INFORMACIÓN
+
+                {
+
+                    s: {
+                        r: filaInformacion + 1,
+                        c: 0
+                    },
+
+                    e: {
+                        r: filaInformacion + 1,
+                        c: 8
+                    }
+
                 }
-    
+
+            ];
+
+
+            // =================================================
+            // COLORES
+            // =================================================
+
+            const azul =
+                "002060";
+
+
+            const blanco =
+                "FFFFFF";
+
+
+            const negro =
+                "000000";
+
+
+            // =================================================
+            // ESTILO TÍTULO
+            // =================================================
+
+            hoja["A1"].s = {
+
+                font: {
+
+                    bold: true,
+
+                    sz: 11,
+
+                    color: {
+                        rgb: negro
+                    }
+
+                },
+
+                alignment: {
+
+                    horizontal: "center",
+
+                    vertical: "center",
+
+                    wrapText: true
+
+                }
+
             };
-    
-    
+
+
             // =================================================
-            // BORDES INFORMACIÓN
+            // ESTILO SUBTÍTULO
             // =================================================
-    
+
+            hoja["A2"].s = {
+
+                font: {
+
+                    bold: true,
+
+                    sz: 18,
+
+                    color: {
+                        rgb: negro
+                    }
+
+                },
+
+                alignment: {
+
+                    horizontal: "center",
+
+                    vertical: "center"
+
+                }
+
+            };
+
+
+            // =================================================
+            // CABECERAS AGRUPADAS
+            // FILA 3
+            // =================================================
+
             for (
-                let fila = filaInfo + 1;
-                fila < datosExcel.length;
-                fila++
+                let columna = 0;
+                columna < 9;
+                columna++
             ) {
-    
-                for (
-                    let columna = 0;
-                    columna < 2;
-                    columna++
+
+
+                const celda =
+                    XLSX.utils.encode_cell({
+
+                        r: 2,
+
+                        c: columna
+
+                    });
+
+
+                if (
+                    hoja[celda]
                 ) {
-    
+
+                    hoja[celda].s = {
+
+                        fill: {
+
+                            fgColor: {
+
+                                rgb: azul
+
+                            }
+
+                        },
+
+                        font: {
+
+                            bold: true,
+
+                            color: {
+
+                                rgb: blanco
+
+                            },
+
+                            sz: 11
+
+                        },
+
+                        alignment: {
+
+                            horizontal:
+                                "center",
+
+                            vertical:
+                                "center"
+
+                        },
+
+                        border:
+                            bordeBlanco
+
+                    };
+
+                }
+
+            }
+
+
+            // =================================================
+            // CABECERAS
+            // FILA 4
+            // =================================================
+
+            for (
+                let columna = 0;
+                columna < 9;
+                columna++
+            ) {
+
+
+                const celda =
+                    XLSX.utils.encode_cell({
+
+                        r: 3,
+
+                        c: columna
+
+                    });
+
+
+                if (
+                    hoja[celda]
+                ) {
+
+                    hoja[celda].s = {
+
+                        fill: {
+
+                            fgColor: {
+
+                                rgb: azul
+
+                            }
+
+                        },
+
+                        font: {
+
+                            bold: true,
+
+                            color: {
+
+                                rgb: blanco
+
+                            },
+
+                            sz: 10
+
+                        },
+
+                        alignment: {
+
+                            horizontal:
+                                "center",
+
+                            vertical:
+                                "center",
+
+                            wrapText: true
+
+                        },
+
+                        border:
+                            bordeBlanco
+
+                    };
+
+                }
+
+            }
+
+
+            // =================================================
+            // BORDES DE DATOS
+            // =================================================
+
+            for (
+
+                let fila = 4;
+
+                fila <
+                4 + preguntasFiltradas.length;
+
+                fila++
+
+            ) {
+
+
+                for (
+
+                    let columna = 0;
+
+                    columna < 9;
+
+                    columna++
+
+                ) {
+
+
                     const celda =
                         XLSX.utils.encode_cell({
+
                             r: fila,
+
                             c: columna
+
                         });
-    
-    
+
+
                     if (
                         hoja[celda]
                     ) {
-    
+
                         hoja[celda].s = {
-    
-                            border: {
-    
-                                top: {
-                                    style: "thin",
-                                    color: {
-                                        rgb: "B7B7B7"
-                                    }
-                                },
-    
-                                bottom: {
-                                    style: "thin",
-                                    color: {
-                                        rgb: "B7B7B7"
-                                    }
-                                },
-    
-                                left: {
-                                    style: "thin",
-                                    color: {
-                                        rgb: "B7B7B7"
-                                    }
-                                },
-    
-                                right: {
-                                    style: "thin",
-                                    color: {
-                                        rgb: "B7B7B7"
-                                    }
-                                }
-    
-                            }
-    
+
+                            alignment: {
+
+                                vertical:
+                                    "top",
+
+                                wrapText:
+                                    true
+
+                            },
+
+                            border:
+                                bordeGris
+
                         };
-    
+
                     }
-    
+
                 }
-    
+
             }
-    
-    
+
+
+            // =================================================
+            // ESTILO INFORMACIÓN
+            // =================================================
+
+            const filaTituloInfo =
+                filaInformacion + 1;
+
+
+            const celdaTituloInfo =
+                XLSX.utils.encode_cell({
+
+                    r: filaTituloInfo,
+
+                    c: 0
+
+                });
+
+
+            if (
+                hoja[celdaTituloInfo]
+            ) {
+
+                hoja[
+                    celdaTituloInfo
+                ].s = {
+
+                    fill: {
+
+                        fgColor: {
+
+                            rgb: azul
+
+                        }
+
+                    },
+
+                    font: {
+
+                        bold: true,
+
+                        color: {
+
+                            rgb: blanco
+
+                        },
+
+                        sz: 11
+
+                    },
+
+                    alignment: {
+
+                        horizontal:
+                            "left",
+
+                        vertical:
+                            "center"
+
+                    },
+
+                    border:
+                        bordeBlanco
+
+                };
+
+            }
+
+
+            // =================================================
+            // BORDES INFORMACIÓN
+            // =================================================
+
+            for (
+
+                let fila =
+                    filaTituloInfo + 1;
+
+                fila <
+                    datosExcel.length;
+
+                fila++
+
+            ) {
+
+
+                for (
+
+                    let columna = 0;
+
+                    columna < 2;
+
+                    columna++
+
+                ) {
+
+
+                    const celda =
+                        XLSX.utils.encode_cell({
+
+                            r: fila,
+
+                            c: columna
+
+                        });
+
+
+                    if (
+                        hoja[celda]
+                    ) {
+
+                        hoja[celda].s = {
+
+                            alignment: {
+
+                                vertical:
+                                    "top",
+
+                                wrapText:
+                                    true
+
+                            },
+
+                            border:
+                                bordeGris
+
+                        };
+
+                    }
+
+                }
+
+            }
+
+
             // =================================================
             // ALTURA DE FILAS
             // =================================================
-    
+
             hoja["!rows"] = [
-    
+
                 {
                     hpt: 45
                 },
-    
+
                 {
                     hpt: 32
                 },
-    
+
                 {
                     hpt: 25
                 },
-    
+
                 {
                     hpt: 35
                 }
-    
+
             ];
-    
-    
+
+
+            // =================================================
+            // CONGELAR CABECERA
+            // =================================================
+
+            hoja["!freeze"] = {
+                xSplit: 0,
+                ySplit: 4
+            };
+
+
             // =================================================
             // CREAR LIBRO
             // =================================================
-    
+
             const libro =
                 XLSX.utils.book_new();
-    
-    
+
+
             XLSX.utils.book_append_sheet(
-    
+
                 libro,
-    
+
                 hoja,
-    
+
                 "Consultas de Campo"
-    
+
             );
-    
-    
+
+
             // =================================================
             // NOMBRE DEL ARCHIVO
             // =================================================
-    
+
             const fechaArchivo =
                 ahora
                     .toISOString()
@@ -2751,38 +3111,43 @@ for (
                         0,
                         10
                     );
-    
-    
+
+
+            // =================================================
+            // GENERAR ARCHIVO
+            // =================================================
+
             XLSX.writeFile(
-    
+
                 libro,
-    
+
                 `MODULO_DERIVACION_CONSULTAS_${fechaArchivo}.xlsx`
-    
+
             );
-    
-    
+
+
         } catch (error) {
-    
+
+
             console.error(
                 "Error exportando Excel:",
                 error
             );
-    
-    
+
+
             alert(
-    
+
                 "No se pudo generar el archivo Excel.\n\n"
+
                 +
+
                 error.message
-    
+
             );
-    
+
         }
-    
+
     }
-
-
 
 
     // =====================================================
@@ -2790,31 +3155,39 @@ for (
     // =====================================================
 
     document
-        .getElementById("buscador")
+        .getElementById(
+            "buscador"
+        )
         .addEventListener(
             "input",
             aplicarFiltros
         );
-    
-    
+
+
     document
-        .getElementById("filtroArea")
+        .getElementById(
+            "filtroArea"
+        )
         .addEventListener(
             "change",
             aplicarFiltros
         );
-    
-    
+
+
     document
-        .getElementById("filtroSede")
+        .getElementById(
+            "filtroSede"
+        )
         .addEventListener(
             "change",
             aplicarFiltros
         );
-    
-    
+
+
     document
-        .getElementById("filtroEstado")
+        .getElementById(
+            "filtroEstado"
+        )
         .addEventListener(
             "change",
             aplicarFiltros
@@ -2872,7 +3245,19 @@ for (
                     usuarioActualRol
                 );
 
+
+                // CARGAR SEDES
+
+                cargarSedesFiltro();
+
+
+                // CARGAR USUARIOS
+
                 await cargarUsuarios();
+
+
+                // CARGAR PREGUNTAS
+
                 await cargarPreguntas();
 
 
@@ -2894,10 +3279,12 @@ for (
                         <tr>
 
                             <td
-                                colspan="7"
+                                colspan="10"
                                 class="mensaje error">
 
-                                Error al iniciar la página.
+                                <strong>
+                                    Error al iniciar la página.
+                                </strong>
 
                                 <br><br>
 
