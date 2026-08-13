@@ -1,120 +1,209 @@
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>Nueva pregunta</title>
 
+
     <style>
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
+        * {
+            box-sizing: border-box;
         }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f6f8;
+
+            margin: 0;
+
+        }
+
 
         header {
+
             background: #1f4e78;
+
             color: white;
+
             padding: 18px 30px;
+
         }
+
 
         .container {
+
             width: 90%;
+
             max-width: 800px;
+
             margin: 40px auto;
+
         }
+
 
         .card {
+
             background: white;
+
             padding: 30px;
+
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,.08);
+
+            box-shadow:
+                0 2px 10px
+                rgba(0,0,0,.08);
+
         }
+
 
         .form-group {
+
             margin-bottom: 20px;
+
         }
 
+
         label {
+
             display: block;
+
             margin-bottom: 8px;
+
             font-weight: bold;
+
         }
+
 
         select,
         textarea {
+
             width: 100%;
+
             padding: 12px;
+
             border: 1px solid #ccc;
+
             border-radius: 6px;
+
             font-size: 15px;
+
         }
+
+
+        select {
+
+            background: white;
+
+        }
+
 
         textarea {
+
             min-height: 160px;
+
             resize: vertical;
+
         }
 
-        button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            background: #1f4e78;
-            color: white;
-            font-size: 16px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
 
         .botones {
+
             display: flex;
+
             gap: 12px;
+
             margin-top: 20px;
+
         }
-        
+
+
         .btn-registrar {
+
             flex: 1;
+
             padding: 14px;
+
             border: none;
+
             background: #1f4e78;
+
             color: white;
+
             font-size: 16px;
+
             border-radius: 6px;
+
             cursor: pointer;
+
         }
-        
-        .btn-cancelar {
-            flex: 1;
-            padding: 14px;
-            background: #6c757d;
-            color: white;
-            font-size: 16px;
-            border-radius: 6px;
-            text-align: center;
-            text-decoration: none;
-            box-sizing: border-box;
-        }
-        
+
+
         .btn-registrar:hover {
+
             background: #163a5c;
+
         }
-        
+
+
+        .btn-cancelar {
+
+            flex: 1;
+
+            padding: 14px;
+
+            background: #6c757d;
+
+            color: white;
+
+            font-size: 16px;
+
+            border-radius: 6px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+        }
+
+
         .btn-cancelar:hover {
+
             background: #5a6268;
+
         }
+
+
+        .mensaje {
+
+            margin-top: 15px;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            color: #555;
+
+        }
+
 
     </style>
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -127,93 +216,159 @@
 
 <main class="container">
 
+
     <div class="card">
+
 
         <form id="preguntaForm">
 
+
+            <!-- =========================================
+                 ÁREA
+            ========================================== -->
+
             <div class="form-group">
 
-                <label for="categoria">
-                    Categoría
+
+                <label for="area">
+
+                    Área
+
                 </label>
 
-                <select id="categoria" required>
+
+                <select
+                    id="area"
+                    required>
+
 
                     <option value="">
-                        Seleccione una categoría
+
+                        Seleccione un área
+
                     </option>
 
-                    <option value="OPERATIVO">
-                        Operativo
+
+                    <option value="METODOLOGÍA">
+
+                        METODOLOGÍA
+
                     </option>
 
-                    <option value="SISTEMA">
-                        Sistema
+
+                    <option value="CAPACITACIÓN">
+
+                        CAPACITACIÓN
+
                     </option>
 
-                    <option value="PROCEDIMIENTO">
-                        Procedimiento
+
+                    <option value="ADMIN Y RRHH">
+
+                        ADMIN Y RRHH
+
                     </option>
 
-                    <option value="OTROS">
-                        Otros
+
+                    <option value="SISTEMAS">
+
+                        SISTEMAS
+
                     </option>
+
 
                 </select>
+
 
             </div>
 
 
+            <!-- =========================================
+                 PREGUNTA
+            ========================================== -->
+
             <div class="form-group">
 
+
                 <label for="pregunta">
+
                     Pregunta
+
                 </label>
+
 
                 <textarea
                     id="pregunta"
                     placeholder="Escriba su pregunta..."
                     required></textarea>
 
+
             </div>
 
 
+            <!-- =========================================
+                 BOTONES
+            ========================================== -->
+
             <div class="botones">
-            
+
+
                 <button
                     type="submit"
-                    class="btn-registrar">
-            
+                    class="btn-registrar"
+                    id="btnRegistrar">
+
                     REGISTRAR PREGUNTA
-            
+
                 </button>
-            
-            
+
+
                 <a
                     href="preguntas.html"
                     class="btn-cancelar">
-            
+
                     CANCELAR
-            
+
                 </a>
-            
+
+
             </div>
+
+
+            <div
+                id="mensaje"
+                class="mensaje">
+            </div>
+
 
         </form>
 
+
     </div>
 
+
 </main>
+
+
 <script type="module">
 
-    import { initializeApp }
+
+    // =====================================================
+    // IMPORTACIONES FIREBASE
+    // =====================================================
+
+    import {
+        initializeApp
+    }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
     import {
         getAuth,
         onAuthStateChanged
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 
     import {
         getFirestore,
@@ -224,67 +379,138 @@
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
+    // =====================================================
     // CONFIGURACIÓN FIREBASE
+    // =====================================================
 
     const firebaseConfig = {
 
-        apiKey: "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
-        authDomain: "sistema-preguntas-respuestas.firebaseapp.com",
-        projectId: "sistema-preguntas-respuestas",
-        storageBucket: "sistema-preguntas-respuestas.firebasestorage.app",
-        messagingSenderId: "606737336904",
-        appId: "1:606737336904:web:44fb42be60fbdaaf08667d"
+        apiKey:
+            "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
+
+        authDomain:
+            "sistema-preguntas-respuestas.firebaseapp.com",
+
+        projectId:
+            "sistema-preguntas-respuestas",
+
+        storageBucket:
+            "sistema-preguntas-respuestas.firebasestorage.app",
+
+        messagingSenderId:
+            "606737336904",
+
+        appId:
+            "1:606737336904:web:44fb42be60fbdaaf08667d"
 
     };
 
 
-    // Inicializar Firebase
+    // =====================================================
+    // INICIALIZAR FIREBASE
+    // =====================================================
 
-    const app = initializeApp(firebaseConfig);
+    const app =
+        initializeApp(
+            firebaseConfig
+        );
 
-    const auth = getAuth(app);
 
-    const db = getFirestore(app);
+    const auth =
+        getAuth(app);
 
 
-    // Verificar usuario
+    const db =
+        getFirestore(app);
+
+
+    // =====================================================
+    // VARIABLES
+    // =====================================================
 
     let usuarioActual = null;
 
 
-    onAuthStateChanged(auth, (user) => {
+    // =====================================================
+    // VERIFICAR USUARIO
+    // =====================================================
 
-        if (!user) {
+    onAuthStateChanged(
 
-            window.location.href = "login.html";
+        auth,
 
-            return;
+        (user) => {
+
+
+            if (!user) {
+
+                window.location.href =
+                    "login.html";
+
+                return;
+
+            }
+
+
+            usuarioActual =
+                user;
+
+
         }
 
-        usuarioActual = user;
-
-    });
+    );
 
 
-    // Registrar pregunta
+    // =====================================================
+    // FORMULARIO
+    // =====================================================
 
     const formulario =
-        document.getElementById("preguntaForm");
+        document.getElementById(
+            "preguntaForm"
+        );
 
 
     formulario.addEventListener(
+
         "submit",
+
         async function(event) {
+
 
             event.preventDefault();
 
 
-            const categoria =
-                document.getElementById("categoria").value;
+            // =============================================
+            // OBTENER DATOS
+            // =============================================
+
+            const area =
+                document
+                    .getElementById("area")
+                    .value;
+
 
             const pregunta =
-                document.getElementById("pregunta").value.trim();
+                document
+                    .getElementById("pregunta")
+                    .value
+                    .trim();
 
+
+            const boton =
+                document
+                    .getElementById("btnRegistrar");
+
+
+            const mensaje =
+                document
+                    .getElementById("mensaje");
+
+
+            // =============================================
+            // VALIDAR SESIÓN
+            // =============================================
 
             if (!usuarioActual) {
 
@@ -293,36 +519,103 @@
                 );
 
                 return;
+
+            }
+
+
+            // =============================================
+            // VALIDAR ÁREA
+            // =============================================
+
+            if (!area) {
+
+                alert(
+                    "Debe seleccionar un área."
+                );
+
+                return;
+
+            }
+
+
+            // =============================================
+            // VALIDAR PREGUNTA
+            // =============================================
+
+            if (!pregunta) {
+
+                alert(
+                    "Debe escribir la pregunta."
+                );
+
+                return;
+
             }
 
 
             try {
 
+
+                // =========================================
+                // DESHABILITAR BOTÓN
+                // =========================================
+
+                boton.disabled =
+                    true;
+
+
+                boton.textContent =
+                    "REGISTRANDO...";
+
+
+                mensaje.textContent =
+                    "Guardando pregunta...";
+
+
+                // =========================================
+                // GUARDAR EN FIRESTORE
+                // =========================================
+
                 await addDoc(
-                    collection(db, "preguntas"),
+
+                    collection(
+                        db,
+                        "preguntas"
+                    ),
+
                     {
 
                         usuarioId:
                             usuarioActual.uid,
 
+
                         usuarioCorreo:
                             usuarioActual.email,
 
-                        categoria:
-                            categoria,
+
+                        area:
+                            area,
+
 
                         pregunta:
                             pregunta,
 
+
                         fecha:
                             serverTimestamp(),
+
 
                         estado:
                             "PENDIENTE"
 
                     }
+
                 );
 
+
+                // =========================================
+                // ÉXITO
+                // =========================================
 
                 alert(
                     "Pregunta registrada correctamente."
@@ -335,18 +628,39 @@
 
             } catch (error) {
 
-                console.error(error);
+
+                console.error(
+                    "Error registrando pregunta:",
+                    error
+                );
+
 
                 alert(
                     "No se pudo registrar la pregunta."
                 );
 
+
+                boton.disabled =
+                    false;
+
+
+                boton.textContent =
+                    "REGISTRAR PREGUNTA";
+
+
+                mensaje.textContent =
+                    "";
+
             }
 
         }
+
     );
 
+
 </script>
+
+
 </body>
 
 </html>
