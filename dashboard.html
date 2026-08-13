@@ -5,10 +5,12 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>Dashboard</title>
+
 
     <style>
 
@@ -18,100 +20,221 @@
             padding: 0;
         }
 
+
         body {
+
             font-family: Arial, sans-serif;
+
             background: #f4f6f8;
+
         }
+
 
         header {
+
             background: #1f4e78;
+
             color: white;
+
             padding: 18px 30px;
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
+
         }
+
 
         .container {
+
             width: 90%;
+
             max-width: 1200px;
+
             margin: 30px auto;
+
         }
+
 
         .welcome {
+
             margin-bottom: 25px;
+
         }
+
+
+        .welcome h2 {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .usuario {
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            color: #1f4e78;
+
+        }
+
+
+        .perfil {
+
+            margin-top: 5px;
+
+            font-size: 15px;
+
+            color: #555;
+
+        }
+
 
         .cards {
+
             display: grid;
+
             grid-template-columns:
-                repeat(auto-fit, minmax(220px, 1fr));
+                repeat(
+                    auto-fit,
+                    minmax(220px, 1fr)
+                );
 
             gap: 20px;
+
         }
 
+
         .card {
+
             background: white;
+
             padding: 25px;
+
             border-radius: 10px;
 
             box-shadow:
-                0 2px 10px rgba(0,0,0,0.08);
+                0 2px 10px
+                rgba(0,0,0,0.08);
+
         }
+
 
         .card h3 {
+
             color: #555;
+
             margin-bottom: 10px;
+
         }
+
 
         .number {
+
             font-size: 32px;
+
             font-weight: bold;
+
             color: #1f4e78;
+
         }
+
 
         .menu {
+
             margin-top: 30px;
+
         }
+
 
         .button {
+
             display: inline-block;
+
             background: #1f4e78;
+
             color: white;
+
             padding: 13px 20px;
+
             margin-right: 10px;
+
             margin-bottom: 10px;
+
             border-radius: 6px;
+
             text-decoration: none;
+
         }
 
-        .logout {
-            background: #b42318;
-            border: none;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
+
+        .button:hover {
+
+            background: #163a5c;
+
         }
+
+
+        .logout {
+
+            background: #b42318;
+
+            border: none;
+
+            color: white;
+
+            padding: 10px 15px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+        }
+
+
+        .logout:hover {
+
+            background: #8f1c13;
+
+        }
+
+
+        .cargando {
+
+            color: #777;
+
+        }
+
 
     </style>
 
 </head>
 
+
 <body>
+
 
 <header>
 
     <div>
+
         <strong>
             Preguntas y Respuestas
         </strong>
+
     </div>
+
 
     <button
         id="logout"
         class="logout">
+
         Cerrar sesión
+
     </button>
 
 </header>
@@ -119,20 +242,44 @@
 
 <main class="container">
 
+
+    <!-- ==========================================
+         INFORMACIÓN DEL USUARIO
+    =========================================== -->
+
     <div class="welcome">
 
         <h2>
             Panel principal
         </h2>
 
-        <p id="userEmail">
+
+        <p
+            id="userName"
+            class="usuario">
+
             Cargando usuario...
+
+        </p>
+
+
+        <p
+            id="userPerfil"
+            class="perfil">
+
+            Cargando información...
+
         </p>
 
     </div>
 
 
+    <!-- ==========================================
+         ESTADÍSTICAS
+    =========================================== -->
+
     <section class="cards">
+
 
         <div class="card">
 
@@ -140,11 +287,15 @@
                 Preguntas
             </h3>
 
-            <div id="totalPreguntas"
-            style="font-size:35px;font-weight:bold;">
-                          0
-                </div>
-            
+
+            <div
+                id="totalPreguntas"
+                class="number">
+
+                0
+
+            </div>
+
         </div>
 
 
@@ -154,9 +305,13 @@
                 Pendientes
             </h3>
 
-            <div id="preguntasPendientes"
-                style="font-size:35px;font-weight:bold;">
+
+            <div
+                id="preguntasPendientes"
+                class="number">
+
                 0
+
             </div>
 
         </div>
@@ -168,211 +323,138 @@
                 Respondidas
             </h3>
 
-            <div id="preguntasRespondidas"
-                style="font-size:35px;font-weight:bold;">
+
+            <div
+                id="preguntasRespondidas"
+                class="number">
+
                 0
+
             </div>
 
         </div>
 
+
     </section>
 
+
+    <!-- ==========================================
+         MENÚ
+    =========================================== -->
 
     <section class="menu">
 
-        <a
-    href="preguntas.html"
-    class="button">
-    Ver preguntas
-        </a>
 
         <a
-    href="nueva-pregunta.html"
-    class="button">
-    Nueva pregunta
+            href="preguntas.html"
+            class="button">
+
+            Ver preguntas
+
         </a>
+
+
+        <a
+            href="nueva-pregunta.html"
+            class="button">
+
+            Nueva pregunta
+
+        </a>
+
 
     </section>
+
 
 </main>
 
 
 <script type="module">
 
-    import { initializeApp }
+
+    // =====================================================
+    // IMPORTACIONES FIREBASE
+    // =====================================================
+
+    import {
+        initializeApp
+    }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
     import {
         getAuth,
         onAuthStateChanged,
-        signOut,
-        
+        signOut
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-
-    const firebaseConfig = {
-
-        apiKey: "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
-        authDomain: "sistema-preguntas-respuestas.firebaseapp.com",
-        projectId: "sistema-preguntas-respuestas",
-        storageBucket: "sistema-preguntas-respuestas.firebasestorage.app",
-        messagingSenderId: "606737336904",
-        appId: "1:606737336904:web:44fb42be60fbdaaf08667d"
-
-    };
-
-
-    const app =
-        initializeApp(firebaseConfig);
-
-    const auth =
-        getAuth(app);
-
-
-    // Verificar usuario autenticado
-
-    import {
-    getFirestore,
-    doc,
-    getDoc
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-
-const db = getFirestore(app);
-
-
-onAuthStateChanged(auth, async (user) => {
-
-    if (!user) {
-
-        window.location.href = "login.html";
-        return;
-
-    }
-
-
-    try {
-
-        const userRef =
-            doc(db, "usuarios", user.uid);
-
-        const userSnapshot =
-            await getDoc(userRef);
-
-
-        if (!userSnapshot.exists()) {
-
-            alert(
-                "El usuario no tiene un perfil configurado."
-            );
-
-            await signOut(auth);
-
-            window.location.href =
-                "login.html";
-
-            return;
-        }
-
-
-        const datos =
-            userSnapshot.data();
-
-
-        document.getElementById("userEmail")
-            .textContent =
-            datos.nombre +
-            " | " +
-            datos.rol;
-
-
-        console.log("Usuario:", datos);
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert(
-            "No fue posible cargar los datos del usuario."
-        );
-
-    }
-
-});
-
-
-    // Cerrar sesión
-
-    document
-        .getElementById("logout")
-        .addEventListener("click", async () => {
-
-            await signOut(auth);
-
-            window.location.href =
-                "login.html";
-
-        });
-
-</script>
-<script type="module">
-
-    import { initializeApp }
-    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
-    import {
-        getAuth,
-        onAuthStateChanged
-    }
-    from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
     import {
         getFirestore,
+        doc,
+        getDoc,
         collection,
         getDocs
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-    // ==========================================
+    // =====================================================
     // CONFIGURACIÓN FIREBASE
-    // ==========================================
+    // =====================================================
 
     const firebaseConfig = {
 
-          apiKey: "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
-          authDomain: "sistema-preguntas-respuestas.firebaseapp.com",
-          projectId: "sistema-preguntas-respuestas",
-          storageBucket: "sistema-preguntas-respuestas.firebasestorage.app",
-          messagingSenderId: "606737336904",
-          appId: "1:606737336904:web:44fb42be60fbdaaf08667d"
+        apiKey:
+            "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
+
+        authDomain:
+            "sistema-preguntas-respuestas.firebaseapp.com",
+
+        projectId:
+            "sistema-preguntas-respuestas",
+
+        storageBucket:
+            "sistema-preguntas-respuestas.firebasestorage.app",
+
+        messagingSenderId:
+            "606737336904",
+
+        appId:
+            "1:606737336904:web:44fb42be60fbdaaf08667d"
 
     };
 
 
-    // ==========================================
+    // =====================================================
     // INICIALIZAR FIREBASE
-    // ==========================================
+    // =====================================================
 
     const app =
-        initializeApp(firebaseConfig);
+        initializeApp(
+            firebaseConfig
+        );
+
 
     const auth =
         getAuth(app);
+
 
     const db =
         getFirestore(app);
 
 
-    // ==========================================
-    // SESIÓN
-    // ==========================================
+    // =====================================================
+    // AUTENTICACIÓN
+    // =====================================================
 
     onAuthStateChanged(
+
         auth,
-        async function(user) {
+
+        async (user) => {
+
 
             if (!user) {
 
@@ -384,15 +466,127 @@ onAuthStateChanged(auth, async (user) => {
             }
 
 
-            await cargarEstadisticas();
+            try {
+
+                // =========================================
+                // OBTENER PERFIL DEL USUARIO
+                // =========================================
+
+                const userRef =
+                    doc(
+                        db,
+                        "usuarios",
+                        user.uid
+                    );
+
+
+                const userSnapshot =
+                    await getDoc(
+                        userRef
+                    );
+
+
+                if (
+                    !userSnapshot.exists()
+                ) {
+
+                    alert(
+                        "El usuario no tiene un perfil configurado."
+                    );
+
+
+                    await signOut(
+                        auth
+                    );
+
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                const datos =
+                    userSnapshot.data();
+
+
+                // =========================================
+                // MOSTRAR NOMBRE
+                // =========================================
+
+                document
+                    .getElementById(
+                        "userName"
+                    )
+                    .textContent =
+                        datos.nombre
+                        || user.email;
+
+
+                // =========================================
+                // MOSTRAR CARGO + SEDE OPERATIVA
+                // =========================================
+
+                const cargo =
+                    datos.cargo
+                    || "Cargo no registrado";
+
+
+                const sede =
+                    datos.sedeOperativa
+                    || "Sede no registrada";
+
+
+                document
+                    .getElementById(
+                        "userPerfil"
+                    )
+                    .textContent =
+
+                        cargo
+                        +
+                        " - "
+                        +
+                        sede;
+
+
+                // =========================================
+                // CARGAR ESTADÍSTICAS
+                // =========================================
+
+                await cargarEstadisticas();
+
+
+                console.log(
+                    "Usuario:",
+                    datos
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error:",
+                    error
+                );
+
+
+                alert(
+                    "No fue posible cargar los datos del usuario."
+                );
+
+            }
 
         }
+
     );
 
 
-    // ==========================================
+    // =====================================================
     // ESTADÍSTICAS
-    // ==========================================
+    // =====================================================
 
     async function cargarEstadisticas() {
 
@@ -410,15 +604,18 @@ onAuthStateChanged(auth, async (user) => {
             let total =
                 0;
 
+
             let pendientes =
                 0;
+
 
             let respondidas =
                 0;
 
 
             resultado.forEach(
-                function(documento) {
+                (documento) => {
+
 
                     const datos =
                         documento.data();
@@ -450,61 +647,91 @@ onAuthStateChanged(auth, async (user) => {
             );
 
 
-            // ==================================
+            // =========================================
             // MOSTRAR RESULTADOS
-            // ==================================
+            // =========================================
 
-            const elementoTotal =
-                document.getElementById(
+            document
+                .getElementById(
                     "totalPreguntas"
-                );
-
-
-            const elementoPendientes =
-                document.getElementById(
-                    "preguntasPendientes"
-                );
-
-
-            const elementoRespondidas =
-                document.getElementById(
-                    "preguntasRespondidas"
-                );
-
-
-            if (elementoTotal) {
-
-                elementoTotal.textContent =
+                )
+                .textContent =
                     total;
 
-            }
 
-
-            if (elementoPendientes) {
-
-                elementoPendientes.textContent =
+            document
+                .getElementById(
+                    "preguntasPendientes"
+                )
+                .textContent =
                     pendientes;
 
-            }
 
-
-            if (elementoRespondidas) {
-
-                elementoRespondidas.textContent =
+            document
+                .getElementById(
+                    "preguntasRespondidas"
+                )
+                .textContent =
                     respondidas;
-
-            }
 
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "Error cargando estadísticas:",
+                error
+            );
 
         }
 
     }
 
+
+    // =====================================================
+    // CERRAR SESIÓN
+    // =====================================================
+
+    document
+        .getElementById(
+            "logout"
+        )
+        .addEventListener(
+            "click",
+            async () => {
+
+
+                try {
+
+                    await signOut(
+                        auth
+                    );
+
+
+                    window.location.href =
+                        "login.html";
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Error cerrando sesión:",
+                        error
+                    );
+
+
+                    alert(
+                        "No fue posible cerrar la sesión."
+                    );
+
+                }
+
+            }
+        );
+
+
 </script>
+
+
 </body>
 
 </html>
