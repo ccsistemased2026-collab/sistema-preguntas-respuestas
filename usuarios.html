@@ -601,189 +601,322 @@
     // EDITAR USUARIO
     // =====================================================
 
-    function editarUsuario(id) {
-
-        const fila =
-            document
-                .querySelector(
+        function editarUsuario(id) {
+        
+            const boton =
+                document.querySelector(
                     `.editar[data-id="${id}"]`
+                );
+        
+            const fila =
+                boton.closest("tr");
+        
+        
+            const nombre =
+                fila.children[0]
+                    .textContent
+                    .trim();
+        
+        
+            const correo =
+                fila.children[1]
+                    .textContent
+                    .trim();
+        
+        
+            const cargoActual =
+                fila.children[2]
+                    .textContent
+                    .trim();
+        
+        
+            const sedeActual =
+                fila.children[3]
+                    .textContent
+                    .trim();
+        
+        
+            const rolActual =
+                fila.children[4]
+                    .textContent
+                    .trim();
+        
+        
+            const cargos = [
+        
+                "COORDINADOR DE SEDE",
+        
+                "SISTEMAS",
+        
+                "COORDINACIÓN DE METODOLOGÍA",
+        
+                "COORDINACIÓN DE CAPACITACIÓN",
+        
+                "COORDINACIÓN DE ADMIN Y RRHH"
+        
+            ];
+        
+        
+            const sedes = [
+        
+                "AMAZONAS-BAGUA GRANDE",
+                "AMAZONAS-CHACHAPOYAS",
+        
+                "ÁNCASH-CHIMBOTE",
+                "ÁNCASH-HUARAZ",
+                "ÁNCASH-POMABAMBA",
+        
+                "APURÍMAC-ABANCAY",
+                "APURÍMAC-ANDAHUAYLAS",
+        
+                "AREQUIPA-AREQUIPA",
+                "AREQUIPA-CAMANÁ",
+        
+                "AYACUCHO-HUAMANGA",
+                "AYACUCHO-PUQUIO",
+        
+                "CAJAMARCA-CAJAMARCA",
+                "CAJAMARCA-CHOTA",
+                "CAJAMARCA-JAÉN",
+        
+                "CALLAO",
+        
+                "CUSCO-SICUANI",
+                "CUSCO-CUSCO",
+                "CUSCO-LA CONVENCIÓN",
+        
+                "HUANCAVELICA-HUANCAVELICA",
+                "HUANCAVELICA-PAMPAS",
+        
+                "HUÁNUCO-HUÁNUCO",
+                "HUÁNUCO-TINGO MARÍA",
+        
+                "ICA-CHINCHA",
+                "ICA-ICA",
+        
+                "JUNÍN-HUANCAYO",
+                "JUNÍN-TARMA",
+        
+                "LA LIBERTAD-HUAMACHUCO",
+                "LA LIBERTAD-TRUJILLO",
+        
+                "LAMBAYEQUE-CHICLAYO",
+        
+                "LIMA METROPOLITANA-CENTRO",
+                "LIMA METROPOLITANA-NORTE",
+                "LIMA METROPOLITANA-SUR",
+                "LIMA METROPOLITANA-ESTE",
+        
+                "LIMA PROVINCIAS-CAÑETE",
+                "LIMA PROVINCIAS-HUACHO",
+        
+                "LORETO-IQUITOS",
+                "LORETO-YURIMAGUAS",
+        
+                "MADRE DE DIOS",
+        
+                "MOQUEGUA",
+        
+                "PASCO",
+        
+                "PIURA-PIURA",
+                "PIURA-SULLANA",
+        
+                "PUNO-AZÁNGARO",
+                "PUNO-JULIACA",
+                "PUNO-PUNO",
+        
+                "SAN MARTÍN-MOYOBAMBA",
+                "SAN MARTÍN-TARAPOTO",
+        
+                "TACNA",
+        
+                "TUMBES",
+        
+                "UCAYALI-PUCALLPA"
+        
+            ];
+        
+        
+            let opcionesCargo = "";
+        
+            cargos.forEach(
+                (cargo) => {
+        
+                    opcionesCargo += `
+        
+                        <option
+                            value="${cargo}"
+                            ${cargo === cargoActual
+                                ? "selected"
+                                : ""}>
+        
+                            ${cargo}
+        
+                        </option>
+        
+                    `;
+        
+                }
+            );
+        
+        
+            let opcionesSede = "";
+        
+            sedes.forEach(
+                (sede) => {
+        
+                    opcionesSede += `
+        
+                        <option
+                            value="${sede}"
+                            ${sede === sedeActual
+                                ? "selected"
+                                : ""}>
+        
+                            ${sede}
+        
+                        </option>
+        
+                    `;
+        
+                }
+            );
+        
+        
+            fila.innerHTML = `
+        
+                <td>
+                    ${nombre}
+                </td>
+        
+                <td>
+                    ${correo}
+                </td>
+        
+                <td>
+        
+                    <select
+                        class="inputCargo">
+        
+                        <option value="">
+                            Seleccione cargo
+                        </option>
+        
+                        ${opcionesCargo}
+        
+                    </select>
+        
+                </td>
+        
+                <td>
+        
+                    <select
+                        class="inputSede">
+        
+                        <option value="">
+                            Seleccione sede
+                        </option>
+        
+                        ${opcionesSede}
+        
+                    </select>
+        
+                </td>
+        
+                <td>
+        
+                    <select
+                        class="inputRol">
+        
+                        <option
+                            value="CONSULTOR"
+                            ${rolActual === "CONSULTOR"
+                                ? "selected"
+                                : ""}>
+        
+                            CONSULTOR
+        
+                        </option>
+        
+                        <option
+                            value="RESPONDEDOR"
+                            ${rolActual === "RESPONDEDOR"
+                                ? "selected"
+                                : ""}>
+        
+                            RESPONDEDOR
+        
+                        </option>
+        
+                        <option
+                            value="ADMINISTRADOR"
+                            ${rolActual === "ADMINISTRADOR"
+                                ? "selected"
+                                : ""}>
+        
+                            ADMINISTRADOR
+        
+                        </option>
+        
+                    </select>
+        
+                </td>
+        
+                <td>
+        
+                    <button
+                        class="boton guardar"
+                        id="guardar-${id}">
+        
+                        Guardar
+        
+                    </button>
+        
+                    <button
+                        class="boton cancelar"
+                        id="cancelar-${id}">
+        
+                        Cancelar
+        
+                    </button>
+        
+                </td>
+        
+            `;
+        
+        
+            document
+                .getElementById(
+                    `guardar-${id}`
                 )
-                .closest("tr");
-
-
-        const nombre =
-            fila.children[0]
-                .textContent
-                .trim();
-
-
-        const correo =
-            fila.children[1]
-                .textContent
-                .trim();
-
-
-        const cargoActual =
-            fila.children[2]
-                .textContent
-                .trim();
-
-
-        const sedeActual =
-            fila.children[3]
-                .textContent
-                .trim();
-
-
-        const rolActual =
-            fila.children[4]
-                .textContent
-                .trim();
-
-
-        fila.innerHTML = `
-
-            <td>
-                ${nombre}
-            </td>
-
-            <td>
-                ${correo}
-            </td>
-
-            <td>
-
-                <input
-                    type="text"
-                    class="inputCargo"
-                    value="${
-                        cargoActual === "-"
-                        ? ""
-                        : cargoActual
-                    }">
-
-            </td>
-
-            <td>
-
-                <input
-                    type="text"
-                    class="inputSede"
-                    value="${
-                        sedeActual === "-"
-                        ? ""
-                        : sedeActual
-                    }">
-
-            </td>
-
-            <td>
-
-                <select
-                    class="inputRol">
-
-                    <option
-                        value="CONSULTOR"
-                        ${
-                            rolActual === "CONSULTOR"
-                            ? "selected"
-                            : ""
-                        }>
-
-                        CONSULTOR
-
-                    </option>
-
-                    <option
-                        value="RESPONDEDOR"
-                        ${
-                            rolActual === "RESPONDEDOR"
-                            ? "selected"
-                            : ""
-                        }>
-
-                        RESPONDEDOR
-
-                    </option>
-
-                    <option
-                        value="ADMINISTRADOR"
-                        ${
-                            rolActual === "ADMINISTRADOR"
-                            ? "selected"
-                            : ""
-                        }>
-
-                        ADMINISTRADOR
-
-                    </option>
-
-                </select>
-
-            </td>
-
-            <td>
-
-                <button
-                    class="boton guardar"
-                    id="guardar-${id}">
-
-                    Guardar
-
-                </button>
-
-                <button
-                    class="boton cancelar"
-                    id="cancelar-${id}">
-
-                    Cancelar
-
-                </button>
-
-            </td>
-
-        `;
-
-
-        // =============================================
-        // GUARDAR
-        // =============================================
-
-        document
-            .getElementById(
-                `guardar-${id}`
-            )
-            .addEventListener(
-                "click",
-                async () => {
-
-                    await guardarUsuario(
-                        id,
-                        fila
-                    );
-
-                }
-            );
-
-
-        // =============================================
-        // CANCELAR
-        // =============================================
-
-        document
-            .getElementById(
-                `cancelar-${id}`
-            )
-            .addEventListener(
-                "click",
-                () => {
-
-                    cargarUsuarios();
-
-                }
-            );
-
-    }
+                .addEventListener(
+                    "click",
+                    async () => {
+        
+                        await guardarUsuario(
+                            id,
+                            fila
+                        );
+        
+                    }
+                );
+        
+        
+            document
+                .getElementById(
+                    `cancelar-${id}`
+                )
+                .addEventListener(
+                    "click",
+                    () => {
+        
+                        cargarUsuarios();
+        
+                    }
+                );
+        
+        }
 
 
     // =====================================================
