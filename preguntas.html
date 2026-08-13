@@ -14,7 +14,7 @@
 
     <!-- SheetJS para exportar Excel -->
     <script
-        src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js">
+        src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js">
     </script>
 
 
@@ -2322,294 +2322,273 @@
             // ESTILOS
             // =================================================
     
-            const azul =
-                "002060";
-    
-            const blanco =
-                "FFFFFF";
-    
-            const negro =
-                "000000";
-    
-    
-            // -------------------------------------------------
-            // TÍTULO PRINCIPAL
-            // -------------------------------------------------
-    
-            hoja["A1"].s = {
-    
-                font: {
-                    bold: true,
-                    sz: 11,
-                    color: {
-                        rgb: negro
-                    }
-                },
-    
-                alignment: {
-                    horizontal: "center",
-                    vertical: "center",
-                    wrapText: true
-                }
-    
-            };
-    
-    
-            // -------------------------------------------------
-            // SUBTÍTULO
-            // -------------------------------------------------
-    
-            hoja["A2"].s = {
-    
-                font: {
-                    bold: true,
-                    sz: 18,
-                    color: {
-                        rgb: negro
-                    }
-                },
-    
-                alignment: {
-                    horizontal: "center",
-                    vertical: "center"
-                }
-    
-            };
-    
-    
-            // -------------------------------------------------
-            // CABECERAS AGRUPADAS
-            // -------------------------------------------------
-    
-            for (
-                let columna = 0;
-                columna < 9;
-                columna++
-            ) {
-    
-                const celda =
-                    XLSX.utils.encode_cell({
-                        r: 2,
-                        c: columna
-                    });
-    
-    
-                if (
-                    hoja[celda]
-                ) {
-    
-                    hoja[celda].s = {
-    
-                        fill: {
-                            fgColor: {
-                                rgb: azul
-                            }
-                        },
-    
-                        font: {
-                            bold: true,
-                            color: {
-                                rgb: blanco
-                            },
-                            sz: 11
-                        },
-    
-                        alignment: {
-                            horizontal: "center",
-                            vertical: "center"
-                        },
-    
-                        border: {
-    
-                            top: {
-                                style: "thin",
-                                color: {
-                                    rgb: blanco
-                                }
-                            },
-    
-                            bottom: {
-                                style: "thin",
-                                color: {
-                                    rgb: blanco
-                                }
-                            },
-    
-                            left: {
-                                style: "thin",
-                                color: {
-                                    rgb: blanco
-                                }
-                            },
-    
-                            right: {
-                                style: "thin",
-                                color: {
-                                    rgb: blanco
-                                }
-                            }
-    
-                        }
-    
-                    };
-    
-                }
-    
+            // =====================================================
+// ESTILOS DEL EXCEL
+// =====================================================
+
+const AZUL = "002060";
+const BLANCO = "FFFFFF";
+const NEGRO = "000000";
+const GRIS_BORDE = "B7B7B7";
+
+
+// =====================================================
+// FUNCIÓN PARA BORDE COMPLETO
+// =====================================================
+
+function bordeCompleto(color = GRIS_BORDE) {
+
+    return {
+
+        top: {
+            style: "thin",
+            color: {
+                rgb: color
             }
-    
-    
-            // -------------------------------------------------
-            // CABECERAS DE COLUMNAS
-            // -------------------------------------------------
-    
-            for (
-                let columna = 0;
-                columna < 9;
-                columna++
-            ) {
-    
-                const celda =
-                    XLSX.utils.encode_cell({
-                        r: 3,
-                        c: columna
-                    });
-    
-    
-                hoja[celda].s = {
-    
-                    fill: {
-                        fgColor: {
-                            rgb: azul
-                        }
-                    },
-    
-                    font: {
-                        bold: true,
-                        color: {
-                            rgb: blanco
-                        },
-                        sz: 10
-                    },
-    
-                    alignment: {
-                        horizontal: "center",
-                        vertical: "center",
-                        wrapText: true
-                    },
-    
-                    border: {
-    
-                        top: {
-                            style: "thin",
-                            color: {
-                                rgb: blanco
-                            }
-                        },
-    
-                        bottom: {
-                            style: "thin",
-                            color: {
-                                rgb: blanco
-                            }
-                        },
-    
-                        left: {
-                            style: "thin",
-                            color: {
-                                rgb: blanco
-                            }
-                        },
-    
-                        right: {
-                            style: "thin",
-                            color: {
-                                rgb: blanco
-                            }
-                        }
-    
-                    }
-    
-                };
-    
+        },
+
+        bottom: {
+            style: "thin",
+            color: {
+                rgb: color
             }
-    
-    
-            // =================================================
-            // BORDES DE LOS DATOS
-            // =================================================
-    
-            for (
-                let fila = 4;
-                fila < 4 + preguntasFiltradas.length;
-                fila++
-            ) {
-    
-                for (
-                    let columna = 0;
-                    columna < 9;
-                    columna++
-                ) {
-    
-                    const celda =
-                        XLSX.utils.encode_cell({
-                            r: fila,
-                            c: columna
-                        });
-    
-    
-                    if (
-                        hoja[celda]
-                    ) {
-    
-                        hoja[celda].s = {
-    
-                            alignment: {
-    
-                                vertical: "top",
-    
-                                wrapText: true
-    
-                            },
-    
-                            border: {
-    
-                                top: {
-                                    style: "thin",
-                                    color: {
-                                        rgb: "B7B7B7"
-                                    }
-                                },
-    
-                                bottom: {
-                                    style: "thin",
-                                    color: {
-                                        rgb: "B7B7B7"
-                                    }
-                                },
-    
-                                left: {
-                                    style: "thin",
-                                    color: {
-                                        rgb: "B7B7B7"
-                                    }
-                                },
-    
-                                right: {
-                                    style: "thin",
-                                    color: {
-                                        rgb: "B7B7B7"
-                                    }
-                                }
-    
-                            }
-    
-                        };
-    
-                    }
-    
-                }
-    
+        },
+
+        left: {
+            style: "thin",
+            color: {
+                rgb: color
             }
+        },
+
+        right: {
+            style: "thin",
+            color: {
+                rgb: color
+            }
+        }
+
+    };
+
+}
+
+
+// =====================================================
+// ESTILO CABECERA AZUL
+// =====================================================
+
+const estiloCabecera = {
+
+    fill: {
+        patternType: "solid",
+        fgColor: {
+            rgb: AZUL
+        }
+    },
+
+    font: {
+        bold: true,
+        color: {
+            rgb: BLANCO
+        },
+        name: "Arial",
+        sz: 10
+    },
+
+    alignment: {
+        horizontal: "center",
+        vertical: "center",
+        wrapText: true
+    },
+
+    border:
+        bordeCompleto(BLANCO)
+
+};
+
+
+// =====================================================
+// ESTILO DATOS
+// =====================================================
+
+const estiloDatos = {
+
+    font: {
+        name: "Arial",
+        sz: 10,
+        color: {
+            rgb: NEGRO
+        }
+    },
+
+    alignment: {
+        vertical: "top",
+        horizontal: "left",
+        wrapText: true
+    },
+
+    border:
+        bordeCompleto(GRIS_BORDE)
+
+};
+
+
+// =====================================================
+// ESTILO TÍTULO
+// =====================================================
+
+const estiloTitulo = {
+
+    font: {
+        bold: true,
+        name: "Arial",
+        sz: 11,
+        color: {
+            rgb: NEGRO
+        }
+    },
+
+    alignment: {
+        horizontal: "center",
+        vertical: "center",
+        wrapText: true
+    }
+
+};
+
+
+// =====================================================
+// ESTILO SUBTÍTULO
+// =====================================================
+
+const estiloSubtitulo = {
+
+    font: {
+        bold: true,
+        name: "Arial",
+        sz: 18,
+        color: {
+            rgb: NEGRO
+        }
+    },
+
+    alignment: {
+        horizontal: "center",
+        vertical: "center"
+    }
+
+};
+
+
+// =====================================================
+// APLICAR TÍTULO
+// =====================================================
+
+hoja["A1"].s =
+    estiloTitulo;
+
+
+// =====================================================
+// APLICAR SUBTÍTULO
+// =====================================================
+
+hoja["A2"].s =
+    estiloSubtitulo;
+
+
+// =====================================================
+// CABECERA AGRUPADA
+// =====================================================
+
+for (
+    let columna = 0;
+    columna < 9;
+    columna++
+) {
+
+    const celda =
+        XLSX.utils.encode_cell({
+            r: 2,
+            c: columna
+        });
+
+
+    if (
+        hoja[celda]
+    ) {
+
+        hoja[celda].s =
+            estiloCabecera;
+
+    }
+
+}
+
+
+// =====================================================
+// CABECERA DE COLUMNAS
+// =====================================================
+
+for (
+    let columna = 0;
+    columna < 9;
+    columna++
+) {
+
+    const celda =
+        XLSX.utils.encode_cell({
+            r: 3,
+            c: columna
+        });
+
+
+    if (
+        hoja[celda]
+    ) {
+
+        hoja[celda].s =
+            estiloCabecera;
+
+    }
+
+}
+
+
+// =====================================================
+// CELDAS DE DATOS
+// =====================================================
+
+for (
+    let fila = 4;
+    fila < 4 + preguntasFiltradas.length;
+    fila++
+) {
+
+    for (
+        let columna = 0;
+        columna < 9;
+        columna++
+    ) {
+
+        const celda =
+            XLSX.utils.encode_cell({
+                r: fila,
+                c: columna
+            });
+
+
+        if (
+            hoja[celda]
+        ) {
+
+            hoja[celda].s =
+                estiloDatos;
+
+        }
+
+    }
+
+}
     
     
             // =================================================
