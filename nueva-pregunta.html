@@ -365,26 +365,20 @@
 
 </main>
 
-
 <script type="module">
 
+    // ==================================================
+    // FIREBASE
+    // ==================================================
 
-    // =====================================================
-    // IMPORTACIONES FIREBASE
-    // =====================================================
-
-    import {
-        initializeApp
-    }
+    import { initializeApp }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
 
     import {
         getAuth,
         onAuthStateChanged
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
 
     import {
         getFirestore,
@@ -395,14 +389,13 @@
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-    // =====================================================
-    // CONFIGURACIÓN FIREBASE
-    // =====================================================
+    // ==================================================
+    // CONFIGURACIÓN
+    // ==================================================
 
     const firebaseConfig = {
 
-        apiKey:
-            "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
+        apiKey: "AIzaSyCOFJqQZdn7hFaIbjl3s9mvcnXVNNi5e0w",
 
         authDomain:
             "sistema-preguntas-respuestas.firebaseapp.com",
@@ -422,41 +415,41 @@
     };
 
 
-    // =====================================================
+    // ==================================================
     // INICIALIZAR FIREBASE
-    // =====================================================
+    // ==================================================
 
     const app =
-        initializeApp(
-            firebaseConfig
-        );
-
+        initializeApp(firebaseConfig);
 
     const auth =
         getAuth(app);
-
 
     const db =
         getFirestore(app);
 
 
-    // =====================================================
-    // VARIABLES
-    // =====================================================
+    // ==================================================
+    // CLOUDINARY
+    // ==================================================
+
+    const cloudName =
+        "aiq51pxu";
+
+    const uploadPreset =
+        "preguntas_adjuntos";
+
+
+    // ==================================================
+    // USUARIO ACTUAL
+    // ==================================================
 
     let usuarioActual = null;
 
 
-    // =====================================================
-    // VERIFICAR USUARIO
-    // =====================================================
-
     onAuthStateChanged(
-
         auth,
-
         (user) => {
-
 
             if (!user) {
 
@@ -464,22 +457,22 @@
                     "login.html";
 
                 return;
-
             }
 
+            usuarioActual = user;
 
-            usuarioActual =
-                user;
-
+            console.log(
+                "Usuario autenticado:",
+                user.uid
+            );
 
         }
-
     );
 
 
-    // =====================================================
+    // ==================================================
     // FORMULARIO
-    // =====================================================
+    // ==================================================
 
     const formulario =
         document.getElementById(
@@ -488,50 +481,72 @@
 
 
     formulario.addEventListener(
-
         "submit",
-
-        async function(event) {
-
+        async function (event) {
 
             event.preventDefault();
 
 
-            // =============================================
+            console.log(
+                "Iniciando registro de pregunta..."
+            );
+
+
+            // ==================================================
             // OBTENER DATOS
-            // =============================================
+            // ==================================================
 
-        const area =
-            document.getElementById("area").value;
-        
-        const pregunta =
-            document.getElementById("pregunta").value.trim();
-        
-        const archivoInput =
-            document.getElementById("archivo");
-        
-        const archivo =
-            archivoInput.files[0];
+            const area =
+                document.getElementById(
+                    "area"
+                ).value;
 
 
-            // =============================================
-            // VALIDAR SESIÓN
-            // =============================================
+            const pregunta =
+                document.getElementById(
+                    "pregunta"
+                ).value.trim();
+
+
+            const archivoInput =
+                document.getElementById(
+                    "archivo"
+                );
+
+
+            const archivo =
+                archivoInput.files[0];
+
+
+            console.log(
+                "Área:",
+                area
+            );
+
+            console.log(
+                "Pregunta:",
+                pregunta
+            );
+
+            console.log(
+                "Archivo:",
+                archivo
+            );
+
+
+            // ==================================================
+            // VALIDACIONES
+            // ==================================================
 
             if (!usuarioActual) {
 
                 alert(
-                    "La sesión no está disponible."
+                    "No existe una sesión de usuario activa."
                 );
 
                 return;
-
             }
 
-
-            // =============================================
-            // VALIDAR ÁREA
-            // =============================================
 
             if (!area) {
 
@@ -540,88 +555,254 @@
                 );
 
                 return;
-
             }
 
-
-            // =============================================
-            // VALIDAR PREGUNTA
-            // =============================================
 
             if (!pregunta) {
 
                 alert(
-                    "Debe escribir la pregunta."
+                    "Debe ingresar una pregunta."
                 );
 
                 return;
+            }
+
+
+            // ==================================================
+            // VARIABLES DEL ARCHIVO
+            // ==================================================
+
+            let archivoUrl = "";
+
+            let archivoNombre = "";
+
+            let archivoTipo = "";
+
+
+            // ==================================================
+            // SUBIR ARCHIVO SI EXISTE
+            // ==================================================
+
+            if (archivo) {
+
+                console.log(
+                    "Preparando archivo para Cloudinary..."
+                );
+
+
+                // ----------------------------------------------
+                // EXTENSIÓN
+                // ----------------------------------------------
+
+                const nombreArchivo =
+                    archivo.name.toLowerCase();
+
+
+                const extensionesPermitidas = [
+                    ".jpg",
+                    ".jpeg",
+                    ".pdf"
+                ];
+
+
+                const extensionValida =
+                    extensionesPermitidas.some(
+                        function (extension) {
+
+                            return nombreArchivo.endsWith(
+                                extension
+                            );
+
+                        }
+                    );
+
+
+                if (!extensionValida) {
+
+                    alert(
+                        "Solo se permiten archivos JPG, JPEG o PDF."
+                    );
+
+                    return;
+                }
+
+
+                // ----------------------------------------------
+                // TAMAÑO
+                // ----------------------------------------------
+
+                const maximo =
+                    10 * 1024 * 1024;
+
+
+                if (archivo.size > maximo) {
+
+                    alert(
+                        "El archivo no puede superar los 10 MB."
+                    );
+
+                    return;
+                }
+
+
+                // ----------------------------------------------
+                // FORMDATA
+                // ----------------------------------------------
+
+                const formData =
+                    new FormData();
+
+
+                formData.append(
+                    "file",
+                    archivo
+                );
+
+
+                formData.append(
+                    "upload_preset",
+                    uploadPreset
+                );
+
+
+                // ----------------------------------------------
+                // URL
+                // ----------------------------------------------
+
+                const url =
+                    `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`;
+
+
+                try {
+
+                    console.log(
+                        "Subiendo archivo a Cloudinary..."
+                    );
+
+
+                    const respuesta =
+                        await fetch(
+                            url,
+                            {
+                                method: "POST",
+                                body: formData
+                            }
+                        );
+
+
+                    const datos =
+                        await respuesta.json();
+
+
+                    console.log(
+                        "Respuesta Cloudinary:",
+                        datos
+                    );
+
+
+                    if (!respuesta.ok) {
+
+                        throw new Error(
+                            datos.error?.message ||
+                            "Error al subir archivo a Cloudinary."
+                        );
+
+                    }
+
+
+                    archivoUrl =
+                        datos.secure_url || "";
+
+
+                    archivoNombre =
+                        archivo.name;
+
+
+                    archivoTipo =
+                        datos.resource_type || "";
+
+
+                    console.log(
+                        "Archivo subido:",
+                        archivoUrl
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "ERROR CLOUDINARY:",
+                        error
+                    );
+
+
+                    alert(
+                        "No se pudo cargar el archivo.\n\n" +
+                        error.message
+                    );
+
+                    return;
+
+                }
 
             }
 
 
+            // ==================================================
+            // GUARDAR PREGUNTA EN FIRESTORE
+            // ==================================================
+
             try {
 
-
-                // =========================================
-                // DESHABILITAR BOTÓN
-                // =========================================
-
-                boton.disabled =
-                    true;
-
-
-                boton.textContent =
-                    "REGISTRANDO...";
-
-
-                mensaje.textContent =
-                    "Guardando pregunta...";
-
-
-                // =========================================
-                // GUARDAR EN FIRESTORE
-                // =========================================
-                let archivoUrl = "";
-                let archivoNombre = "";
-                let archivoTipo = "";
-                 await addDoc(
-                    collection(db, "preguntas"),
-                    {
-                
-                        usuarioId:
-                            usuarioActual.uid,
-                
-                        usuarioCorreo:
-                            usuarioActual.email,
-                
-                        area:
-                            area,
-                
-                        pregunta:
-                            pregunta,
-                
-                        archivoUrl:
-                            archivoUrl,
-                
-                        archivoNombre:
-                            archivoNombre,
-                
-                        archivoTipo:
-                            archivoTipo,
-                
-                        fecha:
-                            serverTimestamp(),
-                
-                        estado:
-                            "PENDIENTE"
-                
-                    }
+                console.log(
+                    "Guardando pregunta en Firestore..."
                 );
 
 
-                // =========================================
-                // ÉXITO
-                // =========================================
+                const documento =
+                    await addDoc(
+                        collection(
+                            db,
+                            "preguntas"
+                        ),
+                        {
+
+                            usuarioId:
+                                usuarioActual.uid,
+
+                            usuarioCorreo:
+                                usuarioActual.email || "",
+
+                            area:
+                                area,
+
+                            pregunta:
+                                pregunta,
+
+                            archivoUrl:
+                                archivoUrl,
+
+                            archivoNombre:
+                                archivoNombre,
+
+                            archivoTipo:
+                                archivoTipo,
+
+                            fecha:
+                                serverTimestamp(),
+
+                            estado:
+                                "PENDIENTE"
+
+                        }
+                    );
+
+
+                console.log(
+                    "Pregunta guardada:",
+                    documento.id
+                );
+
 
                 alert(
                     "Pregunta registrada correctamente."
@@ -634,146 +815,21 @@
 
             } catch (error) {
 
-
                 console.error(
-                    "Error registrando pregunta:",
+                    "ERROR FIRESTORE:",
                     error
                 );
 
 
                 alert(
-                    "No se pudo registrar la pregunta."
+                    "No se pudo registrar la pregunta.\n\n" +
+                    error.message
                 );
-
-
-                boton.disabled =
-                    false;
-
-
-                boton.textContent =
-                    "REGISTRAR PREGUNTA";
-
-
-                mensaje.textContent =
-                    "";
 
             }
 
         }
-
     );
-if (archivo) {
-
-    const extensionesPermitidas = [
-        ".jpg",
-        ".jpeg",
-        ".pdf"
-    ];
-
-    const nombreArchivo =
-        archivo.name.toLowerCase();
-
-    const extensionValida =
-        extensionesPermitidas.some(
-            extension =>
-                nombreArchivo.endsWith(extension)
-        );
-
-    if (!extensionValida) {
-
-        alert(
-            "Solo se permiten archivos JPG, JPEG o PDF."
-        );
-
-        return;
-    }
-
-
-    const maximo =
-        10 * 1024 * 1024;
-
-
-    if (archivo.size > maximo) {
-
-        alert(
-            "El archivo no puede superar los 10 MB."
-        );
-
-        return;
-    }
-
-
-    const formData =
-        new FormData();
-
-
-    formData.append(
-        "file",
-        archivo
-    );
-
-
-    formData.append(
-        "upload_preset",
-        "preguntas_adjuntos"
-    );
-
-
-    const url =
-        "https://api.cloudinary.com/v1_1/aiq51pxu/auto/upload";
-
-
-    try {
-
-        const respuesta =
-            await fetch(
-                url,
-                {
-                    method: "POST",
-                    body: formData
-                }
-            );
-
-
-        const datos =
-            await respuesta.json();
-
-
-        if (!respuesta.ok) {
-
-            console.error(datos);
-
-            throw new Error(
-                datos.error?.message ||
-                "No se pudo subir el archivo."
-            );
-
-        }
-
-
-        archivoUrl =
-            datos.secure_url;
-
-        archivoNombre =
-            archivo.name;
-
-        archivoTipo =
-            datos.resource_type;
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert(
-            "No se pudo cargar el archivo adjunto."
-        );
-
-        return;
-
-    }
-
-}
 
 </script>
 
