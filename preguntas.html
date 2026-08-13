@@ -11,7 +11,6 @@
 
     <title>Preguntas y Respuestas</title>
 
-
     <!-- =====================================================
          XLSX-JS-STYLE
          Permite exportar Excel con estilos
@@ -21,13 +20,11 @@
         src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js">
     </script>
 
-
     <style>
 
         * {
             box-sizing: border-box;
         }
-
 
         body {
 
@@ -44,7 +41,6 @@
 
         }
 
-
         .contenedor {
 
             max-width: 1200px;
@@ -54,7 +50,6 @@
             padding: 30px 20px;
 
         }
-
 
         .encabezado {
 
@@ -72,7 +67,6 @@
 
         }
 
-
         .encabezado h1 {
 
             margin: 0;
@@ -80,7 +74,6 @@
             font-size: 28px;
 
         }
-
 
         .acciones {
 
@@ -91,7 +84,6 @@
             flex-wrap: wrap;
 
         }
-
 
         button,
         .boton {
@@ -124,13 +116,11 @@
 
         }
 
-
         td:last-child {
 
             white-space: nowrap;
 
         }
-
 
         .btn-dashboard {
 
@@ -140,13 +130,11 @@
 
         }
 
-
         .btn-dashboard:hover {
 
             background: #5a6268;
 
         }
-
 
         .btn-nueva {
 
@@ -154,13 +142,11 @@
 
         }
 
-
         .btn-nueva:hover {
 
             background: #157347;
 
         }
-
 
         .btn-excel {
 
@@ -168,13 +154,11 @@
 
         }
 
-
         .btn-excel:hover {
 
             background: #185c37;
 
         }
-
 
         .btn-ver {
 
@@ -182,13 +166,11 @@
 
         }
 
-
         .btn-eliminar {
 
             background: #b42318;
 
         }
-
 
         .btn-eliminar:hover {
 
@@ -196,20 +178,17 @@
 
         }
 
-
         .btn-archivo {
 
             background: #6f42c1;
 
         }
 
-
         .btn-archivo:hover {
 
             background: #59339d;
 
         }
-
 
         .notificacion {
 
@@ -229,7 +208,6 @@
 
         }
 
-
         .filtros {
 
             background: white;
@@ -248,7 +226,6 @@
 
         }
 
-
         .filtros input,
         .filtros select {
 
@@ -262,7 +239,6 @@
 
         }
 
-
         .buscador {
 
             flex: 1;
@@ -270,7 +246,6 @@
             min-width: 250px;
 
         }
-
 
         .tabla-contenedor {
 
@@ -286,7 +261,6 @@
 
         }
 
-
         table {
 
             width: 100%;
@@ -296,7 +270,6 @@
             min-width: 1100px;
 
         }
-
 
         th {
 
@@ -312,7 +285,6 @@
 
         }
 
-
         td {
 
             padding: 13px;
@@ -325,13 +297,11 @@
 
         }
 
-
         tr:hover td {
 
             background: #f8f9fa;
 
         }
-
 
         .estado {
 
@@ -347,7 +317,6 @@
 
         }
 
-
         .estado-pendiente {
 
             background: #fff3cd;
@@ -356,7 +325,6 @@
 
         }
 
-
         .estado-respondida {
 
             background: #d1e7dd;
@@ -364,7 +332,6 @@
             color: #0f5132;
 
         }
-
 
         .mensaje {
 
@@ -376,13 +343,11 @@
 
         }
 
-
         .cargando {
 
             font-size: 16px;
 
         }
-
 
         .error {
 
@@ -396,7 +361,6 @@
 
         }
 
-
         @media (max-width: 700px) {
 
             .encabezado {
@@ -405,20 +369,17 @@
 
             }
 
-
             .encabezado h1 {
 
                 font-size: 23px;
 
             }
 
-
             .acciones {
 
                 width: 100%;
 
             }
-
 
             .acciones button,
             .acciones a {
@@ -435,12 +396,9 @@
 
 </head>
 
-
 <body>
 
-
 <div class="contenedor">
-
 
     <!-- =====================================================
          ENCABEZADO
@@ -448,14 +406,11 @@
 
     <div class="encabezado">
 
-
         <h1>
             PREGUNTAS
         </h1>
 
-
         <div class="acciones">
-
 
             <a
                 href="nueva-pregunta.html"
@@ -464,7 +419,6 @@
                 + NUEVA PREGUNTA
 
             </a>
-
 
             <button
                 type="button"
@@ -475,11 +429,9 @@
 
             </button>
 
-
         </div>
 
     </div>
-
 
     <!-- =====================================================
          VOLVER AL DASHBOARD
@@ -492,7 +444,6 @@
         ← VOLVER AL DASHBOARD
 
     </a>
-
 
     <!-- =====================================================
          NOTIFICACIÓN
@@ -511,24 +462,17 @@
 
     </div>
 
-
     <!-- =====================================================
          FILTROS
     ====================================================== -->
 
     <div class="filtros">
 
-
-        <!-- BUSCADOR -->
-
         <input
             type="text"
             id="buscador"
             class="buscador"
             placeholder="🔎 Buscar pregunta, usuario, cargo o sede...">
-
-
-        <!-- ÁREA -->
 
         <select id="filtroArea">
 
@@ -554,9 +498,6 @@
 
         </select>
 
-
-        <!-- SEDE -->
-
         <select id="filtroSede">
 
             <option value="TODOS">
@@ -564,9 +505,6 @@
             </option>
 
         </select>
-
-
-        <!-- ESTADO -->
 
         <select id="filtroEstado">
 
@@ -584,9 +522,7 @@
 
         </select>
 
-
     </div>
-
 
     <!-- =====================================================
          TABLA
@@ -594,9 +530,7 @@
 
     <div class="tabla-contenedor">
 
-
         <table>
-
 
             <thead>
 
@@ -626,7 +560,6 @@
 
             </thead>
 
-
             <tbody id="tablaPreguntas">
 
                 <tr>
@@ -643,18 +576,13 @@
 
             </tbody>
 
-
         </table>
-
 
     </div>
 
-
 </div>
 
-
 <script type="module">
-
 
     // =====================================================
     // FIREBASE
@@ -665,13 +593,11 @@
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-
     import {
         getAuth,
         onAuthStateChanged
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
 
     import {
         getFirestore,
@@ -684,7 +610,6 @@
         getDoc
     }
     from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
 
     // =====================================================
     // CONFIGURACIÓN FIREBASE
@@ -712,7 +637,6 @@
 
     };
 
-
     // =====================================================
     // INICIALIZAR
     // =====================================================
@@ -720,14 +644,11 @@
     const app =
         initializeApp(firebaseConfig);
 
-
     const auth =
         getAuth(app);
 
-
     const db =
         getFirestore(app);
-
 
     // =====================================================
     // VARIABLES
@@ -738,7 +659,6 @@
     let usuarios = {};
 
     let usuarioActualRol = "";
-
 
     // =====================================================
     // SEDES OPERATIVAS
@@ -824,9 +744,8 @@
 
     ];
 
-
     // =====================================================
-    // CARGAR SEDES EN EL SELECT
+    // CARGAR SEDES
     // =====================================================
 
     function cargarSedesFiltro() {
@@ -836,7 +755,6 @@
                 "filtroSede"
             );
 
-
         sedesOperativas.forEach(
             (sede) => {
 
@@ -845,14 +763,11 @@
                         "option"
                     );
 
-
                 opcion.value =
                     sede;
 
-
                 opcion.textContent =
                     sede;
-
 
                 filtroSede.appendChild(
                     opcion
@@ -862,7 +777,6 @@
         );
 
     }
-
 
     // =====================================================
     // OBTENER ROL
@@ -877,12 +791,10 @@
                 user.uid
             );
 
-
         const usuarioSnapshot =
             await getDoc(
                 usuarioRef
             );
-
 
         if (
             !usuarioSnapshot.exists()
@@ -892,17 +804,14 @@
 
         }
 
-
         const datosUsuario =
             usuarioSnapshot.data();
-
 
         return (
             datosUsuario.rol || ""
         );
 
     }
-
 
     // =====================================================
     // OBTENER ÁREA
@@ -926,7 +835,6 @@
 
     }
 
-
     // =====================================================
     // CARGAR USUARIOS
     // =====================================================
@@ -943,16 +851,13 @@
                     )
                 );
 
-
             usuarios = {};
-
 
             resultado.forEach(
                 (documento) => {
 
                     const datos =
                         documento.data();
-
 
                     usuarios[
                         documento.id
@@ -981,29 +886,18 @@
                 }
             );
 
-
         } catch (error) {
-
-            /*
-             * No detenemos toda la página.
-             * Si las reglas no permiten consultar
-             * todos los usuarios, continuamos
-             * usando la información guardada
-             * directamente en la pregunta.
-             */
 
             console.warn(
                 "No se pudo cargar el listado completo de usuarios:",
                 error
             );
 
-
             usuarios = {};
 
         }
 
     }
-
 
     // =====================================================
     // CARGAR PREGUNTAS
@@ -1015,7 +909,6 @@
             document.getElementById(
                 "tablaPreguntas"
             );
-
 
         tabla.innerHTML = `
 
@@ -1032,7 +925,6 @@
             </tr>
 
         `;
-
 
         try {
 
@@ -1051,23 +943,18 @@
 
                 );
 
-
             const resultado =
                 await getDocs(
                     consulta
                 );
 
-
             todasLasPreguntas = [];
-
 
             resultado.forEach(
                 (documento) => {
 
-
                     const datos =
                         documento.data();
-
 
                     const usuario =
                         usuarios[
@@ -1076,23 +963,20 @@
                         ||
                         {};
 
-
                     todasLasPreguntas.push({
 
                         id:
                             documento.id,
 
-
                         pregunta:
                             datos.pregunta
-                            || "",
-
+                            ||
+                            "",
 
                         area:
                             obtenerArea(
                                 datos
                             ),
-
 
                         usuarioCorreo:
                             datos.usuarioCorreo
@@ -1101,12 +985,10 @@
                             ||
                             "",
 
-
                         usuarioId:
                             datos.usuarioId
                             ||
                             "",
-
 
                         usuarioNombre:
                             datos.nombreConsultador
@@ -1117,14 +999,12 @@
                             ||
                             "",
 
-
                         cargo:
                             datos.cargo
                             ||
                             usuario.cargo
                             ||
                             "No registrado",
-
 
                         sedeOperativa:
                             datos.sedeOperativa
@@ -1133,30 +1013,25 @@
                             ||
                             "No registrada",
 
-
                         estado:
                             datos.estado
                             ||
                             "PENDIENTE",
-
 
                         fecha:
                             datos.fecha
                             ||
                             null,
 
-
                         archivoUrl:
                             datos.archivoUrl
                             ||
                             "",
 
-
                         archivoNombre:
                             datos.archivoNombre
                             ||
                             "",
-
 
                         archivoTipo:
                             datos.archivoTipo
@@ -1165,18 +1040,14 @@
 
                     });
 
-
                 }
             );
-
 
             mostrarPreguntas(
                 todasLasPreguntas
             );
 
-
             actualizarContadorPendientes();
-
 
         } catch (error) {
 
@@ -1184,7 +1055,6 @@
                 "Error cargando preguntas:",
                 error
             );
-
 
             tabla.innerHTML = `
 
@@ -1214,7 +1084,6 @@
 
     }
 
-
     // =====================================================
     // MOSTRAR PREGUNTAS
     // =====================================================
@@ -1227,7 +1096,6 @@
             document.getElementById(
                 "tablaPreguntas"
             );
-
 
         if (
             preguntas.length === 0
@@ -1249,21 +1117,16 @@
 
             `;
 
-
             return;
 
         }
 
-
         tabla.innerHTML = "";
-
 
         preguntas.forEach(
             (pregunta, indice) => {
 
-
                 let fecha = "";
-
 
                 if (
 
@@ -1285,10 +1148,8 @@
 
                 }
 
-
                 let claseEstado =
                     "estado-pendiente";
-
 
                 if (
                     pregunta.estado ===
@@ -1300,13 +1161,11 @@
 
                 }
 
-
                 // =================================================
                 // ELIMINAR
                 // =================================================
 
                 let botonEliminar = "";
-
 
                 if (
                     usuarioActualRol ===
@@ -1330,13 +1189,11 @@
 
                 }
 
-
                 // =================================================
                 // ARCHIVO
                 // =================================================
 
                 let botonArchivo = "—";
-
 
                 if (
                     pregunta.archivoUrl
@@ -1360,7 +1217,6 @@
 
                 }
 
-
                 // =================================================
                 // FILA
                 // =================================================
@@ -1370,13 +1226,11 @@
                         "tr"
                     );
 
-
                 fila.innerHTML = `
 
                     <td>
                         ${indice + 1}
                     </td>
-
 
                     <td>
                         ${escapeHTML(
@@ -1384,13 +1238,11 @@
                         )}
                     </td>
 
-
                     <td>
                         ${escapeHTML(
                             pregunta.area
                         )}
                     </td>
-
 
                     <td>
                         ${escapeHTML(
@@ -1398,13 +1250,11 @@
                         )}
                     </td>
 
-
                     <td>
                         ${escapeHTML(
                             pregunta.cargo
                         )}
                     </td>
-
 
                     <td>
                         ${escapeHTML(
@@ -1412,13 +1262,11 @@
                         )}
                     </td>
 
-
                     <td>
                         ${escapeHTML(
                             fecha
                         )}
                     </td>
-
 
                     <td>
 
@@ -1433,11 +1281,9 @@
 
                     </td>
 
-
                     <td>
                         ${botonArchivo}
                     </td>
-
 
                     <td>
 
@@ -1457,14 +1303,12 @@
 
                 `;
 
-
                 tabla.appendChild(
                     fila
                 );
 
             }
         );
-
 
         // =====================================================
         // EVENTOS ELIMINAR
@@ -1493,7 +1337,6 @@
 
     }
 
-
     // =====================================================
     // ESCAPAR HTML
     // =====================================================
@@ -1507,22 +1350,18 @@
                 "div"
             );
 
-
         div.textContent =
             texto ?? "";
-
 
         return div.innerHTML;
 
     }
-
 
     // =====================================================
     // FILTROS
     // =====================================================
 
     function aplicarFiltros() {
-
 
         const texto =
             document
@@ -1533,14 +1372,12 @@
                 .toLowerCase()
                 .trim();
 
-
         const area =
             document
                 .getElementById(
                     "filtroArea"
                 )
                 .value;
-
 
         const sede =
             document
@@ -1549,7 +1386,6 @@
                 )
                 .value;
 
-
         const estado =
             document
                 .getElementById(
@@ -1557,11 +1393,9 @@
                 )
                 .value;
 
-
         const filtradas =
             todasLasPreguntas.filter(
                 (pregunta) => {
-
 
                     const coincideTexto =
 
@@ -1599,7 +1433,6 @@
                             .toLowerCase()
                             .includes(texto);
 
-
                     const coincideArea =
 
                         area ===
@@ -1609,7 +1442,6 @@
 
                         pregunta.area ===
                         area;
-
 
                     const coincideSede =
 
@@ -1621,7 +1453,6 @@
                         pregunta.sedeOperativa ===
                         sede;
 
-
                     const coincideEstado =
 
                         estado ===
@@ -1631,7 +1462,6 @@
 
                         pregunta.estado ===
                         estado;
-
 
                     return (
 
@@ -1654,20 +1484,17 @@
                 }
             );
 
-
         mostrarPreguntas(
             filtradas
         );
 
     }
 
-
     // =====================================================
     // CONTADOR
     // =====================================================
 
     function actualizarContadorPendientes() {
-
 
         const cantidad =
             todasLasPreguntas.filter(
@@ -1676,18 +1503,15 @@
                     "PENDIENTE"
             ).length;
 
-
         const contenedor =
             document.getElementById(
                 "notificacionPendientes"
             );
 
-
         const contador =
             document.getElementById(
                 "contadorPendientes"
             );
-
 
         if (
 
@@ -1704,7 +1528,6 @@
             contador.textContent =
                 cantidad;
 
-
             contenedor.style.display =
                 "block";
 
@@ -1717,7 +1540,6 @@
 
     }
 
-
     // =====================================================
     // ELIMINAR PREGUNTA
     // =====================================================
@@ -1725,7 +1547,6 @@
     async function eliminarPregunta(
         id
     ) {
-
 
         if (
             usuarioActualRol !==
@@ -1740,7 +1561,6 @@
 
         }
 
-
         const confirmar =
             confirm(
 
@@ -1752,16 +1572,13 @@
 
             );
 
-
         if (!confirmar) {
 
             return;
 
         }
 
-
         try {
-
 
             await deleteDoc(
 
@@ -1773,23 +1590,18 @@
 
             );
 
-
             alert(
                 "Pregunta eliminada correctamente."
             );
 
-
             await cargarPreguntas();
 
-
         } catch (error) {
-
 
             console.error(
                 "Error eliminando pregunta:",
                 error
             );
-
 
             alert(
 
@@ -1804,7 +1616,6 @@
         }
 
     }
-
 
     // =====================================================
     // ESTILOS EXCEL
@@ -1842,7 +1653,6 @@
 
     };
 
-
     const bordeBlanco = {
 
         top: {
@@ -1875,16 +1685,13 @@
 
     };
 
-
     // =====================================================
     // EXPORTAR EXCEL
     // =====================================================
 
     async function exportarExcel() {
 
-
         try {
-
 
             if (
                 typeof XLSX ===
@@ -1896,7 +1703,6 @@
                 );
 
             }
-
 
             if (
                 todasLasPreguntas.length ===
@@ -1911,7 +1717,6 @@
 
             }
 
-
             // =================================================
             // FILTROS
             // =================================================
@@ -1925,14 +1730,12 @@
                     .toLowerCase()
                     .trim();
 
-
             const areaSeleccionada =
                 document
                     .getElementById(
                         "filtroArea"
                     )
                     .value;
-
 
             const sedeSeleccionada =
                 document
@@ -1941,14 +1744,12 @@
                     )
                     .value;
 
-
             const estadoSeleccionado =
                 document
                     .getElementById(
                         "filtroEstado"
                     )
                     .value;
-
 
             // =================================================
             // APLICAR FILTROS
@@ -1957,7 +1758,6 @@
             const preguntasFiltradas =
                 todasLasPreguntas.filter(
                     (pregunta) => {
-
 
                         const coincideTexto =
 
@@ -1995,7 +1795,6 @@
                                 .toLowerCase()
                                 .includes(texto);
 
-
                         const coincideArea =
 
                             areaSeleccionada ===
@@ -2005,7 +1804,6 @@
 
                             pregunta.area ===
                             areaSeleccionada;
-
 
                         const coincideSede =
 
@@ -2017,7 +1815,6 @@
                             pregunta.sedeOperativa ===
                             sedeSeleccionada;
 
-
                         const coincideEstado =
 
                             estadoSeleccionado ===
@@ -2027,7 +1824,6 @@
 
                             pregunta.estado ===
                             estadoSeleccionado;
-
 
                         return (
 
@@ -2050,7 +1846,6 @@
                     }
                 );
 
-
             if (
                 preguntasFiltradas.length ===
                 0
@@ -2063,7 +1858,6 @@
                 return;
 
             }
-
 
             // =================================================
             // OBTENER RESPUESTAS
@@ -2079,17 +1873,13 @@
 
                 );
 
-
             const respuestas = {};
-
 
             respuestasSnapshot.forEach(
                 (documento) => {
 
-
                     const datos =
                         documento.data();
-
 
                     if (
                         datos.preguntaId
@@ -2104,27 +1894,23 @@
                 }
             );
 
-
             // =================================================
-            // FECHA
+            // FECHA Y HORA DE EXPORTACIÓN
             // =================================================
 
             const ahora =
                 new Date();
-
 
             const fechaGeneracion =
                 ahora.toLocaleString(
                     "es-PE"
                 );
 
-
             // =================================================
             // ESTRUCTURA EXCEL
             // =================================================
 
             const datosExcel = [
-
 
                 // FILA 1
 
@@ -2134,7 +1920,6 @@
 
                 ],
 
-
                 // FILA 2
 
                 [
@@ -2142,7 +1927,6 @@
                     "MÓDULO DE DERIVACIÓN DE CONSULTAS DE CAMPO"
 
                 ],
-
 
                 // FILA 3
 
@@ -2160,7 +1944,6 @@
                     ""
 
                 ],
-
 
                 // FILA 4
 
@@ -2188,7 +1971,6 @@
 
             ];
 
-
             // =================================================
             // REGISTROS
             // =================================================
@@ -2196,13 +1978,11 @@
             preguntasFiltradas.forEach(
                 (pregunta) => {
 
-
                     // -----------------------------------------
                     // FECHA PREGUNTA
                     // -----------------------------------------
 
                     let fechaPregunta = "";
-
 
                     if (
 
@@ -2224,7 +2004,6 @@
 
                     }
 
-
                     // -----------------------------------------
                     // RESPUESTA
                     // -----------------------------------------
@@ -2234,7 +2013,6 @@
                             pregunta.id
                         ];
 
-
                     let fechaRespuesta = "";
 
                     let textoRespuesta = "";
@@ -2243,18 +2021,14 @@
 
                     let nombreRespondedor = "";
 
-
                     if (
                         respuesta
                     ) {
 
-
                         textoRespuesta =
                             respuesta.respuesta
-                            || "";
-
-
-                        // FECHA
+                            ||
+                            "";
 
                         if (
 
@@ -2276,16 +2050,12 @@
 
                         }
 
-
-                        // USUARIO DEL RESPONDEDOR
-
                         const usuarioRespondedor =
                             usuarios[
                                 respuesta.usuarioId
                             ]
                             ||
                             {};
-
 
                         cargoRespondedor =
 
@@ -2298,7 +2068,6 @@
                             ||
 
                             "";
-
 
                         nombreRespondedor =
 
@@ -2322,7 +2091,6 @@
 
                     }
 
-
                     // -----------------------------------------
                     // CONSULTADOR
                     // -----------------------------------------
@@ -2333,7 +2101,6 @@
                         ]
                         ||
                         {};
-
 
                     const sedeOperativa =
 
@@ -2346,7 +2113,6 @@
                         ||
 
                         "";
-
 
                     const nombreConsultador =
 
@@ -2368,28 +2134,24 @@
 
                         "";
 
-
                     // -----------------------------------------
                     // EVIDENCIA
                     // -----------------------------------------
 
-                    let evidencia = "";
+                    // IMPORTANTE:
+                    // Se coloca el URL real del archivo
+                    // y no el nombre del archivo.
 
+                    let evidencia = "";
 
                     if (
                         pregunta.archivoUrl
                     ) {
 
                         evidencia =
-
-                            pregunta.archivoNombre
-
-                            ||
-
-                            "Ver archivo";
+                            pregunta.archivoUrl;
 
                     }
-
 
                     // -----------------------------------------
                     // FILA
@@ -2402,7 +2164,8 @@
                         sedeOperativa,
 
                         pregunta.pregunta
-                        || "",
+                        ||
+                        "",
 
                         evidencia,
 
@@ -2421,78 +2184,23 @@
                 }
             );
 
-
             // =================================================
-            // INFORMACIÓN DE IMPORTACIÓN
+            // PIE DE TABLA
             // =================================================
 
-            const filaInformacion =
-                datosExcel.length + 1;
-
+            // Fila en blanco después de los registros
 
             datosExcel.push([]);
 
+            // ÚNICAMENTE fecha y hora de exportación
 
             datosExcel.push([
 
-                "INFORMACIÓN DE IMPORTACIÓN"
-
-            ]);
-
-
-            datosExcel.push([
-
-                "Fecha de generación",
+                "Fecha y hora de exportación",
 
                 fechaGeneracion
 
             ]);
-
-
-            datosExcel.push([
-
-                "Área filtrada",
-
-                areaSeleccionada
-
-            ]);
-
-
-            datosExcel.push([
-
-                "Sede filtrada",
-
-                sedeSeleccionada
-
-            ]);
-
-
-            datosExcel.push([
-
-                "Estado filtrado",
-
-                estadoSeleccionado
-
-            ]);
-
-
-            datosExcel.push([
-
-                "Texto buscado",
-
-                texto || "-"
-
-            ]);
-
-
-            datosExcel.push([
-
-                "Total de registros",
-
-                preguntasFiltradas.length
-
-            ]);
-
 
             // =================================================
             // CREAR HOJA
@@ -2502,7 +2210,6 @@
                 XLSX.utils.aoa_to_sheet(
                     datosExcel
                 );
-
 
             // =================================================
             // ANCHOS
@@ -2516,7 +2223,7 @@
 
                 { wch: 60 },
 
-                { wch: 30 },
+                { wch: 55 },
 
                 { wch: 30 },
 
@@ -2530,13 +2237,11 @@
 
             ];
 
-
             // =================================================
             // COMBINACIONES
             // =================================================
 
             hoja["!merges"] = [
-
 
                 // TÍTULO
 
@@ -2554,7 +2259,6 @@
 
                 },
 
-
                 // SUBTÍTULO
 
                 {
@@ -2570,7 +2274,6 @@
                     }
 
                 },
-
 
                 // CONSULTADOR
 
@@ -2588,7 +2291,6 @@
 
                 },
 
-
                 // RESPONDEDOR
 
                 {
@@ -2603,27 +2305,9 @@
                         c: 8
                     }
 
-                },
-
-
-                // INFORMACIÓN
-
-                {
-
-                    s: {
-                        r: filaInformacion + 1,
-                        c: 0
-                    },
-
-                    e: {
-                        r: filaInformacion + 1,
-                        c: 8
-                    }
-
                 }
 
             ];
-
 
             // =================================================
             // COLORES
@@ -2632,14 +2316,11 @@
             const azul =
                 "002060";
 
-
             const blanco =
                 "FFFFFF";
 
-
             const negro =
                 "000000";
-
 
             // =================================================
             // ESTILO TÍTULO
@@ -2671,7 +2352,6 @@
 
             };
 
-
             // =================================================
             // ESTILO SUBTÍTULO
             // =================================================
@@ -2700,7 +2380,6 @@
 
             };
 
-
             // =================================================
             // CABECERAS AGRUPADAS
             // FILA 3
@@ -2712,7 +2391,6 @@
                 columna++
             ) {
 
-
                 const celda =
                     XLSX.utils.encode_cell({
 
@@ -2721,7 +2399,6 @@
                         c: columna
 
                     });
-
 
                 if (
                     hoja[celda]
@@ -2772,7 +2449,6 @@
 
             }
 
-
             // =================================================
             // CABECERAS
             // FILA 4
@@ -2784,7 +2460,6 @@
                 columna++
             ) {
 
-
                 const celda =
                     XLSX.utils.encode_cell({
 
@@ -2793,7 +2468,6 @@
                         c: columna
 
                     });
-
 
                 if (
                     hoja[celda]
@@ -2846,7 +2520,6 @@
 
             }
 
-
             // =================================================
             // BORDES DE DATOS
             // =================================================
@@ -2862,7 +2535,6 @@
 
             ) {
 
-
                 for (
 
                     let columna = 0;
@@ -2873,7 +2545,6 @@
 
                 ) {
 
-
                     const celda =
                         XLSX.utils.encode_cell({
 
@@ -2882,7 +2553,6 @@
                             c: columna
 
                         });
-
 
                     if (
                         hoja[celda]
@@ -2911,140 +2581,63 @@
 
             }
 
-
             // =================================================
-            // ESTILO INFORMACIÓN
+            // ESTILO DEL PIE DE TABLA
             // =================================================
 
-            const filaTituloInfo =
-                filaInformacion + 1;
-
-
-            const celdaTituloInfo =
-                XLSX.utils.encode_cell({
-
-                    r: filaTituloInfo,
-
-                    c: 0
-
-                });
-
-
-            if (
-                hoja[celdaTituloInfo]
-            ) {
-
-                hoja[
-                    celdaTituloInfo
-                ].s = {
-
-                    fill: {
-
-                        fgColor: {
-
-                            rgb: azul
-
-                        }
-
-                    },
-
-                    font: {
-
-                        bold: true,
-
-                        color: {
-
-                            rgb: blanco
-
-                        },
-
-                        sz: 11
-
-                    },
-
-                    alignment: {
-
-                        horizontal:
-                            "left",
-
-                        vertical:
-                            "center"
-
-                    },
-
-                    border:
-                        bordeBlanco
-
-                };
-
-            }
-
-
-            // =================================================
-            // BORDES INFORMACIÓN
-            // =================================================
+            const filaPie =
+                datosExcel.length - 1;
 
             for (
 
-                let fila =
-                    filaTituloInfo + 1;
+                let columna = 0;
 
-                fila <
-                    datosExcel.length;
+                columna < 2;
 
-                fila++
+                columna++
 
             ) {
 
+                const celda =
+                    XLSX.utils.encode_cell({
 
-                for (
+                        r: filaPie,
 
-                    let columna = 0;
+                        c: columna
 
-                    columna < 2;
+                    });
 
-                    columna++
-
+                if (
+                    hoja[celda]
                 ) {
 
+                    hoja[celda].s = {
 
-                    const celda =
-                        XLSX.utils.encode_cell({
+                        font: {
 
-                            r: fila,
+                            bold:
+                                columna === 0
 
-                            c: columna
+                        },
 
-                        });
+                        alignment: {
 
+                            vertical:
+                                "center",
 
-                    if (
-                        hoja[celda]
-                    ) {
+                            wrapText:
+                                true
 
-                        hoja[celda].s = {
+                        },
 
-                            alignment: {
+                        border:
+                            bordeGris
 
-                                vertical:
-                                    "top",
-
-                                wrapText:
-                                    true
-
-                            },
-
-                            border:
-                                bordeGris
-
-                        };
-
-                    }
+                    };
 
                 }
 
             }
-
 
             // =================================================
             // ALTURA DE FILAS
@@ -3070,16 +2663,17 @@
 
             ];
 
-
             // =================================================
             // CONGELAR CABECERA
             // =================================================
 
             hoja["!freeze"] = {
-                xSplit: 0,
-                ySplit: 4
-            };
 
+                xSplit: 0,
+
+                ySplit: 4
+
+            };
 
             // =================================================
             // CREAR LIBRO
@@ -3087,7 +2681,6 @@
 
             const libro =
                 XLSX.utils.book_new();
-
 
             XLSX.utils.book_append_sheet(
 
@@ -3098,7 +2691,6 @@
                 "Consultas de Campo"
 
             );
-
 
             // =================================================
             // NOMBRE DEL ARCHIVO
@@ -3112,7 +2704,6 @@
                         10
                     );
 
-
             // =================================================
             // GENERAR ARCHIVO
             // =================================================
@@ -3125,15 +2716,12 @@
 
             );
 
-
         } catch (error) {
-
 
             console.error(
                 "Error exportando Excel:",
                 error
             );
-
 
             alert(
 
@@ -3149,7 +2737,6 @@
 
     }
 
-
     // =====================================================
     // EVENTOS
     // =====================================================
@@ -3163,7 +2750,6 @@
             aplicarFiltros
         );
 
-
     document
         .getElementById(
             "filtroArea"
@@ -3172,7 +2758,6 @@
             "change",
             aplicarFiltros
         );
-
 
     document
         .getElementById(
@@ -3183,7 +2768,6 @@
             aplicarFiltros
         );
 
-
     document
         .getElementById(
             "filtroEstado"
@@ -3193,7 +2777,6 @@
             aplicarFiltros
         );
 
-
     document
         .getElementById(
             "btnExcel"
@@ -3202,7 +2785,6 @@
             "click",
             exportarExcel
         );
-
 
     // =====================================================
     // AUTENTICACIÓN
@@ -3214,7 +2796,6 @@
 
         async (user) => {
 
-
             if (!user) {
 
                 window.location.href =
@@ -3224,51 +2805,41 @@
 
             }
 
-
             try {
-
 
                 usuarioActualRol =
                     await obtenerRolUsuario(
                         user
                     );
 
-
                 console.log(
                     "Usuario:",
                     user.email
                 );
-
 
                 console.log(
                     "Rol:",
                     usuarioActualRol
                 );
 
-
                 // CARGAR SEDES
 
                 cargarSedesFiltro();
-
 
                 // CARGAR USUARIOS
 
                 await cargarUsuarios();
 
-
                 // CARGAR PREGUNTAS
 
                 await cargarPreguntas();
 
-
             } catch (error) {
-
 
                 console.error(
                     "Error inicializando:",
                     error
                 );
-
 
                 document
                     .getElementById(
@@ -3304,9 +2875,7 @@
 
     );
 
-
 </script>
-
 
 </body>
 
